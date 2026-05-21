@@ -1,0 +1,36 @@
+name: Auditoria de segurança
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Toda segunda às 08:00 UTC (~05:00 BRT)
+    - cron: '0 8 * * 1'
+
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        projeto: [form, painel]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Instalar deps (${{ matrix.projeto }})
+        working-directory: ${{ matrix.projeto }}
+        run: npm ci
+      - name: npm audit (${{ matrix.projeto }})
+        working-directory: ${{ matrix.projeto }}
+        run: npm audit --omit=dev --audit-level=high
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

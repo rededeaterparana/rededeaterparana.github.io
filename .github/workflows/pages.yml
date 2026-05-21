@@ -1,0 +1,86 @@
+name: Build e publica no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: |
+            form/package-lock.json
+            painel/package-lock.json
+
+      # ─── form/ ──────────────────────────────────────────────────────
+      - name: Instalar dependências (form)
+        working-directory: form
+        run: npm ci
+
+      - name: Build form
+        working-directory: form
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
+          BASE_URL: /form/
+        run: npm run build
+
+      # ─── painel/ ────────────────────────────────────────────────────
+      - name: Instalar dependências (painel)
+        working-directory: painel
+        run: npm ci
+
+      - name: Build painel
+        working-directory: painel
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          BASE_URL: /painel/
+        run: npm run build
+
+      # ─── Monta site estático combinado ─────────────────────────────
+      - name: Montar diretório do Pages
+        run: |
+          mkdir -p site/form site/painel
+          cp -r form/dist/* site/form/
+          cp -r painel/dist/* site/painel/
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="pt-BR"><head><meta charset="utf-8">
+          <title>Rede Estadual de ATER</title>
+          <style>body{font-family:system-ui;max-width:640px;margin:60px auto;padding:0 16px}a{display:block;margin:12px 0;padding:16px;border:1px solid #d0d7de;border-radius:8px;text-decoration:none;color:#1f2328}a:hover{background:#f6f8fa}</style>
+          </head><body>
+          <h1>Rede Estadual de ATER</h1>
+          <a href="./form/">Formulário de adesão de entidades →</a>
+          <a href="./painel/">Painel de visualização →</a>
+          </body></html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,62 @@
+# ─── Documentos com dados reais / referência (NÃO versionar) ────────────────
+# A pasta do projeto já contém artefatos com CNPJ, CPFs, e-mails da EMATER-PR
+# e demais entidades. Manter tudo fora do Git.
+*.xlsx
+*.xls
+*.doc
+*.docx
+*.pdf
+*.ppt
+*.pptx
+links*.txt
+prompt.txt
+
+# ─── Apps Script (segredos e IDs de planilha/drive) ─────────────────────────
+apps-script/.clasp.json
+apps-script/.clasprc.json
+apps-script/Config.local.gs
+apps-script/secrets.gs
+**/*.local.gs
+
+# ─── Variáveis de ambiente ──────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+form/.env*
+painel/.env*
+!form/.env.example
+!painel/.env.example
+
+# ─── Node / build ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.vite/
+*.tsbuildinfo
+.cache/
+
+# ─── Testes / cobertura ─────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ─── Logs ───────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── IDE / OS ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Backups locais ─────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*~
