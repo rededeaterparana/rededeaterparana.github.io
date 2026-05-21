@@ -1,5 +1,5 @@
 # ─── Documentos com dados reais / referência (NÃO versionar) ────────────────
-# A pasta do projeto já contém artefatos com CNPJ, CPFs, e-mails do IDR-Paraná
+# A pasta do projeto já contém artefatos com CNPJ, CPFs e e-mails de referência
 # e demais entidades. Manter tudo fora do Git.
 *.xlsx
 *.xls

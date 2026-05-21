@@ -5,8 +5,8 @@ Ordem para colocar tudo no ar a partir de um repo zerado.
 ## 1. Conta Google institucional
 
 Tudo (planilha, Drive, Apps Script) precisa ser dono de **uma conta Google
-institucional** (ex.: `redeater@idrparana.pr.gov.br`). Não use conta pessoal —
-quando a pessoa sair do IDR-Paraná, todo o sistema cai junto.
+institucional** dedicada à rede (ex.: `redeater@<dominio-institucional>`). Não
+use conta pessoal — quando a pessoa sair da instituição, todo o sistema cai junto.
 
 ## 2. Criar planilha e pastas no Drive
 

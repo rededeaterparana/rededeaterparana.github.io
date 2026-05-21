@@ -1,8 +1,7 @@
-# Gestão de ATER — Rede Estadual
+# Rede Paranaense de Assistência Técnica e Extensão Rural
 
 Cadastro público das entidades prestadoras de Assistência Técnica e Extensão
-Rural (ATER) que aderirem à Rede Estadual de ATER, com painel de visualização
-agregada.
+Rural (ATER) que aderirem à rede, com painel de visualização agregada.
 
 ## Componentes
 

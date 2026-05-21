@@ -59,9 +59,6 @@ jobs:
           mkdir -p site/form site/painel
           cp -r form/dist/* site/form/
           cp -r painel/dist/* site/painel/
-          # Reaproveita favicon, logo e og-image para a landing
-          cp form/public/favicon.ico site/favicon.ico
-          cp form/public/logo-idr.png site/logo-idr.png
           cp .github/og-image.png site/og-image.png
           cat > site/index.html <<'EOF'
           <!doctype html>
@@ -69,59 +66,40 @@ jobs:
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="theme-color" content="#007524">
-            <link rel="icon" href="./favicon.ico">
-            <meta property="og:title" content="Rede Estadual de ATER — IDR-Paraná">
+            <meta property="og:title" content="Rede Paranaense de ATER">
             <meta property="og:description" content="Cadastro e visualização das entidades prestadoras de Assistência Técnica e Extensão Rural do Paraná.">
             <meta property="og:image" content="https://rededeaterparana.github.io/og-image.png">
             <meta property="og:url" content="https://rededeaterparana.github.io/">
             <meta property="og:type" content="website">
             <meta property="og:locale" content="pt_BR">
             <meta name="twitter:card" content="summary_large_image">
-            <title>Rede Estadual de ATER | IDR-Paraná</title>
+            <title>Rede Paranaense de ATER</title>
             <style>
-              :root { font-family: Arial, Helvetica, sans-serif; color: #333; }
+              :root { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f2328; }
               * { box-sizing: border-box; }
-              body { margin: 0; background: #f5f5f5; }
-              .gov-bar { background: #f0f0f0; border-bottom: 1px solid #ddd; font-size: 11px; color: #666; padding: 6px 16px; }
-              .gov-bar strong { color: #068833; margin-right: 8px; }
-              header { background: #fff; border-bottom: 4px solid #007524; padding: 18px 16px; display: flex; align-items: center; gap: 16px; max-width: 1100px; margin: 0 auto; }
-              header img { height: 56px; }
-              header h1 { margin: 0; font-size: 1.1rem; color: #005a1c; }
-              header p { margin: 3px 0 0; font-size: 0.85rem; color: #666; }
-              main { max-width: 720px; margin: 40px auto; padding: 0 16px; }
-              main h2 { color: #005a1c; font-size: 1.3rem; }
-              a.card { display: block; margin: 14px 0; padding: 20px; background: #fff; border: 1px solid #ddd; border-left: 4px solid #007524; border-radius: 4px; text-decoration: none; color: #333; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: background .15s; }
-              a.card:hover { background: #e8f3eb; }
-              a.card strong { color: #005a1c; font-size: 1.05rem; display: block; margin-bottom: 4px; }
-              a.card span { font-size: 0.88rem; color: #666; }
-              footer { background: #007524; color: #fff; padding: 26px 16px; text-align: center; font-size: 0.82rem; margin-top: 40px; }
-              footer a { color: #fff; text-decoration: underline; }
+              body { margin: 0; background: #f6f8fa; }
+              main { max-width: 720px; margin: 60px auto; padding: 0 16px; }
+              h1 { font-size: 1.5rem; margin: 0 0 4px; }
+              p.subtitulo { margin: 0 0 28px; color: #57606a; }
+              a.card { display: block; margin: 12px 0; padding: 18px; background: #fff; border: 1px solid #d0d7de; border-radius: 8px; text-decoration: none; color: #1f2328; }
+              a.card:hover { background: #f6f8fa; border-color: #2e6e3a; }
+              a.card strong { display: block; margin-bottom: 4px; font-size: 1.05rem; color: #2e6e3a; }
+              a.card span { font-size: 0.9rem; color: #57606a; }
             </style>
           </head>
           <body>
-            <div class="gov-bar"><strong>GOVERNO DO PARANÁ</strong><span>Instituto de Desenvolvimento Rural do Paraná — IDR-Paraná</span></div>
-            <header>
-              <img src="./logo-idr.png" alt="IDR-Paraná">
-              <div>
-                <h1>Rede Estadual de Assistência Técnica e Extensão Rural</h1>
-                <p>Cadastro e visualização das entidades prestadoras</p>
-              </div>
-            </header>
             <main>
-              <h2>Acesso</h2>
+              <h1>Rede Paranaense de Assistência Técnica e Extensão Rural</h1>
+              <p class="subtitulo">Cadastro e visualização das entidades prestadoras.</p>
               <a class="card" href="./form/">
                 <strong>Formulário de adesão →</strong>
-                <span>Para entidades que desejam aderir à Rede Estadual de ATER.</span>
+                <span>Para entidades que desejam aderir à rede.</span>
               </a>
               <a class="card" href="./painel/">
                 <strong>Painel de visualização →</strong>
-                <span>Dados agregados das entidades já cadastradas na rede.</span>
+                <span>Dados agregados das entidades já cadastradas.</span>
               </a>
             </main>
-            <footer>
-              IDR-Paraná &middot; <a href="https://www.idrparana.pr.gov.br/">www.idrparana.pr.gov.br</a>
-            </footer>
           </body></html>
           EOF
 

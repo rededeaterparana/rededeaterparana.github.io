@@ -58,27 +58,11 @@ export function App() {
 
   return (
     <FormProvider {...metodos}>
-      <div className="gov-bar">
-        <div className="container">
-          <strong>GOVERNO DO PARANÁ</strong>
-          <span>Instituto de Desenvolvimento Rural do Paraná — IDR-Paraná</span>
-        </div>
-      </div>
-      <header className="idr-header">
-        <div className="container">
-          <img src="./logo-idr.png" alt="IDR-Paraná" />
-          <div className="titulo">
-            <p className="principal">Rede Estadual de Assistência Técnica e Extensão Rural</p>
-            <p className="subtitulo">Cadastro de adesão de entidades prestadoras</p>
-          </div>
-        </div>
-      </header>
-
       <div className="container">
-        <section className="cabecalho-secao">
-          <h1>Formulário de adesão</h1>
-          <p>Preencha os dados da sua entidade para integrar a Rede Estadual de ATER.</p>
-        </section>
+        <header className="cabecalho">
+          <h1>Cadastro de Entidades</h1>
+          <p>Adesão à Rede Paranaense de Assistência Técnica e Extensão Rural.</p>
+        </header>
 
         <AvisoLGPD />
 
@@ -125,20 +109,6 @@ export function App() {
           </div>
         </form>
       </div>
-
-      <footer className="idr-footer">
-        <div className="container">
-          <div>
-            <p className="footer-titulo">Instituto de Desenvolvimento Rural do Paraná — IDR-Paraná</p>
-            <p className="footer-sub">Governo do Estado do Paraná</p>
-          </div>
-          <p>
-            <a href="https://www.idrparana.pr.gov.br/" target="_blank" rel="noreferrer noopener">
-              www.idrparana.pr.gov.br
-            </a>
-          </p>
-        </div>
-      </footer>
     </FormProvider>
   );
 }
@@ -149,12 +119,12 @@ function AvisoLGPD() {
     <div className="aviso-lgpd">
       <strong>Aviso de privacidade (LGPD)</strong>
       <p style={{ margin: '8px 0' }}>
-        Os dados informados serão utilizados pelo IDR-Paraná (Instituto de Desenvolvimento
-        Rural do Paraná) exclusivamente para a gestão da Rede Estadual de ATER (Lei nº
-        12.188/2010 e Lei nº 13.709/2018 — LGPD). CPFs e e-mails individuais não são
-        exibidos no painel público. Para exercer direitos de acesso, correção ou
-        eliminação, contate a Assessoria de Planejamento no e-mail institucional
-        informado no site do IDR-Paraná (idrparana.pr.gov.br).
+        Os dados informados serão utilizados exclusivamente para a gestão da
+        Rede Paranaense de Assistência Técnica e Extensão Rural (Lei nº 12.188/2010
+        e Lei nº 13.709/2018 — LGPD). CPFs e e-mails individuais não são exibidos
+        no painel público. Para exercer direitos de acesso, correção ou eliminação,
+        contate a coordenação da rede pelo canal institucional informado no momento
+        do cadastro.
       </p>
       <label>
         <input type="checkbox" {...register('consentimento_lgpd')} />
