@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>OG Image</title>
+  <style>
+    :root {
+      --idr-verde: #007524;
+      --idr-verde-escuro: #005a1c;
+      --idr-verde-botao: #068833;
+      --idr-verde-claro: #54be62;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1280px; height: 640px;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .frame {
+      width: 1280px; height: 640px;
+      background:
+        radial-gradient(circle at 90% 110%, rgba(84,190,98,0.35), transparent 55%),
+        radial-gradient(circle at 5% -10%, rgba(0,90,28,0.45), transparent 50%),
+        linear-gradient(135deg, var(--idr-verde-escuro) 0%, var(--idr-verde) 60%, var(--idr-verde-botao) 100%);
+      color: #fff;
+      position: relative;
+      padding: 48px 72px 36px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      row-gap: 16px;
+    }
+    .gov-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.95);
+      color: var(--idr-verde-botao);
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .gov-tag .sep { color: #999; font-weight: 400; }
+    .gov-tag .sub { color: #333; font-weight: 600; text-transform: none; letter-spacing: 0; }
+
+    .logo-bloco {
+      background: rgba(255,255,255,0.97);
+      border-radius: 6px;
+      padding: 10px 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      width: fit-content;
+    }
+    .logo-bloco img { height: 64px; display: block; }
+
+    .titulo { align-self: end; }
+    .titulo .marca {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--idr-verde-claro);
+      margin-bottom: 8px;
+    }
+    .titulo h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      margin-bottom: 12px;
+    }
+    .titulo p.sub {
+      font-size: 20px;
+      font-weight: 400;
+      opacity: 0.95;
+    }
+
+    .rodape {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 14px;
+    }
+    .rodape .institucional { font-weight: 700; }
+    .rodape .url {
+      background: rgba(0,0,0,0.18);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+    }
+
+    .faixa {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 14px;
+      background: linear-gradient(180deg, var(--idr-verde-claro), var(--idr-verde-botao), var(--idr-verde-escuro));
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="gov-tag">
+      <span>Governo do Paraná</span>
+      <span class="sep">|</span>
+      <span class="sub">IDR-Paraná</span>
+    </div>
+
+    <div class="logo-bloco">
+      <img src="../form/public/logo-idr.png" alt="IDR-Paraná">
+    </div>
+
+    <div class="titulo">
+      <div class="marca">Rede Estadual de ATER</div>
+      <h1>Cadastro de<br>entidades prestadoras</h1>
+      <p class="sub">Adesão à Rede Estadual de Assistência Técnica e Extensão Rural do Paraná.</p>
+    </div>
+
+    <div class="rodape">
+      <div class="institucional">Instituto de Desenvolvimento Rural do Paraná</div>
+      <div class="url">rededeaterparana.github.io</div>
+    </div>
+
+    <div class="faixa"></div>
+  </div>
+</body>
+</html>

@@ -59,9 +59,10 @@ jobs:
           mkdir -p site/form site/painel
           cp -r form/dist/* site/form/
           cp -r painel/dist/* site/painel/
-          # Reaproveita favicon e logo dos dois projetos para a landing
+          # Reaproveita favicon, logo e og-image para a landing
           cp form/public/favicon.ico site/favicon.ico
           cp form/public/logo-idr.png site/logo-idr.png
+          cp .github/og-image.png site/og-image.png
           cat > site/index.html <<'EOF'
           <!doctype html>
           <html lang="pt-BR">
@@ -70,6 +71,13 @@ jobs:
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="theme-color" content="#007524">
             <link rel="icon" href="./favicon.ico">
+            <meta property="og:title" content="Rede Estadual de ATER — IDR-Paraná">
+            <meta property="og:description" content="Cadastro e visualização das entidades prestadoras de Assistência Técnica e Extensão Rural do Paraná.">
+            <meta property="og:image" content="https://rededeaterparana.github.io/og-image.png">
+            <meta property="og:url" content="https://rededeaterparana.github.io/">
+            <meta property="og:type" content="website">
+            <meta property="og:locale" content="pt_BR">
+            <meta name="twitter:card" content="summary_large_image">
             <title>Rede Estadual de ATER | IDR-Paraná</title>
             <style>
               :root { font-family: Arial, Helvetica, sans-serif; color: #333; }
