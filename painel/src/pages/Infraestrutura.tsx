@@ -19,7 +19,7 @@ export function Infraestrutura() {
           <XAxis dataKey="categoria" />
           <YAxis allowDecimals={false} />
           <Tooltip />
-          <Bar dataKey="total" fill="#5aa66a" />
+          <Bar dataKey="total" fill="#068833" />
         </BarChart>
       </ResponsiveContainer>
       <p style={{ color: '#666', fontSize: '0.85rem' }}>

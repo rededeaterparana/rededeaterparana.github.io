@@ -1,35 +1,180 @@
+/*
+  Identidade visual IDR-Paraná (https://www.idrparana.pr.gov.br/).
+*/
 :root {
-  --cor-primaria: #2e6e3a;
-  --cor-borda: #d0d7de;
-  --cor-fundo: #f6f8fa;
-  --cor-texto: #1f2328;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --idr-verde: #007524;
+  --idr-verde-escuro: #005a1c;
+  --idr-verde-botao: #068833;
+  --idr-verde-claro: #54be62;
+  --idr-verde-bg: #e8f3eb;
+
+  --cor-texto: #333333;
+  --cor-texto-suave: #666666;
+  --cor-borda: #dddddd;
+  --cor-fundo: #f5f5f5;
+  --cor-erro: #c0392b;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
   color: var(--cor-texto);
 }
+
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--cor-fundo); }
 
 .layout { min-height: 100vh; display: flex; flex-direction: column; }
-.nav { background: var(--cor-primaria); color: #fff; padding: 12px 20px; display: flex; gap: 16px; align-items: center; }
-.nav a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 4px; }
-.nav a.ativo, .nav a:hover { background: rgba(255,255,255,0.15); }
-.nav .titulo { font-weight: 700; margin-right: auto; }
 
-main { padding: 24px; max-width: 1200px; width: 100%; margin: 0 auto; }
+/* ─── Faixa Governo ─────────────────────────────────────────────────────── */
+.gov-bar {
+  background: #f0f0f0;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 11px;
+  color: var(--cor-texto-suave);
+  padding: 6px 0;
+}
+.gov-bar .container { display: flex; align-items: center; gap: 12px; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.gov-bar strong { color: var(--idr-verde-botao); }
 
+/* ─── Header com logo IDR ───────────────────────────────────────────────── */
+.idr-header {
+  background: #fff;
+  border-bottom: 4px solid var(--idr-verde);
+  padding: 16px 0;
+}
+.idr-header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.idr-header img { height: 54px; width: auto; }
+.idr-header .titulo .principal {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--idr-verde-escuro);
+  margin: 0;
+}
+.idr-header .titulo .subtitulo {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+  margin: 3px 0 0;
+}
+
+/* ─── Navegação ─────────────────────────────────────────────────────────── */
+.nav {
+  background: var(--idr-verde);
+  padding: 0;
+}
+.nav .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 0;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 3px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.nav a:hover { background: var(--idr-verde-escuro); }
+.nav a.ativo { background: var(--idr-verde-escuro); border-bottom-color: var(--idr-verde-claro); }
+
+/* ─── Conteúdo principal ────────────────────────────────────────────────── */
+main { padding: 24px 16px; max-width: 1200px; width: 100%; margin: 0 auto; flex: 1; }
+
+/* ─── Cards de KPI ──────────────────────────────────────────────────────── */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.card { background: #fff; border: 1px solid var(--cor-borda); border-radius: 8px; padding: 16px; }
-.card .label { font-size: 0.8rem; color: #666; }
-.card .valor { font-size: 1.75rem; font-weight: 700; color: var(--cor-primaria); margin-top: 4px; }
+.card {
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+  border-top: 3px solid var(--idr-verde);
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.card .label { font-size: 0.78rem; color: var(--cor-texto-suave); text-transform: uppercase; letter-spacing: 0.03em; }
+.card .valor { font-size: 1.8rem; font-weight: 700; color: var(--idr-verde-escuro); margin-top: 6px; line-height: 1.1; }
 
-.painel { background: #fff; border: 1px solid var(--cor-borda); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-.painel h2 { margin: 0 0 12px; font-size: 1.05rem; }
+/* ─── Painéis ───────────────────────────────────────────────────────────── */
+.painel {
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+  border-top: 3px solid var(--idr-verde);
+  border-radius: 4px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.painel h2 {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  color: var(--idr-verde-escuro);
+  font-weight: 700;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cor-borda);
+}
 
-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
-th { background: #fafbfc; }
+/* ─── Tabela ────────────────────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid #eee; }
+th {
+  background: var(--idr-verde-bg);
+  color: var(--idr-verde-escuro);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+tbody tr:hover { background: #fafafa; }
 
-.aviso-vazio { color: #666; padding: 24px; text-align: center; }
-.erro { color: #c0392b; padding: 16px; background: #fdecea; border: 1px solid #c0392b; border-radius: 6px; }
+/* ─── Inputs ────────────────────────────────────────────────────────────── */
+.aviso-vazio { color: var(--cor-texto-suave); padding: 32px; text-align: center; font-style: italic; }
+.erro { color: var(--cor-erro); padding: 16px; background: #fdecea; border-left: 4px solid var(--cor-erro); border-radius: 3px; }
 
-input.busca { padding: 8px 10px; border: 1px solid var(--cor-borda); border-radius: 6px; width: 100%; max-width: 360px; margin-bottom: 12px; }
+input.busca {
+  padding: 8px 10px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 3px;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+input.busca:focus { outline: 2px solid var(--idr-verde); outline-offset: -1px; border-color: var(--idr-verde); }
+
+/* ─── Footer ────────────────────────────────────────────────────────────── */
+.idr-footer {
+  background: var(--idr-verde);
+  color: #fff;
+  padding: 28px 0 22px;
+  margin-top: 32px;
+}
+.idr-footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.idr-footer p { margin: 0; font-size: 0.8rem; line-height: 1.5; }
+.idr-footer .footer-titulo { font-weight: 700; font-size: 0.88rem; }
+.idr-footer .footer-sub { opacity: 0.85; font-size: 0.76rem; margin-top: 2px; }
+.idr-footer a { color: #fff; text-decoration: underline; }
+.idr-footer a:hover { opacity: 0.85; }
+
+@media (max-width: 700px) {
+  .idr-header .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .nav .container { flex-wrap: wrap; }
+  .nav a { padding: 10px 14px; }
+}

@@ -7,7 +7,7 @@
  *   DRIVE_FOLDER_ID     Pasta-raiz dos anexos
  *   BACKUP_FOLDER_ID    Pasta de backups semanais
  *   RECAPTCHA_SECRET    Chave secreta do reCAPTCHA v3
- *   ALLOWED_ORIGIN      Ex: https://emater-pr.github.io
+ *   ALLOWED_ORIGIN      Ex: https://rededeaterparana.github.io
  *   IP_HASH_SALT        Sal aleatório p/ hashear IPs no log de auditoria
  *   ADMIN_NOTIFY_EMAIL  (opcional) E-mail institucional p/ alertas
  */

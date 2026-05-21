@@ -59,15 +59,61 @@ jobs:
           mkdir -p site/form site/painel
           cp -r form/dist/* site/form/
           cp -r painel/dist/* site/painel/
+          # Reaproveita favicon e logo dos dois projetos para a landing
+          cp form/public/favicon.ico site/favicon.ico
+          cp form/public/logo-idr.png site/logo-idr.png
           cat > site/index.html <<'EOF'
           <!doctype html>
-          <html lang="pt-BR"><head><meta charset="utf-8">
-          <title>Rede Estadual de ATER</title>
-          <style>body{font-family:system-ui;max-width:640px;margin:60px auto;padding:0 16px}a{display:block;margin:12px 0;padding:16px;border:1px solid #d0d7de;border-radius:8px;text-decoration:none;color:#1f2328}a:hover{background:#f6f8fa}</style>
-          </head><body>
-          <h1>Rede Estadual de ATER</h1>
-          <a href="./form/">Formulário de adesão de entidades →</a>
-          <a href="./painel/">Painel de visualização →</a>
+          <html lang="pt-BR">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="theme-color" content="#007524">
+            <link rel="icon" href="./favicon.ico">
+            <title>Rede Estadual de ATER | IDR-Paraná</title>
+            <style>
+              :root { font-family: Arial, Helvetica, sans-serif; color: #333; }
+              * { box-sizing: border-box; }
+              body { margin: 0; background: #f5f5f5; }
+              .gov-bar { background: #f0f0f0; border-bottom: 1px solid #ddd; font-size: 11px; color: #666; padding: 6px 16px; }
+              .gov-bar strong { color: #068833; margin-right: 8px; }
+              header { background: #fff; border-bottom: 4px solid #007524; padding: 18px 16px; display: flex; align-items: center; gap: 16px; max-width: 1100px; margin: 0 auto; }
+              header img { height: 56px; }
+              header h1 { margin: 0; font-size: 1.1rem; color: #005a1c; }
+              header p { margin: 3px 0 0; font-size: 0.85rem; color: #666; }
+              main { max-width: 720px; margin: 40px auto; padding: 0 16px; }
+              main h2 { color: #005a1c; font-size: 1.3rem; }
+              a.card { display: block; margin: 14px 0; padding: 20px; background: #fff; border: 1px solid #ddd; border-left: 4px solid #007524; border-radius: 4px; text-decoration: none; color: #333; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: background .15s; }
+              a.card:hover { background: #e8f3eb; }
+              a.card strong { color: #005a1c; font-size: 1.05rem; display: block; margin-bottom: 4px; }
+              a.card span { font-size: 0.88rem; color: #666; }
+              footer { background: #007524; color: #fff; padding: 26px 16px; text-align: center; font-size: 0.82rem; margin-top: 40px; }
+              footer a { color: #fff; text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <div class="gov-bar"><strong>GOVERNO DO PARANÁ</strong><span>Instituto de Desenvolvimento Rural do Paraná — IDR-Paraná</span></div>
+            <header>
+              <img src="./logo-idr.png" alt="IDR-Paraná">
+              <div>
+                <h1>Rede Estadual de Assistência Técnica e Extensão Rural</h1>
+                <p>Cadastro e visualização das entidades prestadoras</p>
+              </div>
+            </header>
+            <main>
+              <h2>Acesso</h2>
+              <a class="card" href="./form/">
+                <strong>Formulário de adesão →</strong>
+                <span>Para entidades que desejam aderir à Rede Estadual de ATER.</span>
+              </a>
+              <a class="card" href="./painel/">
+                <strong>Painel de visualização →</strong>
+                <span>Dados agregados das entidades já cadastradas na rede.</span>
+              </a>
+            </main>
+            <footer>
+              IDR-Paraná &middot; <a href="https://www.idrparana.pr.gov.br/">www.idrparana.pr.gov.br</a>
+            </footer>
           </body></html>
           EOF
 
