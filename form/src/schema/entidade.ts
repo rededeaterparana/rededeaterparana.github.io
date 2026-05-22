@@ -91,7 +91,9 @@ export const entidadeSchema = z.object({
   consentimento_lgpd: z.literal(true, {
     errorMap: () => ({ message: 'é necessário aceitar o termo LGPD' })
   }),
-  website_url: z.string().max(0).optional().default('') // honeypot — deve ficar vazio
+  // Honeypot anti-bot: a validação acontece no backend (doPost descarta se vier preenchido).
+  // O Zod não deve falhar aqui porque navegadores às vezes autopreenchem campos ocultos.
+  website_url: z.string().optional().default('')
 });
 
 export type Entidade = z.infer<typeof entidadeSchema>;
