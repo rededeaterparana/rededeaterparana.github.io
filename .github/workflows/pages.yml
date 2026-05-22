@@ -67,7 +67,7 @@ jobs:
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta property="og:title" content="Rede Paranaense de ATER">
-            <meta property="og:description" content="Cadastro e visualização das entidades prestadoras de Assistência Técnica e Extensão Rural do Paraná.">
+            <meta property="og:description" content="Rede de entidades prestadoras de Assistência Técnica e Extensão Rural no Paraná — cadastro de adesão e visualização da capacidade instalada.">
             <meta property="og:image" content="https://rededeaterparana.github.io/og-image.png">
             <meta property="og:url" content="https://rededeaterparana.github.io/">
             <meta property="og:type" content="website">
@@ -75,30 +75,128 @@ jobs:
             <meta name="twitter:card" content="summary_large_image">
             <title>Rede Paranaense de ATER</title>
             <style>
-              :root { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f2328; }
+              :root { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f2328; line-height: 1.55; }
               * { box-sizing: border-box; }
               body { margin: 0; background: #f6f8fa; }
-              main { max-width: 720px; margin: 60px auto; padding: 0 16px; }
-              h1 { font-size: 1.5rem; margin: 0 0 4px; }
-              p.subtitulo { margin: 0 0 28px; color: #57606a; }
-              a.card { display: block; margin: 12px 0; padding: 18px; background: #fff; border: 1px solid #d0d7de; border-radius: 8px; text-decoration: none; color: #1f2328; }
-              a.card:hover { background: #f6f8fa; border-color: #2e6e3a; }
+              main { max-width: 760px; margin: 56px auto 80px; padding: 0 16px; }
+              h1 { font-size: 1.7rem; margin: 0 0 6px; line-height: 1.2; }
+              p.subtitulo { margin: 0 0 36px; color: #57606a; font-size: 1.05rem; }
+              section { background: #fff; border: 1px solid #d0d7de; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+              section h2 { margin: 0 0 12px; font-size: 1.1rem; color: #2e6e3a; }
+              section p { margin: 0 0 12px; }
+              section p:last-child { margin-bottom: 0; }
+              section ul { margin: 8px 0 0; padding-left: 22px; }
+              section ul li { margin-bottom: 4px; }
+              .acessos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+              @media (max-width: 600px) { .acessos { grid-template-columns: 1fr; } }
+              a.card { display: block; padding: 18px; background: #fff; border: 1px solid #d0d7de; border-radius: 8px; text-decoration: none; color: #1f2328; transition: border-color .15s, background .15s; }
+              a.card:hover { background: #f0f6f2; border-color: #2e6e3a; }
               a.card strong { display: block; margin-bottom: 4px; font-size: 1.05rem; color: #2e6e3a; }
               a.card span { font-size: 0.9rem; color: #57606a; }
+              .rodape { margin-top: 28px; padding-top: 16px; border-top: 1px solid #d0d7de; font-size: 0.85rem; color: #57606a; }
+              .rodape a { color: #2e6e3a; }
             </style>
           </head>
           <body>
             <main>
               <h1>Rede Paranaense de Assistência Técnica e Extensão Rural</h1>
-              <p class="subtitulo">Cadastro e visualização das entidades prestadoras.</p>
-              <a class="card" href="./form/">
-                <strong>Formulário de adesão →</strong>
-                <span>Para entidades que desejam aderir à rede.</span>
-              </a>
-              <a class="card" href="./painel/">
-                <strong>Painel de visualização →</strong>
-                <span>Dados agregados das entidades já cadastradas.</span>
-              </a>
+              <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
+
+              <section>
+                <h2>O que é a rede</h2>
+                <p>
+                  A Rede Paranaense de Assistência Técnica e Extensão Rural articula as
+                  entidades que prestam serviços de ATER no Paraná e busca qualificar a
+                  execução da Política Estadual de Assistência Técnica e Extensão Rural
+                  (PEATER), instituída pela <strong>Lei Estadual nº 14.447/2012</strong> e
+                  regulamentada pelo <strong>Decreto nº 12.449/2014</strong>. A rede dá
+                  suporte ao Programa Estadual de ATER (PROATER-PR), que contempla o
+                  diagnóstico do meio rural paranaense, as prioridades, diretrizes e
+                  necessidades orçamentárias dos serviços de ATER no estado.
+                </p>
+                <p>
+                  No plano federal, a iniciativa se alinha à Política Nacional de ATER
+                  (PNATER), <strong>Lei nº 12.188/2010</strong>, dirigida principalmente a
+                  agricultores familiares, povos e comunidades tradicionais e demais
+                  beneficiários historicamente atendidos pela extensão rural pública.
+                </p>
+              </section>
+
+              <section>
+                <h2>Origem: diagnóstico da ATER no Paraná</h2>
+                <p>
+                  Diferentemente do Censo Agropecuário, que retrata a demanda dos produtores,
+                  havia pouca informação sistemática sobre a <em>capacidade instalada</em>
+                  de ATER nos municípios — pessoal técnico, infraestrutura, área de atuação
+                  e oferta efetiva de serviços. Para preencher essa lacuna, a Coordenação
+                  Estadual de ATER organizou em 2026 o <strong>Levantamento da Capacidade
+                  Instalada de ATER</strong>, executado pelas Unidades Regionais de Extensão
+                  Rural município a município.
+                </p>
+                <p>
+                  O levantamento será refeito ordinariamente <strong>a cada quatro anos</strong>,
+                  precedendo a Conferência Estadual de ATER, o Plano Plurianual e o
+                  PROATER-PR. As reuniões municipais e regionais de devolutiva contam como
+                  <em>etapas preparatórias</em> da Conferência Estadual.
+                </p>
+              </section>
+
+              <section>
+                <h2>Quem pode aderir</h2>
+                <p>
+                  Podem aderir à rede as entidades, com sede ou atuação no Paraná, que
+                  prestem serviços de ATER conforme os princípios da PEATER e da PNATER:
+                </p>
+                <ul>
+                  <li>Órgãos e instituições públicas estaduais, municipais e federais;</li>
+                  <li>Cooperativas e suas centrais;</li>
+                  <li>Associações e sindicatos rurais;</li>
+                  <li>Organizações não-governamentais;</li>
+                  <li>Empresas privadas prestadoras de ATER.</li>
+                </ul>
+                <p style="margin-top: 12px;">
+                  No ato da adesão a entidade informa seus dados cadastrais, a equipe técnica,
+                  a área geográfica de atuação e a infraestrutura disponível (imóveis,
+                  veículos e equipamentos), além de anexar documentação institucional
+                  alinhada ao Manual de Credenciamento da ANATER.
+                </p>
+              </section>
+
+              <section>
+                <h2>O painel público</h2>
+                <p>
+                  O painel apresenta a composição e a capacidade instalada da rede em dados
+                  <strong>agregados e anonimizados</strong>: total de entidades por tipo,
+                  distribuição geográfica de atuação, somatórios de equipe técnica e de
+                  infraestrutura. CPFs, e-mails e telefones de pessoas físicas não são
+                  exibidos publicamente, em conformidade com a LGPD
+                  (<strong>Lei nº 13.709/2018</strong>).
+                </p>
+                <p>
+                  Os dados consolidados subsidiam o diagnóstico do meio rural paranaense,
+                  os Planos de Desenvolvimento e de ATER, e a divulgação das ações da rede
+                  por meio do <em>Informativo da Rede Paranaense de ATER</em>, do Congresso
+                  Estadual de ATER e da Conferência Estadual de ATER.
+                </p>
+              </section>
+
+              <div class="acessos">
+                <a class="card" href="./form/">
+                  <strong>Formulário de adesão →</strong>
+                  <span>Para entidades que desejam integrar a rede.</span>
+                </a>
+                <a class="card" href="./painel/">
+                  <strong>Painel de visualização →</strong>
+                  <span>Dados agregados das entidades já cadastradas.</span>
+                </a>
+              </div>
+
+              <div class="rodape">
+                Marco legal:
+                <a href="https://www.legislacao.pr.gov.br/legislacao/listarAtosAno.do?action=exibir&codAto=84055" target="_blank" rel="noreferrer noopener">Lei Estadual nº 14.447/2012 (PEATER)</a>
+                · <a href="https://www.legislacao.pr.gov.br/legislacao/listarAtosAno.do?action=exibir&codAto=131129" target="_blank" rel="noreferrer noopener">Decreto nº 12.449/2014</a>
+                · <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12188.htm" target="_blank" rel="noreferrer noopener">Lei nº 12.188/2010 (PNATER)</a>.
+              </div>
             </main>
           </body></html>
           EOF

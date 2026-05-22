@@ -120,11 +120,12 @@ function AvisoLGPD() {
       <strong>Aviso de privacidade (LGPD)</strong>
       <p style={{ margin: '8px 0' }}>
         Os dados informados serão utilizados exclusivamente para a gestão da
-        Rede Paranaense de Assistência Técnica e Extensão Rural (Lei nº 12.188/2010
-        e Lei nº 13.709/2018 — LGPD). CPFs e e-mails individuais não são exibidos
-        no painel público. Para exercer direitos de acesso, correção ou eliminação,
-        contate a coordenação da rede pelo canal institucional informado no momento
-        do cadastro.
+        Rede Paranaense de Assistência Técnica e Extensão Rural, no âmbito da
+        Política Estadual de ATER (Lei Estadual nº 14.447/2012) e da Política
+        Nacional de ATER (Lei nº 12.188/2010), em conformidade com a LGPD (Lei
+        nº 13.709/2018). CPFs e e-mails individuais não são exibidos no painel
+        público. Para exercer direitos de acesso, correção ou eliminação, contate
+        a coordenação da rede pelo canal institucional informado no momento do cadastro.
       </p>
       <label>
         <input type="checkbox" {...register('consentimento_lgpd')} />
