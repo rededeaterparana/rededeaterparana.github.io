@@ -5,6 +5,7 @@ import { entidadeSchema, Entidade, valoresPadrao } from './schema/entidade';
 import { Field } from './components/Field';
 import { ListaRepetivel } from './components/ListaRepetivel';
 import { UploadAnexos, TipoDocumento } from './components/UploadAnexos';
+import { SeletorMunicipio } from './components/SeletorMunicipio';
 import { formatarCNPJ, limparCNPJ } from './lib/cnpj';
 import { buscarCEP, formatarCEP } from './lib/cep';
 import { enviarCadastro, AnexoPayload, RespostaCadastro } from './lib/api';
@@ -335,10 +336,15 @@ function Telefones() {
 }
 
 function AreaAtuacao() {
-  const { control, register, formState: { errors } } = useFormContext<Entidade>();
+  const { control, watch, setValue, formState: { errors } } = useFormContext<Entidade>();
+  const itens = watch('area_atuacao');
   return (
     <section className="cartao">
       <h2>5. Área geográfica de atuação</h2>
+      <p style={{ fontSize: '0.85rem', color: '#57606a', marginTop: 0 }}>
+        Selecione os municípios paranaenses atendidos. O código IBGE é preenchido
+        automaticamente ao escolher um nome da lista.
+      </p>
       <ListaRepetivel
         control={control} name="area_atuacao"
         titulo="Municípios atendidos"
@@ -346,16 +352,18 @@ function AreaAtuacao() {
         itemPadrao={{ codigo_ibge: '', municipio: '', uf: 'PR' }}
         renderItem={(i) => (
           <div className="grid">
-            <Field label="Código IBGE" obrigatorio erro={errors.area_atuacao?.[i]?.codigo_ibge?.message}>
-              <input inputMode="numeric" {...register(`area_atuacao.${i}.codigo_ibge` as const)} />
-            </Field>
             <Field label="Município" obrigatorio erro={errors.area_atuacao?.[i]?.municipio?.message}>
-              <input {...register(`area_atuacao.${i}.municipio` as const)} />
+              <SeletorMunicipio
+                valorNome={itens?.[i]?.municipio || ''}
+                aoEscolher={(nome, codigo) => {
+                  setValue(`area_atuacao.${i}.municipio`, nome, { shouldValidate: true });
+                  setValue(`area_atuacao.${i}.codigo_ibge`, codigo, { shouldValidate: true });
+                  setValue(`area_atuacao.${i}.uf`, 'PR');
+                }}
+              />
             </Field>
-            <Field label="UF" obrigatorio erro={errors.area_atuacao?.[i]?.uf?.message}>
-              <select {...register(`area_atuacao.${i}.uf` as const)}>
-                {UFS.map((u) => <option key={u} value={u}>{u}</option>)}
-              </select>
+            <Field label="Código IBGE" erro={errors.area_atuacao?.[i]?.codigo_ibge?.message}>
+              <input value={itens?.[i]?.codigo_ibge || ''} readOnly tabIndex={-1} />
             </Field>
           </div>
         )}
@@ -402,7 +410,8 @@ function EquipeTecnica() {
 }
 
 function Infraestrutura() {
-  const { control, register, formState: { errors } } = useFormContext<Entidade>();
+  const { control, register, watch, setValue, formState: { errors } } = useFormContext<Entidade>();
+  const imoveis = watch('imoveis');
 
   const equipamentoLista = (
     nome: 'veiculos' | 'eq_informatica' | 'eq_rede' | 'eq_extensionista',
@@ -452,16 +461,18 @@ function Infraestrutura() {
                 <option>Comodato</option><option>Outro</option>
               </select>
             </Field>
-            <Field label="Código IBGE">
-              <input {...register(`imoveis.${i}.codigo_ibge` as const)} />
-            </Field>
             <Field label="Município">
-              <input {...register(`imoveis.${i}.municipio` as const)} />
+              <SeletorMunicipio
+                valorNome={imoveis?.[i]?.municipio || ''}
+                aoEscolher={(nome, codigo) => {
+                  setValue(`imoveis.${i}.municipio`, nome, { shouldValidate: true });
+                  setValue(`imoveis.${i}.codigo_ibge`, codigo, { shouldValidate: true });
+                  setValue(`imoveis.${i}.uf`, 'PR');
+                }}
+              />
             </Field>
-            <Field label="UF">
-              <select {...register(`imoveis.${i}.uf` as const)}>
-                {UFS.map((u) => <option key={u} value={u}>{u}</option>)}
-              </select>
+            <Field label="Código IBGE">
+              <input value={imoveis?.[i]?.codigo_ibge || ''} readOnly tabIndex={-1} />
             </Field>
           </div>
         )}
