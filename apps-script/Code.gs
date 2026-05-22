@@ -6,11 +6,15 @@
  */
 
 function doPost(e) {
+  var passo = 'inicio';
   try {
+    passo = 'parseCorpo';
     var corpo = parseCorpo(e);
     var ipHash = hashIP(corpo._ip || '');
+    Logger.log('doPost: corpo recebido. anexos=' + (corpo.anexos ? corpo.anexos.length : 0));
 
     // 1. Origem
+    passo = 'validarOrigem';
     if (!validarOrigem(corpo.origin)) {
       return resposta(403, { erro: 'origem não permitida' });
     }
@@ -22,7 +26,9 @@ function doPost(e) {
     }
 
     // 3. reCAPTCHA v3
+    passo = 'verificarRecaptcha';
     var captcha = verificarRecaptcha(corpo.recaptcha_token, 'cadastro_entidade');
+    Logger.log('doPost: captcha score=' + captcha.score + ' ok=' + captcha.ok);
     if (!captcha.ok) {
       return resposta(403, { erro: 'verificação anti-bot falhou', score: captcha.score });
     }
@@ -79,16 +85,21 @@ function doPost(e) {
       return resposta(503, { erro: 'sistema ocupado, tente novamente em instantes' });
     }
     try {
+      passo = 'abrirPlanilha';
       var ss = abrirPlanilha();
       var protocolo = 'ATER-' + Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'yyyyMMdd-HHmmss') + '-' +
                       String(corpo.cnpj).replace(/\D/g, '').slice(-4);
 
       // 8. Salva anexos antes de gravar na planilha (fail-fast em arquivos suspeitos).
+      passo = 'pastaDoCNPJ';
       var pasta = pastaDoCNPJ(corpo.cnpj, corpo.razao_social);
+      Logger.log('doPost: pasta criada/aberta: ' + pasta.getName());
       var anexosSalvos = [];
       for (var k = 0; k < anexos.length; k++) {
+        passo = 'salvarAnexo[' + k + '] mime=' + (anexos[k] && anexos[k].mime);
         anexosSalvos.push(salvarAnexo(pasta, anexos[k]));
       }
+      Logger.log('doPost: ' + anexosSalvos.length + ' anexos salvos');
 
       // 9. Upsert entidade
       var registro = {
@@ -116,18 +127,20 @@ function doPost(e) {
         protocolo: protocolo,
         status: 'pendente_revisao'
       };
+      passo = 'upsertEntidade';
       upsertEntidade(ss, registro);
 
       // 10. Replace nas filhas
-      replaceFilhas(ss, 'telefones', registro.cnpj, corpo.telefones || []);
-      replaceFilhas(ss, 'area_atuacao', registro.cnpj, corpo.area_atuacao || []);
-      replaceFilhas(ss, 'equipe', registro.cnpj, corpo.equipe || []);
-      replaceFilhas(ss, 'imoveis', registro.cnpj, corpo.imoveis || []);
-      replaceFilhas(ss, 'veiculos', registro.cnpj, corpo.veiculos || []);
-      replaceFilhas(ss, 'eq_informatica', registro.cnpj, corpo.eq_informatica || []);
-      replaceFilhas(ss, 'eq_rede', registro.cnpj, corpo.eq_rede || []);
-      replaceFilhas(ss, 'eq_extensionista', registro.cnpj, corpo.eq_extensionista || []);
-      replaceFilhas(ss, 'anexos', registro.cnpj, anexosSalvos);
+      passo = 'replaceFilhas/telefones';      replaceFilhas(ss, 'telefones', registro.cnpj, corpo.telefones || []);
+      passo = 'replaceFilhas/area_atuacao';   replaceFilhas(ss, 'area_atuacao', registro.cnpj, corpo.area_atuacao || []);
+      passo = 'replaceFilhas/equipe';         replaceFilhas(ss, 'equipe', registro.cnpj, corpo.equipe || []);
+      passo = 'replaceFilhas/imoveis';        replaceFilhas(ss, 'imoveis', registro.cnpj, corpo.imoveis || []);
+      passo = 'replaceFilhas/veiculos';       replaceFilhas(ss, 'veiculos', registro.cnpj, corpo.veiculos || []);
+      passo = 'replaceFilhas/eq_informatica'; replaceFilhas(ss, 'eq_informatica', registro.cnpj, corpo.eq_informatica || []);
+      passo = 'replaceFilhas/eq_rede';        replaceFilhas(ss, 'eq_rede', registro.cnpj, corpo.eq_rede || []);
+      passo = 'replaceFilhas/eq_extensionista'; replaceFilhas(ss, 'eq_extensionista', registro.cnpj, corpo.eq_extensionista || []);
+      passo = 'replaceFilhas/anexos';         replaceFilhas(ss, 'anexos', registro.cnpj, anexosSalvos);
+      Logger.log('doPost: gravacao concluida, protocolo=' + protocolo);
 
       registrarLogSeguro(ipHash, corpo.origin, 'cadastro_ok', mascararCNPJ(registro.cnpj), protocolo);
 
@@ -143,9 +156,12 @@ function doPost(e) {
       lock.releaseLock();
     }
   } catch (err) {
-    // Não vazar mensagens internas para o cliente.
-    try { console.error(err && err.stack || err); } catch (e) {}
-    return resposta(500, { erro: 'falha interna ao processar o cadastro' });
+    var msg = err && err.message ? err.message : String(err);
+    var stack = err && err.stack ? err.stack : '';
+    Logger.log('DOPOST FATAL passo=' + passo + ' msg=' + msg + ' stack=' + stack);
+    try { console.error('passo=' + passo + ' ' + (stack || msg)); } catch (e) {}
+    // Modo debug: retorna o passo e mensagem ao cliente. Restringir após estabilizar.
+    return resposta(500, { erro: 'falha em [' + passo + ']: ' + msg });
   }
 }
 
