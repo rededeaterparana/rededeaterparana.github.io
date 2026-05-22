@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm, FormProvider, useFormContext, useWatch } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext, useWatch, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { entidadeSchema, Entidade, valoresPadrao } from './schema/entidade';
 import { Field } from './components/Field';
@@ -8,6 +8,26 @@ import { UploadAnexos, TipoDocumento } from './components/UploadAnexos';
 import { formatarCNPJ, limparCNPJ } from './lib/cnpj';
 import { buscarCEP, formatarCEP } from './lib/cep';
 import { enviarCadastro, AnexoPayload, RespostaCadastro } from './lib/api';
+
+const ROTULOS: Record<string, string> = {
+  cnpj: 'CNPJ', razao_social: 'razão social', nome_fantasia: 'nome fantasia',
+  inscricao_estadual: 'inscrição estadual', data_constituicao: 'data de constituição',
+  logradouro: 'logradouro', numero: 'número', complemento: 'complemento', bairro: 'bairro',
+  cep: 'CEP', municipio: 'município', uf: 'UF', tipo_endereco: 'tipo de endereço',
+  email: 'e-mail', site: 'site',
+  telefones: 'telefones', area_atuacao: 'área de atuação', equipe: 'equipe técnica',
+  imoveis: 'imóveis', veiculos: 'veículos',
+  eq_informatica: 'equipamentos de informática', eq_rede: 'equipamentos de rede',
+  eq_extensionista: 'equipamentos do extensionista',
+  responsavel_nome: 'nome do responsável', responsavel_cpf: 'CPF do responsável',
+  responsavel_telefone: 'telefone do responsável',
+  contato2_nome: 'contato secundário', contato2_cpf: 'CPF do contato secundário',
+  tipo_entidade: 'tipo de entidade', consentimento_lgpd: 'consentimento LGPD'
+};
+
+function listarCamposComErro(errs: Record<string, unknown>): string[] {
+  return Object.keys(errs).map((k) => ROTULOS[k] || k);
+}
 
 const TIPOS_ANEXO: TipoDocumento[] = [
   { chave: 'cnpj', rotulo: 'Comprovante de inscrição no CNPJ', obrigatorio: true },
@@ -56,6 +76,17 @@ export function App() {
     }
   }
 
+  function aoErroValidacao(errs: FieldErrors<Entidade>) {
+    const campos = listarCamposComErro(errs);
+    setResultado({
+      ok: false,
+      erro: campos.length
+        ? `Há ${campos.length} campo(s) inválido(s): ${campos.join(', ')}.`
+        : 'Há campos inválidos. Revise o formulário.',
+      campos
+    });
+  }
+
   return (
     <FormProvider {...metodos}>
       <div className="container">
@@ -81,7 +112,7 @@ export function App() {
           </div>
         )}
 
-        <form onSubmit={metodos.handleSubmit(aoEnviar)} noValidate>
+        <form onSubmit={metodos.handleSubmit(aoEnviar, aoErroValidacao)} noValidate>
           {/* Honeypot — usuários reais não veem este campo */}
           <input
             type="text" tabIndex={-1} autoComplete="off"
