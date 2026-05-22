@@ -49,6 +49,36 @@ button.remover { background: #fff; color: var(--cor-erro); border: 1px solid var
 
 .honeypot { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 
+.combo { position: relative; }
+.combo-lista {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.combo-lista li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.combo-lista li.destacado,
+.combo-lista li:hover { background: #e6f4ea; }
+.combo-meta { color: var(--cor-texto-suave); font-size: 0.78rem; font-family: ui-monospace, monospace; }
+.combo-aviso { color: var(--cor-texto-suave); font-style: italic; cursor: default !important; background: transparent !important; }
+
 .aviso-lgpd { background: #fff7e6; border: 1px solid #f0c36d; border-radius: 6px; padding: 16px; margin-bottom: 20px; }
 .aviso-lgpd label { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; }
 .aviso-lgpd input[type=checkbox] { width: auto; margin-top: 4px; }

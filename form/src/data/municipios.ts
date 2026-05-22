@@ -8,7 +8,16 @@ export interface Municipio {
   mesorregiao: string;
 }
 
-export const MUNICIPIOS_PR: Municipio[] = dados as Municipio[];
+export const MUNICIPIOS_PR: Municipio[] = (dados as Municipio[])
+  .slice()
+  .sort((a, b) => normalizarSort(a.nome).localeCompare(normalizarSort(b.nome), 'pt-BR'));
+
+function normalizarSort(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+}
 
 const porCodigo = new Map(MUNICIPIOS_PR.map((m) => [m.codigo_ibge, m]));
 const porNome = new Map(
