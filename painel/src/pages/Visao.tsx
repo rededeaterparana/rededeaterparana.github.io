@@ -15,7 +15,7 @@ export function Visao() {
     return <div className="aviso-vazio">Nenhuma entidade cadastrada ainda.</div>;
   }
 
-  const porUF = porChave<string>(dados.entidades, 'uf');
+  const porMunicipio = porChave<string>(dados.entidades, 'municipio');
   const porTipo = porChave<string>(dados.entidades, 'tipo_entidade');
   const serie = serieAdesoes(dados.entidades);
 
@@ -23,15 +23,15 @@ export function Visao() {
     <>
       <div className="cards">
         <Card label="Entidades cadastradas" valor={dados.total} />
-        <Card label="UFs atendidas" valor={porUF.length} />
+        <Card label="Municípios com entidades" valor={porMunicipio.length} />
         <Card label="Tipos de entidade" valor={porTipo.length} />
         <Card label="Atualizado em" valor={new Date(dados.gerado_em).toLocaleString('pt-BR')} pequeno />
       </div>
 
       <section className="painel">
-        <h2>Entidades por UF</h2>
+        <h2>Entidades por município</h2>
         <ResponsiveContainer width="100%" height={280}>
-          <BarChart data={porUF}>
+          <BarChart data={porMunicipio}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="nome" />
             <YAxis allowDecimals={false} />
