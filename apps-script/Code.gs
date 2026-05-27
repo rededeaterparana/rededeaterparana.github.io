@@ -56,9 +56,16 @@ function doPost(e) {
     if (!checarRateLimit(chaveCNPJ, 1, LIMITS.RATE_PER_CNPJ_SECONDS)) {
       return resposta(429, { erro: 'aguarde antes de reenviar este CNPJ' });
     }
-    var chaveIP = 'rl:ip:' + ipHash;
-    if (!checarRateLimit(chaveIP, LIMITS.RATE_PER_IP_HOURLY, 3600)) {
-      return resposta(429, { erro: 'limite de envios por hora atingido' });
+    // Só aplica o limite por IP quando há IP real. O Apps Script não expõe o IP
+    // do cliente e o frontend não o envia, então hashIP('') seria constante —
+    // sem este guard, o limite viraria um teto GLOBAL de RATE_PER_IP_HOURLY
+    // envios/hora para toda a rede. Defesa anti-abuso fica com per-CNPJ +
+    // reCAPTCHA + honeypot.
+    if (corpo._ip) {
+      var chaveIP = 'rl:ip:' + ipHash;
+      if (!checarRateLimit(chaveIP, LIMITS.RATE_PER_IP_HOURLY, 3600)) {
+        return resposta(429, { erro: 'limite de envios por hora atingido' });
+      }
     }
 
     // 6. Anexos — soma e limite total
