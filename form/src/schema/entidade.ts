@@ -89,14 +89,18 @@ export const entidadeSchema = z.object({
 
   // LGPD / anti-bot
   consentimento_lgpd: z.literal(true, {
-    errorMap: () => ({ message: 'é necessário aceitar o termo LGPD' })
+    message: 'é necessário aceitar o termo LGPD'
   }),
   // Honeypot anti-bot: a validação acontece no backend (doPost descarta se vier preenchido).
   // O Zod não deve falhar aqui porque navegadores às vezes autopreenchem campos ocultos.
   website_url: z.string().optional().default('')
 });
 
-export type Entidade = z.infer<typeof entidadeSchema>;
+// Saída (após defaults aplicados) — usada no submit. Entrada — o que o formulário
+// segura antes do parse; difere por causa dos campos com .default()/.optional().
+// O @hookform/resolvers v5 exige distinguir os dois no useForm<Input, _, Output>.
+export type Entidade = z.output<typeof entidadeSchema>;
+export type EntidadeInput = z.input<typeof entidadeSchema>;
 
 export const valoresPadrao: Partial<Entidade> = {
   inscricao_estadual: 'ISENTA',

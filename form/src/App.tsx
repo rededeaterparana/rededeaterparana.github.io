@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, FormProvider, useFormContext, useWatch, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { entidadeSchema, Entidade, valoresPadrao } from './schema/entidade';
+import { entidadeSchema, Entidade, EntidadeInput, valoresPadrao } from './schema/entidade';
 import { Field } from './components/Field';
 import { ListaRepetivel } from './components/ListaRepetivel';
 import { UploadAnexos, TipoDocumento } from './components/UploadAnexos';
@@ -42,9 +42,9 @@ const TIPOS_ANEXO: TipoDocumento[] = [
 const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
 
 export function App() {
-  const metodos = useForm<Entidade>({
+  const metodos = useForm<EntidadeInput, unknown, Entidade>({
     resolver: zodResolver(entidadeSchema),
-    defaultValues: valoresPadrao as Entidade,
+    defaultValues: valoresPadrao as EntidadeInput,
     mode: 'onBlur'
   });
   const [anexos, setAnexos] = useState<AnexoPayload[]>([]);
@@ -69,7 +69,7 @@ export function App() {
         cep: dados.cep.replace(/\D/g, '')
       }, anexos);
       setResultado(r);
-      if (r.ok) metodos.reset(valoresPadrao as Entidade);
+      if (r.ok) metodos.reset(valoresPadrao as EntidadeInput);
     } catch (e) {
       setResultado({ ok: false, erro: (e as Error).message });
     } finally {
@@ -77,7 +77,7 @@ export function App() {
     }
   }
 
-  function aoErroValidacao(errs: FieldErrors<Entidade>) {
+  function aoErroValidacao(errs: FieldErrors<EntidadeInput>) {
     const campos = listarCamposComErro(errs);
     setResultado({
       ok: false,
