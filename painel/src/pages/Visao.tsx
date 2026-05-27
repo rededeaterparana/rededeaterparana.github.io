@@ -50,7 +50,7 @@ export function Visao() {
               dataKey="valor"
               nameKey="nome"
               outerRadius={110}
-              label={(p) => `${p.nome}: ${p.valor}`}
+              label={(p) => `${p.payload?.nome}: ${p.payload?.valor}`}
             >
               {porTipo.map((_, i) => <Cell key={i} fill={CORES[i % CORES.length]} />)}
             </Pie>
