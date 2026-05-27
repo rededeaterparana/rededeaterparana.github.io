@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { arquivoParaAnexo, AnexoPayload } from '../lib/api';
 
 export interface TipoDocumento {
@@ -14,7 +14,7 @@ interface Props {
 
 interface ItemEstado {
   tipo: string;
-  arquivo?: File;
+  anexo?: AnexoPayload;
   erro?: string;
 }
 
@@ -23,33 +23,32 @@ export function UploadAnexos({ tipos, onChange }: Props) {
     tipos.map((t) => ({ tipo: t.chave }))
   );
 
-  async function aplicar(novos: ItemEstado[]) {
-    setItens(novos);
-    const anexos: AnexoPayload[] = [];
-    for (const it of novos) {
-      if (!it.arquivo) continue;
-      try {
-        anexos.push(await arquivoParaAnexo(it.tipo, it.arquivo));
-      } catch (e) {
-        // erro mostrado no próprio item
-      }
-    }
+  // Deriva os anexos do estado já commitado. Evita calcular a lista a partir do
+  // `itens` capturado no closure — origem da condição de corrida quando vários
+  // arquivos eram selecionados em sequência rápida e os updates se sobrescreviam.
+  useEffect(() => {
+    const anexos = itens
+      .map((it) => it.anexo)
+      .filter((a): a is AnexoPayload => Boolean(a));
     onChange(anexos);
-  }
+  }, [itens, onChange]);
 
   async function aoSelecionar(idx: number, f: File | null) {
-    const novos = [...itens];
-    if (!f) {
-      novos[idx] = { tipo: novos[idx].tipo };
-    } else {
+    const tipo = tipos[idx].chave;
+    let novoItem: ItemEstado = { tipo };
+    if (f) {
       try {
-        await arquivoParaAnexo(novos[idx].tipo, f);
-        novos[idx] = { tipo: novos[idx].tipo, arquivo: f };
+        novoItem = { tipo, anexo: await arquivoParaAnexo(tipo, f) };
       } catch (e) {
-        novos[idx] = { tipo: novos[idx].tipo, erro: (e as Error).message };
+        novoItem = { tipo, erro: (e as Error).message };
       }
     }
-    await aplicar(novos);
+    // Update funcional: compõe sobre o estado mais recente, não sobre o closure.
+    setItens((prev) => {
+      const novos = [...prev];
+      novos[idx] = novoItem;
+      return novos;
+    });
   }
 
   return (
