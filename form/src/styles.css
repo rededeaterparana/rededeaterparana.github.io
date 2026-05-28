@@ -17,6 +17,8 @@ body { margin: 0; background: var(--cor-fundo); }
 .cabecalho { padding: 16px 0 24px; border-bottom: 1px solid var(--cor-borda); margin-bottom: 24px; }
 .cabecalho h1 { margin: 0 0 4px; font-size: 1.5rem; }
 .cabecalho p { margin: 0; color: var(--cor-texto-suave); }
+.cabecalho .voltar { display: inline-block; margin-bottom: 12px; color: var(--cor-primaria); text-decoration: none; font-size: 0.9rem; }
+.cabecalho .voltar:hover { text-decoration: underline; }
 
 .cartao { background: #fff; border: 1px solid var(--cor-borda); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
 .cartao h2 { margin: 0 0 16px; font-size: 1.15rem; }

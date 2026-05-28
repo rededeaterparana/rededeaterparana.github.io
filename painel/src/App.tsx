@@ -8,6 +8,7 @@ export function App() {
     <HashRouter>
       <div className="layout">
         <nav className="nav">
+          <a className="voltar" href="../">← Início</a>
           <span className="titulo">Painel — Rede Paranaense de ATER</span>
           <NavLink to="/" end className={({ isActive }) => isActive ? 'ativo' : ''}>Visão</NavLink>
           <NavLink to="/infraestrutura" className={({ isActive }) => isActive ? 'ativo' : ''}>Infraestrutura</NavLink>

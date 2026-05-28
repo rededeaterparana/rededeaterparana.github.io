@@ -92,6 +92,7 @@ export function App() {
     <FormProvider {...metodos}>
       <div className="container">
         <header className="cabecalho">
+          <a className="voltar" href="../">← Voltar ao início</a>
           <h1>Cadastro de Entidades</h1>
           <p>Adesão à Rede Paranaense de Assistência Técnica e Extensão Rural.</p>
         </header>
