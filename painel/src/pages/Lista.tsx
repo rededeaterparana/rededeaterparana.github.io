@@ -24,6 +24,7 @@ export function Lista() {
       <h2>Entidades da rede ({filtradas.length})</h2>
       <input
         className="busca"
+        aria-label="Buscar entidades"
         placeholder="buscar por nome, município, UF..."
         value={filtro}
         onChange={(e) => setFiltro(e.target.value)}

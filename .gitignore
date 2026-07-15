@@ -11,6 +11,13 @@
 links*.txt
 prompt.txt
 
+# Fontes do diagnóstico estadual de ATER. O relatório Power BI e as planilhas do
+# levantamento ficam fora do Git (volume e origem interna); o que vai para o ar é
+# o agregado em painel/src/data/diagnostico.json, gerado por scripts/gerar-diagnostico.py.
+*.pbix
+BI.zip
+dados/
+
 # ─── Apps Script (segredos e IDs de planilha/drive) ─────────────────────────
 apps-script/.clasp.json
 apps-script/.clasprc.json
