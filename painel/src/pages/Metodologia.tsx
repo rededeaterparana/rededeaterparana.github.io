@@ -133,6 +133,11 @@ export function Metodologia() {
               <li key={d.cod ?? d.municipio}><strong>{d.municipio}:</strong> {d.detalhe}.</li>
             ))}
           </ul>
+          <p className="legenda">
+            A conferência com o Censo Agropecuário 2017 do IBGE (SIDRA, tabela 6753) confirma a
+            subcontagem: Nova Prata do Iguaçu tem 980 estabelecimentos no Censo (levantamento: 186;
+            cobertura de 19%) e Pinhalão, 616 (levantamento: 405; cobertura de 66%).
+          </p>
         </section>
       )}
 

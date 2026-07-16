@@ -113,15 +113,17 @@ Norte também elimina a violação parte>todo daquele município (105 ≤ 176).
 
 **Dados em revisão na fonte** (`meta.dadosEmRevisao`) — sinalizados, não corrigidos:
 
-| Município | Situação | Provável causa |
-|-----------|----------|----------------|
-| Nova Prata do Iguaçu | 792 familiares para 186 estab. rurais | total subcontado na coleta |
-| Pinhalão | 496 familiares para 405 estab. rurais | total subcontado na coleta |
+| Município | Estab. no levantamento | Agric. familiar | Censo Agro 2017 (IBGE) | Cobertura |
+|-----------|----------------------:|----------------:|-----------------------:|----------:|
+| Nova Prata do Iguaçu | 186 | 792 | 980 | 19% |
+| Pinhalão | 405 | 496 | 616 | 66% |
 
-Nestes casos o Formulário I e a planilha do índice **concordam** sobre a
-agricultura familiar; a impossibilidade lógica está no total. Como o valor
-autoritativo do total não está disponível no levantamento, o caso segue para
-verificação na fonte (revisão da coleta / conferência com o Censo Agropecuário).
+O Formulário I e a planilha do índice **concordam** sobre a agricultura familiar; a
+impossibilidade lógica está no total de estabelecimentos. A conferência com o **Censo
+Agropecuário 2017 do IBGE** (SIDRA, tabela 6753, variável 183; confirmado no IBGE
+Cidades) mostra que o levantamento cobriu só 19% e 66% dos estabelecimentos desses
+municípios — subcontagem confirmada. Como não há total autoritativo *do levantamento*,
+o índice não foi alterado; o caso segue para revisão da coleta.
 
 ## 5. Achado estrutural: indicadores constantes ("peso morto")
 
