@@ -139,22 +139,49 @@ poder discriminante com apenas 65% do peso nominal. Isto é registrado como acha
 estrutural (não corrigido: depende de nova coleta), e comunicado na página para que
 o peso publicado não seja lido como "importância" que não gera diferenciação.
 
-## 6. Próximos passos recomendados
+## 6. Sensibilidade e pesos efetivos
 
-Para uma revisão metodológica formal do índice (fora do escopo desta publicação,
-mas fundamentado na literatura abaixo):
+A análise de incerteza/sensibilidade recomputa os 399 municípios a partir dos
+fatores e quantifica os achados estruturais. Os pesos efetivos são gerados no
+`diagnostico.json` (`meta.pesosEfetivos`).
 
-1. **Tabela peso nominal × peso efetivo** (razão de correlação de Pearson) para os
-   11 indicadores — evidência numérica do peso morto.
-2. **Análise de incerteza e sensibilidade global** (Monte Carlo sobre os pesos;
-   índices de Sobol de 1ª e total ordem) para mostrar, com intervalos de confiança
-   de ranking, que remover/re-ponderar os 4 constantes **não altera** as posições.
-3. **Sensibilidade aos limiares** das funções de fator (os cortes absolutos atuam
-   como re-peso implícito; indicadores "saturados" comportam-se como quase-constantes).
-4. **Re-especificação**: remover os constantes e redistribuir seus 35% entre os 7
-   discriminantes (a ponderação por entropia serve de referência objetiva), ou
-   mantê-los documentando que são itens de "nível/conformidade", não de discriminação.
-5. **Reconciliação com o total do Censo Agropecuário** para os municípios em revisão.
+**Peso nominal × peso efetivo** — em agregação linear o peso mede
+substituibilidade, não importância; a importância efetiva é a correlação do fator
+com o índice (Paruolo, Saisana & Saltelli, 2013):
+
+| Indicador | Peso nominal | Correlação | Peso efetivo |
+|-----------|-------------:|-----------:|-------------:|
+| Taxa de ATER | 20% | 0,82 | **32%** |
+| Estabelecimentos rurais | 5% | 0,56 | 15% |
+| Valor bruto da produção por hectare | 10% | 0,55 | 14% |
+| Estab. da agricultura familiar | 5% | 0,53 | 13% |
+| Estab. por equivalente técnico | 10% | 0,47 | 10% |
+| Desenvolvimento humano (IDH-M) | 10% | 0,45 | 10% |
+| Estabelecimentos com CAF | 5% | 0,36 | 6% |
+| 4 indicadores constantes | 35% | 0,00 | **0%** |
+
+- **Constantes = peso morto.** Remover os 4 constantes e reponderar os 7
+  discriminantes deixa a ordenação inalterada (**Spearman ρ = 0,9998**; a
+  transformação é preservadora de ordem por construção). Peso efetivo 0.
+- **Taxa de ATER domina** (32% efetivo vs. 20% nominal); os indicadores de
+  abrangência de peso 5% rendem acima do nominal por variarem muito.
+- **Incerteza dos pesos.** Perturbando ±50% os pesos dos 7 discriminantes (Monte
+  Carlo, N=4.000), o *ranking* de um município muda em média ~13 posições por
+  sorteio e o intervalo de 90% tem largura mediana de ~47 posições (de 399). As
+  posições devem ser lidas em **faixas**, com incerteza — não como números exatos.
+
+## 7. Próximos passos recomendados
+
+O que já foi feito consta na seção 6 (pesos efetivos + sensibilidade por Monte
+Carlo). Permanecem como decisões metodológicas:
+
+1. **Re-especificação (decisão):** remover os 4 constantes e redistribuir seus 35%
+   entre os 7 discriminantes (a ponderação por entropia serve de referência
+   objetiva), ou mantê-los documentando que são itens de "nível/conformidade".
+2. **Sensibilidade aos limiares** das funções de fator (índices de Sobol; os cortes
+   absolutos atuam como re-peso implícito; indicadores "saturados" comportam-se como
+   quase-constantes).
+3. **Coleta:** repopular os 4 indicadores constantes no próximo ciclo do levantamento.
 
 ## Referências
 

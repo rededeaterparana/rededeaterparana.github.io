@@ -10,5 +10,6 @@ export type Diagnostico = typeof dados;
 export type Municipio = Diagnostico['municipios'][number];
 export type Indicador = Diagnostico['indice']['indicadores'][number];
 export type CorrecaoEstrutural = Diagnostico['meta']['correcoesEstruturais'][number];
+export type PesoEfetivo = Diagnostico['meta']['pesosEfetivos'][number];
 export type DadoEmRevisao = Diagnostico['meta']['dadosEmRevisao'][number];
 export type IndicadorConstante = Diagnostico['meta']['indicadoresConstantes'][number];

@@ -340,6 +340,34 @@ def indicadores_constantes(idx: pd.DataFrame) -> list[dict]:
     return constantes
 
 
+def pesos_efetivos(idx: pd.DataFrame, indice: pd.Series) -> list[dict]:
+    """Peso efetivo de cada indicador: a importância real, medida pela correlação
+    de Pearson entre o fator e o índice, e não pelo peso nominal.
+
+    Em agregação linear ponderada o peso mede substituibilidade, não importância;
+    a importância efetiva é a razão de correlação (Paruolo, Saisana & Saltelli,
+    2013). Indicadores de variância zero têm correlação e peso efetivo ~0, ainda
+    que detenham peso nominal.
+    """
+    correlacoes = {}
+    for n, _nome, _area, _peso, col_fator, _col_valor in INDICADORES:
+        fator = numero(coluna(idx, col_fator))
+        correlacoes[n] = 0.0 if fator.std() == 0 else float(fator.corr(indice))
+    soma = sum(c * c for c in correlacoes.values())
+    efetivos = [
+        {
+            "n": n,
+            "nome": nome,
+            "pesoNominal": peso,
+            "correlacao": round(correlacoes[n], 3),
+            "pesoEfetivo": round(correlacoes[n] ** 2 / soma, 3) if soma > 0 else 0.0,
+        }
+        for n, nome, _area, peso, _col_fator, _col_valor in INDICADORES
+    ]
+    efetivos.sort(key=lambda e: e["pesoEfetivo"], reverse=True)
+    return efetivos
+
+
 def montar(fonte: Path) -> dict:
     idx = carregar(fonte / PLANILHA_INDICE, "ATER - ÍNDICE ID-ATER")
     gov = carregar(fonte / PLANILHA_FORM_I, "ATER - GOVERNANÇA")
@@ -356,6 +384,7 @@ def montar(fonte: Path) -> dict:
     )
     constantes = indicadores_constantes(idx)
     peso_constante = round(sum(c["peso"] for c in constantes), 2)
+    efetivos = pesos_efetivos(idx, indice)
 
     taxa = numero(coluna(idx, "TAXA  ATER"))
     tecnicos = numero(coluna(ent, "Total Técnicos"))
@@ -502,6 +531,7 @@ def montar(fonte: Path) -> dict:
             "dadosEmRevisao": em_revisao,
             "indicadoresConstantes": constantes,
             "pesoConstante": peso_constante,
+            "pesosEfetivos": efetivos,
         },
         "resumo": {
             "municipios": MUNICIPIOS_PR,

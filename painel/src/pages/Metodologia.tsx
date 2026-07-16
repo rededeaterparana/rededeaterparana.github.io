@@ -1,5 +1,5 @@
 import { diagnostico } from '../lib/diagnostico';
-import { indice, inteiro, porcentagem } from '../lib/formato';
+import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
 
 const { meta, resumo } = diagnostico;
 
@@ -146,6 +146,49 @@ export function Metodologia() {
             deslocam o nível, mas não alteram rankings — peso efetivo ≈ 0. Recomenda-se uma análise
             de incerteza/sensibilidade formal e eventual re-ponderação entre os sete indicadores
             discriminantes.
+          </p>
+        </section>
+      )}
+
+      {meta.pesosEfetivos.length > 0 && (
+        <section className="painel">
+          <h2>Sensibilidade e pesos efetivos</h2>
+          <p>
+            Em agregação linear, o peso mede <em>substituibilidade</em>, não importância. A
+            importância efetiva de cada indicador é sua correlação com o índice (Paruolo, Saisana &
+            Saltelli, 2013): indicadores de variância zero têm peso efetivo ~0, ainda que detenham
+            peso nominal.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Indicador</th>
+                  <th scope="col" style={{ textAlign: 'right' }}>Peso nominal</th>
+                  <th scope="col" style={{ textAlign: 'right' }}>Correlação</th>
+                  <th scope="col" style={{ textAlign: 'right' }}>Peso efetivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {meta.pesosEfetivos.map((p) => (
+                  <tr key={p.n}>
+                    <td>{p.nome}</td>
+                    <td style={{ textAlign: 'right' }}>{porcentagem(p.pesoNominal * 100, 0)}</td>
+                    <td style={{ textAlign: 'right' }}>{decimal(p.correlacao, 2)}</td>
+                    <td style={{ textAlign: 'right' }}>{porcentagem(p.pesoEfetivo * 100, 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="legenda">
+            A Taxa de ATER domina (peso efetivo bem acima do nominal); os quatro indicadores
+            constantes somam {porcentagem(meta.pesoConstante * 100, 0)} do peso nominal e 0% do
+            efetivo — removê-los e reponderar não altera a ordenação (Spearman ρ = 0,9998). Já os
+            sete indicadores discriminantes carregam incerteza: sob perturbação de ±50% nos pesos
+            (Monte Carlo), o intervalo de 90% do <em>ranking</em> de um município tem largura mediana
+            de ~47 posições (de {inteiro(resumo.municipios)}). As posições devem ser lidas em faixas,
+            não como números exatos.
           </p>
         </section>
       )}

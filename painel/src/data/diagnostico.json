@@ -1,6 +1,6 @@
 {
  "meta": {
-  "geradoEm": "2026-07-15",
+  "geradoEm": "2026-07-16",
   "fonte": "Levantamento da Capacidade Instalada de ATER — SEAB/IDR-Paraná",
   "municipios": 399,
   "metodologiaIndice": "ID-ATER: 11 indicadores em 3 áreas, fator de 1 a 10 por município; índice = soma(fator × peso) / 10",
@@ -82,7 +82,86 @@
     "peso": 0.1
    }
   ],
-  "pesoConstante": 0.35
+  "pesoConstante": 0.35,
+  "pesosEfetivos": [
+   {
+    "n": 1,
+    "nome": "Taxa de ATER",
+    "pesoNominal": 0.2,
+    "correlacao": 0.82,
+    "pesoEfetivo": 0.317
+   },
+   {
+    "n": 3,
+    "nome": "Estabelecimentos rurais",
+    "pesoNominal": 0.05,
+    "correlacao": 0.558,
+    "pesoEfetivo": 0.147
+   },
+   {
+    "n": 6,
+    "nome": "Valor bruto da produção por hectare",
+    "pesoNominal": 0.1,
+    "correlacao": 0.551,
+    "pesoEfetivo": 0.143
+   },
+   {
+    "n": 2,
+    "nome": "Estabelecimentos da agricultura familiar",
+    "pesoNominal": 0.05,
+    "correlacao": 0.531,
+    "pesoEfetivo": 0.133
+   },
+   {
+    "n": 5,
+    "nome": "Estabelecimentos por equivalente técnico",
+    "pesoNominal": 0.1,
+    "correlacao": 0.465,
+    "pesoEfetivo": 0.102
+   },
+   {
+    "n": 7,
+    "nome": "Desenvolvimento humano (IDH-M)",
+    "pesoNominal": 0.1,
+    "correlacao": 0.454,
+    "pesoEfetivo": 0.097
+   },
+   {
+    "n": 4,
+    "nome": "Estabelecimentos com CAF",
+    "pesoNominal": 0.05,
+    "correlacao": 0.356,
+    "pesoEfetivo": 0.06
+   },
+   {
+    "n": 9,
+    "nome": "Avaliação da ATER pelo CMDRS",
+    "pesoNominal": 0.1,
+    "correlacao": 0.0,
+    "pesoEfetivo": 0.0
+   },
+   {
+    "n": 10,
+    "nome": "Propriedades com CAR",
+    "pesoNominal": 0.05,
+    "correlacao": 0.0,
+    "pesoEfetivo": 0.0
+   },
+   {
+    "n": 11,
+    "nome": "Disponibilidade hídrica",
+    "pesoNominal": 0.1,
+    "correlacao": 0.0,
+    "pesoEfetivo": 0.0
+   },
+   {
+    "n": 8,
+    "nome": "Crédito rural",
+    "pesoNominal": 0.1,
+    "correlacao": 0.0,
+    "pesoEfetivo": 0.0
+   }
+  ]
  },
  "resumo": {
   "municipios": 399,
