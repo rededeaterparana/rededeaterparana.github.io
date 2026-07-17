@@ -1,0 +1,3089 @@
+{
+ "meta": {
+  "geradoEm": "2026-07-17",
+  "fonte": "Dados Abertos do CNPJ — Receita Federal (2026-07); geocodificação bdgeo (base.municipios + raw.estradas) e AwesomeAPI (CEP)",
+  "escopo": "Estabelecimentos ativos no Paraná em CNAEs de ATER, apoio à produção, produção animal, veterinária e crédito rural",
+  "total": 85888,
+  "observacaoLGPD": "Dados agregados; sem CNPJ, razão social ou endereço individual."
+ },
+ "resumo": {
+  "empresas": 85888,
+  "municipios": 399,
+  "geocodificadasRua": 57847,
+  "geocodificadasCep": 9374,
+  "geocodificadasMunicipio": 18667
+ },
+ "categorias": [
+  {
+   "categoria": "Outros",
+   "empresas": 55538
+  },
+  {
+   "categoria": "Consultoria/técnica",
+   "empresas": 12024
+  },
+  {
+   "categoria": "Apoio à produção",
+   "empresas": 11099
+  },
+  {
+   "categoria": "Veterinária",
+   "empresas": 3702
+  },
+  {
+   "categoria": "Produção animal",
+   "empresas": 2462
+  },
+  {
+   "categoria": "Crédito rural",
+   "empresas": 1063
+  }
+ ],
+ "cnaes": [
+  {
+   "cnae": "7020400",
+   "descricao": "Atividades de consultoria em gestão empresarial, exceto consultoria técnica específica",
+   "empresas": 10728,
+   "categoria": "Consultoria/técnica"
+  },
+  {
+   "cnae": "0161003",
+   "descricao": "Serviço de preparação de terreno, cultivo e colheita",
+   "empresas": 7417,
+   "categoria": "Apoio à produção"
+  },
+  {
+   "cnae": "8211300",
+   "descricao": "Serviços combinados de escritório e apoio administrativo",
+   "empresas": 4461,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "7500100",
+   "descricao": "Atividades veterinárias",
+   "empresas": 3702,
+   "categoria": "Veterinária"
+  },
+  {
+   "cnae": "8599604",
+   "descricao": "Treinamento em desenvolvimento profissional e gerencial",
+   "empresas": 3211,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "7112000",
+   "descricao": "Serviços de engenharia",
+   "empresas": 1664,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "8219999",
+   "descricao": "Preparação de documentos e serviços especializados de apoio administrativo não especificados anteriormente",
+   "empresas": 1596,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "6462000",
+   "descricao": "Holdings de instituições não-financeiras",
+   "empresas": 1577,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "4399103",
+   "descricao": "Obras de alvenaria",
+   "empresas": 1487,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "8299799",
+   "descricao": "Outras atividades de serviços prestados principalmente às empresas não especificadas anteriormente",
+   "empresas": 1326,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "7319002",
+   "descricao": "Promoção de vendas",
+   "empresas": 1324,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "7490199",
+   "descricao": "Outras atividades profissionais, científicas e técnicas não especificadas anteriormente",
+   "empresas": 1296,
+   "categoria": "Consultoria/técnica"
+  },
+  {
+   "cnae": "0115600",
+   "descricao": "Cultivo de soja",
+   "empresas": 1258,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "8130300",
+   "descricao": "Atividades paisagísticas",
+   "empresas": 1248,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "0151201",
+   "descricao": "Criação de bovinos para corte",
+   "empresas": 1231,
+   "categoria": "Produção animal"
+  },
+  {
+   "cnae": "6920601",
+   "descricao": "Atividades de contabilidade",
+   "empresas": 1130,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "4930202",
+   "descricao": "Transporte rodoviário de carga, exceto produtos perigosos e mudanças, intermunicipal, interestadual e internacional",
+   "empresas": 1093,
+   "categoria": "Outros"
+  },
+  {
+   "cnae": "6424703",
+   "descricao": "Cooperativas de crédito mútuo",
+   "empresas": 1063,
+   "categoria": "Crédito rural"
+  },
+  {
+   "cnae": "0161099",
+   "descricao": "Atividades de apoio à agricultura não especificadas anteriormente",
+   "empresas": 1024,
+   "categoria": "Apoio à produção"
+  },
+  {
+   "cnae": "7490104",
+   "descricao": "Atividades de intermediação e agenciamento de serviços e negócios em geral, exceto imobiliários",
+   "empresas": 932,
+   "categoria": "Outros"
+  }
+ ],
+ "portes": [
+  {
+   "porte": "Micro (ME)",
+   "empresas": 63481
+  },
+  {
+   "porte": "Demais",
+   "empresas": 15108
+  },
+  {
+   "porte": "Pequeno (EPP)",
+   "empresas": 7299
+  }
+ ],
+ "precisao": [
+  {
+   "precisao": "rua",
+   "empresas": 57847
+  },
+  {
+   "precisao": "municipio",
+   "empresas": 18667
+  },
+  {
+   "precisao": "cep",
+   "empresas": 9374
+  }
+ ],
+ "municipios": [
+  {
+   "municipio": "CURITIBA",
+   "empresas": 24229
+  },
+  {
+   "municipio": "LONDRINA",
+   "empresas": 4797
+  },
+  {
+   "municipio": "MARINGA",
+   "empresas": 4378
+  },
+  {
+   "municipio": "CASCAVEL",
+   "empresas": 2839
+  },
+  {
+   "municipio": "PONTA GROSSA",
+   "empresas": 2279
+  },
+  {
+   "municipio": "SAO JOSE DOS PINHAIS",
+   "empresas": 1759
+  },
+  {
+   "municipio": "FOZ DO IGUACU",
+   "empresas": 1388
+  },
+  {
+   "municipio": "GUARAPUAVA",
+   "empresas": 1382
+  },
+  {
+   "municipio": "TOLEDO",
+   "empresas": 1198
+  },
+  {
+   "municipio": "PINHAIS",
+   "empresas": 960
+  },
+  {
+   "municipio": "PATO BRANCO",
+   "empresas": 907
+  },
+  {
+   "municipio": "UMUARAMA",
+   "empresas": 770
+  },
+  {
+   "municipio": "CASTRO",
+   "empresas": 770
+  },
+  {
+   "municipio": "COLOMBO",
+   "empresas": 752
+  },
+  {
+   "municipio": "CAMPO MOURAO",
+   "empresas": 667
+  },
+  {
+   "municipio": "APUCARANA",
+   "empresas": 656
+  },
+  {
+   "municipio": "CAMPO LARGO",
+   "empresas": 607
+  },
+  {
+   "municipio": "ARAUCARIA",
+   "empresas": 606
+  },
+  {
+   "municipio": "PARANAGUA",
+   "empresas": 592
+  },
+  {
+   "municipio": "ARAPONGAS",
+   "empresas": 560
+  },
+  {
+   "municipio": "PARANAVAI",
+   "empresas": 549
+  },
+  {
+   "municipio": "FRANCISCO BELTRAO",
+   "empresas": 530
+  },
+  {
+   "municipio": "CIANORTE",
+   "empresas": 514
+  },
+  {
+   "municipio": "CAMBE",
+   "empresas": 440
+  },
+  {
+   "municipio": "MARECHAL CANDIDO RONDON",
+   "empresas": 417
+  }
+ ],
+ "pontos": [
+  {
+   "municipio": "CURITIBA",
+   "ibge": "4106902",
+   "lat": -25.49498,
+   "lon": -49.2845,
+   "empresas": 24229
+  },
+  {
+   "municipio": "LONDRINA",
+   "ibge": "4113700",
+   "lat": -23.47679,
+   "lon": -51.11793,
+   "empresas": 4797
+  },
+  {
+   "municipio": "MARINGA",
+   "ibge": "4115200",
+   "lat": -23.40503,
+   "lon": -51.96175,
+   "empresas": 4378
+  },
+  {
+   "municipio": "CASCAVEL",
+   "ibge": "4104808",
+   "lat": -25.05722,
+   "lon": -53.30046,
+   "empresas": 2839
+  },
+  {
+   "municipio": "PONTA GROSSA",
+   "ibge": "4119905",
+   "lat": -25.13932,
+   "lon": -49.99217,
+   "empresas": 2279
+  },
+  {
+   "municipio": "SAO JOSE DOS PINHAIS",
+   "ibge": "4125506",
+   "lat": -25.64712,
+   "lon": -49.10694,
+   "empresas": 1759
+  },
+  {
+   "municipio": "FOZ DO IGUACU",
+   "ibge": "4108304",
+   "lat": -25.45819,
+   "lon": -54.55266,
+   "empresas": 1388
+  },
+  {
+   "municipio": "GUARAPUAVA",
+   "ibge": "4109401",
+   "lat": -25.33419,
+   "lon": -51.45928,
+   "empresas": 1382
+  },
+  {
+   "municipio": "TOLEDO",
+   "ibge": "4127700",
+   "lat": -24.69742,
+   "lon": -53.80942,
+   "empresas": 1198
+  },
+  {
+   "municipio": "PINHAIS",
+   "ibge": "4119152",
+   "lat": -25.42488,
+   "lon": -49.15573,
+   "empresas": 960
+  },
+  {
+   "municipio": "PATO BRANCO",
+   "ibge": "4118501",
+   "lat": -26.15177,
+   "lon": -52.65613,
+   "empresas": 907
+  },
+  {
+   "municipio": "CASTRO",
+   "ibge": "4104907",
+   "lat": -24.8099,
+   "lon": -49.82213,
+   "empresas": 770
+  },
+  {
+   "municipio": "UMUARAMA",
+   "ibge": "4128104",
+   "lat": -23.70815,
+   "lon": -53.33201,
+   "empresas": 770
+  },
+  {
+   "municipio": "COLOMBO",
+   "ibge": "4105805",
+   "lat": -25.30953,
+   "lon": -49.19216,
+   "empresas": 752
+  },
+  {
+   "municipio": "CAMPO MOURAO",
+   "ibge": "4104303",
+   "lat": -24.12554,
+   "lon": -52.36348,
+   "empresas": 667
+  },
+  {
+   "municipio": "APUCARANA",
+   "ibge": "4101408",
+   "lat": -23.57749,
+   "lon": -51.39402,
+   "empresas": 656
+  },
+  {
+   "municipio": "CAMPO LARGO",
+   "ibge": "4104204",
+   "lat": -25.26615,
+   "lon": -49.69262,
+   "empresas": 607
+  },
+  {
+   "municipio": "ARAUCARIA",
+   "ibge": "4101804",
+   "lat": -25.63379,
+   "lon": -49.45145,
+   "empresas": 606
+  },
+  {
+   "municipio": "PARANAGUA",
+   "ibge": "4118204",
+   "lat": -25.55419,
+   "lon": -48.58114,
+   "empresas": 592
+  },
+  {
+   "municipio": "ARAPONGAS",
+   "ibge": "4101507",
+   "lat": -23.44575,
+   "lon": -51.43661,
+   "empresas": 560
+  },
+  {
+   "municipio": "PARANAVAI",
+   "ibge": "4118402",
+   "lat": -22.87304,
+   "lon": -52.50902,
+   "empresas": 549
+  },
+  {
+   "municipio": "FRANCISCO BELTRAO",
+   "ibge": "4108403",
+   "lat": -26.06768,
+   "lon": -53.10348,
+   "empresas": 530
+  },
+  {
+   "municipio": "CIANORTE",
+   "ibge": "4105508",
+   "lat": -23.73691,
+   "lon": -52.64112,
+   "empresas": 514
+  },
+  {
+   "municipio": "CAMBE",
+   "ibge": "4103701",
+   "lat": -23.20583,
+   "lon": -51.24933,
+   "empresas": 440
+  },
+  {
+   "municipio": "MARECHAL CANDIDO RONDON",
+   "ibge": "4114609",
+   "lat": -24.58821,
+   "lon": -54.12054,
+   "empresas": 417
+  },
+  {
+   "municipio": "FAZENDA RIO GRANDE",
+   "ibge": "4107652",
+   "lat": -25.68239,
+   "lon": -49.30159,
+   "empresas": 404
+  },
+  {
+   "municipio": "CARAMBEI",
+   "ibge": "4104659",
+   "lat": -24.89055,
+   "lon": -50.17103,
+   "empresas": 387
+  },
+  {
+   "municipio": "TELEMACO BORBA",
+   "ibge": "4127106",
+   "lat": -24.25434,
+   "lon": -50.52303,
+   "empresas": 361
+  },
+  {
+   "municipio": "IRATI",
+   "ibge": "4110706",
+   "lat": -25.48787,
+   "lon": -50.83146,
+   "empresas": 358
+  },
+  {
+   "municipio": "SERTANOPOLIS",
+   "ibge": "4126504",
+   "lat": -23.06684,
+   "lon": -51.075,
+   "empresas": 353
+  },
+  {
+   "municipio": "PALMAS",
+   "ibge": "4117602",
+   "lat": -26.42145,
+   "lon": -51.856,
+   "empresas": 324
+  },
+  {
+   "municipio": "ROLANDIA",
+   "ibge": "4122404",
+   "lat": -23.28283,
+   "lon": -51.4264,
+   "empresas": 322
+  },
+  {
+   "municipio": "PALOTINA",
+   "ibge": "4117909",
+   "lat": -24.29414,
+   "lon": -53.83115,
+   "empresas": 317
+  },
+  {
+   "municipio": "UNIAO DA VITORIA",
+   "ibge": "4128203",
+   "lat": -26.12135,
+   "lon": -51.11026,
+   "empresas": 316
+  },
+  {
+   "municipio": "ALMIRANTE TAMANDARE",
+   "ibge": "4100400",
+   "lat": -25.30564,
+   "lon": -49.3281,
+   "empresas": 312
+  },
+  {
+   "municipio": "PIRAQUARA",
+   "ibge": "4119509",
+   "lat": -25.46822,
+   "lon": -49.05369,
+   "empresas": 302
+  },
+  {
+   "municipio": "DOIS VIZINHOS",
+   "ibge": "4107207",
+   "lat": -25.74254,
+   "lon": -53.0713,
+   "empresas": 295
+  },
+  {
+   "municipio": "CORNELIO PROCOPIO",
+   "ibge": "4106407",
+   "lat": -23.19517,
+   "lon": -50.65232,
+   "empresas": 280
+  },
+  {
+   "municipio": "IBIPORA",
+   "ibge": "4109807",
+   "lat": -23.22764,
+   "lon": -51.05015,
+   "empresas": 277
+  },
+  {
+   "municipio": "MEDIANEIRA",
+   "ibge": "4115804",
+   "lat": -25.26548,
+   "lon": -54.09448,
+   "empresas": 275
+  },
+  {
+   "municipio": "CAMPINA GRANDE DO SUL",
+   "ibge": "4104006",
+   "lat": -25.18375,
+   "lon": -48.87151,
+   "empresas": 273
+  },
+  {
+   "municipio": "LAPA",
+   "ibge": "4113205",
+   "lat": -25.80111,
+   "lon": -49.88228,
+   "empresas": 262
+  },
+  {
+   "municipio": "PALMEIRA",
+   "ibge": "4117701",
+   "lat": -25.45149,
+   "lon": -50.12595,
+   "empresas": 262
+  },
+  {
+   "municipio": "ASSIS CHATEAUBRIAND",
+   "ibge": "4102000",
+   "lat": -24.44535,
+   "lon": -53.57955,
+   "empresas": 260
+  },
+  {
+   "municipio": "SARANDI",
+   "ibge": "4126256",
+   "lat": -23.47655,
+   "lon": -51.87985,
+   "empresas": 253
+  },
+  {
+   "municipio": "JAGUARIAIVA",
+   "ibge": "4112009",
+   "lat": -24.3396,
+   "lon": -49.78339,
+   "empresas": 243
+  },
+  {
+   "municipio": "SAO MIGUEL DO IGUACU",
+   "ibge": "4125704",
+   "lat": -25.39922,
+   "lon": -54.26799,
+   "empresas": 241
+  },
+  {
+   "municipio": "SAO MATEUS DO SUL",
+   "ibge": "4125605",
+   "lat": -25.92803,
+   "lon": -50.44102,
+   "empresas": 240
+  },
+  {
+   "municipio": "MARIALVA",
+   "ibge": "4114807",
+   "lat": -23.49653,
+   "lon": -51.77965,
+   "empresas": 237
+  },
+  {
+   "municipio": "SANTO ANTONIO DA PLATINA",
+   "ibge": "4124103",
+   "lat": -23.28713,
+   "lon": -50.07753,
+   "empresas": 228
+  },
+  {
+   "municipio": "PONTAL DO PARANA",
+   "ibge": "4119954",
+   "lat": -25.64813,
+   "lon": -48.46612,
+   "empresas": 224
+  },
+  {
+   "municipio": "TIBAGI",
+   "ibge": "4127502",
+   "lat": -24.68442,
+   "lon": -50.46501,
+   "empresas": 220
+  },
+  {
+   "municipio": "ARAPOTI",
+   "ibge": "4101606",
+   "lat": -24.07325,
+   "lon": -49.9344,
+   "empresas": 219
+  },
+  {
+   "municipio": "ASTORGA",
+   "ibge": "4102109",
+   "lat": -23.2357,
+   "lon": -51.69492,
+   "empresas": 216
+  },
+  {
+   "municipio": "GENERAL CARNEIRO",
+   "ibge": "4108502",
+   "lat": -26.47906,
+   "lon": -51.38758,
+   "empresas": 215
+  },
+  {
+   "municipio": "MANDAGUARI",
+   "ibge": "4114203",
+   "lat": -23.48926,
+   "lon": -51.69048,
+   "empresas": 213
+  },
+  {
+   "municipio": "SANTA HELENA",
+   "ibge": "4123501",
+   "lat": -24.86653,
+   "lon": -54.31376,
+   "empresas": 213
+  },
+  {
+   "municipio": "RESERVA",
+   "ibge": "4121703",
+   "lat": -24.59424,
+   "lon": -50.93698,
+   "empresas": 212
+  },
+  {
+   "municipio": "PRUDENTOPOLIS",
+   "ibge": "4120606",
+   "lat": -25.13714,
+   "lon": -51.08313,
+   "empresas": 210
+  },
+  {
+   "municipio": "UBIRATA",
+   "ibge": "4128005",
+   "lat": -24.51073,
+   "lon": -53.02922,
+   "empresas": 200
+  },
+  {
+   "municipio": "BITURUNA",
+   "ibge": "4102901",
+   "lat": -26.15061,
+   "lon": -51.49502,
+   "empresas": 199
+  },
+  {
+   "municipio": "GOIOERE",
+   "ibge": "4108601",
+   "lat": -24.17207,
+   "lon": -53.06907,
+   "empresas": 197
+  },
+  {
+   "municipio": "NOVA SANTA ROSA",
+   "ibge": "4117222",
+   "lat": -24.44895,
+   "lon": -53.95389,
+   "empresas": 196
+  },
+  {
+   "municipio": "PINHAO",
+   "ibge": "4119301",
+   "lat": -25.79955,
+   "lon": -51.5756,
+   "empresas": 185
+  },
+  {
+   "municipio": "PITANGA",
+   "ibge": "4119608",
+   "lat": -24.67455,
+   "lon": -51.80064,
+   "empresas": 180
+  },
+  {
+   "municipio": "RIO NEGRO",
+   "ibge": "4122305",
+   "lat": -26.08988,
+   "lon": -49.6645,
+   "empresas": 180
+  },
+  {
+   "municipio": "QUATRO BARRAS",
+   "ibge": "4120804",
+   "lat": -25.37342,
+   "lon": -49.01941,
+   "empresas": 179
+  },
+  {
+   "municipio": "CRUZ MACHADO",
+   "ibge": "4106803",
+   "lat": -25.8951,
+   "lon": -51.18258,
+   "empresas": 176
+  },
+  {
+   "municipio": "LARANJEIRAS DO SUL",
+   "ibge": "4113304",
+   "lat": -25.30956,
+   "lon": -52.33864,
+   "empresas": 175
+  },
+  {
+   "municipio": "JACAREZINHO",
+   "ibge": "4111803",
+   "lat": -23.14696,
+   "lon": -49.97498,
+   "empresas": 173
+  },
+  {
+   "municipio": "NOVA ESPERANCA",
+   "ibge": "4116901",
+   "lat": -23.16305,
+   "lon": -52.17846,
+   "empresas": 170
+  },
+  {
+   "municipio": "TUNAS DO PARANA",
+   "ibge": "4127882",
+   "lat": -24.93975,
+   "lon": -48.88151,
+   "empresas": 169
+  },
+  {
+   "municipio": "IBAITI",
+   "ibge": "4109708",
+   "lat": -23.78977,
+   "lon": -50.28736,
+   "empresas": 168
+  },
+  {
+   "municipio": "CORBELIA",
+   "ibge": "4106308",
+   "lat": -24.73613,
+   "lon": -53.23832,
+   "empresas": 167
+  },
+  {
+   "municipio": "ORTIGUEIRA",
+   "ibge": "4117305",
+   "lat": -24.10458,
+   "lon": -50.96026,
+   "empresas": 167
+  },
+  {
+   "municipio": "MANDAGUACU",
+   "ibge": "4114104",
+   "lat": -23.28635,
+   "lon": -52.04604,
+   "empresas": 166
+  },
+  {
+   "municipio": "CHOPINZINHO",
+   "ibge": "4105409",
+   "lat": -25.79521,
+   "lon": -52.4202,
+   "empresas": 163
+  },
+  {
+   "municipio": "JANDAIA DO SUL",
+   "ibge": "4112108",
+   "lat": -23.62727,
+   "lon": -51.69133,
+   "empresas": 162
+  },
+  {
+   "municipio": "CAMBARA",
+   "ibge": "4103602",
+   "lat": -22.99629,
+   "lon": -50.08509,
+   "empresas": 161
+  },
+  {
+   "municipio": "GUARATUBA",
+   "ibge": "4109609",
+   "lat": -25.79529,
+   "lon": -48.7188,
+   "empresas": 161
+  },
+  {
+   "municipio": "QUEDAS DO IGUACU",
+   "ibge": "4120903",
+   "lat": -25.44579,
+   "lon": -52.95846,
+   "empresas": 161
+  },
+  {
+   "municipio": "ALTO PARANA",
+   "ibge": "4100608",
+   "lat": -23.07018,
+   "lon": -52.30726,
+   "empresas": 160
+  },
+  {
+   "municipio": "BANDEIRANTES",
+   "ibge": "4102406",
+   "lat": -23.15353,
+   "lon": -50.33879,
+   "empresas": 159
+  },
+  {
+   "municipio": "IVAIPORA",
+   "ibge": "4111506",
+   "lat": -24.28051,
+   "lon": -51.6256,
+   "empresas": 158
+  },
+  {
+   "municipio": "CANDOI",
+   "ibge": "4104428",
+   "lat": -25.52244,
+   "lon": -52.01245,
+   "empresas": 156
+  },
+  {
+   "municipio": "ITAPERUCU",
+   "ibge": "4111258",
+   "lat": -25.11134,
+   "lon": -49.51565,
+   "empresas": 153
+  },
+  {
+   "municipio": "ITAIPULANDIA",
+   "ibge": "4110953",
+   "lat": -25.13757,
+   "lon": -54.35426,
+   "empresas": 151
+  },
+  {
+   "municipio": "CORONEL VIVIDA",
+   "ibge": "4106506",
+   "lat": -25.99383,
+   "lon": -52.55997,
+   "empresas": 150
+  },
+  {
+   "municipio": "PIRAI DO SUL",
+   "ibge": "4119400",
+   "lat": -24.44303,
+   "lon": -50.00372,
+   "empresas": 145
+  },
+  {
+   "municipio": "MALLET",
+   "ibge": "4113908",
+   "lat": -25.86858,
+   "lon": -50.85063,
+   "empresas": 141
+  },
+  {
+   "municipio": "MATINHOS",
+   "ibge": "4115705",
+   "lat": -25.77624,
+   "lon": -48.55445,
+   "empresas": 141
+  },
+  {
+   "municipio": "MANGUEIRINHA",
+   "ibge": "4114401",
+   "lat": -26.03623,
+   "lon": -52.22591,
+   "empresas": 139
+  },
+  {
+   "municipio": "MANDIRITUBA",
+   "ibge": "4114302",
+   "lat": -25.81503,
+   "lon": -49.31472,
+   "empresas": 136
+  },
+  {
+   "municipio": "RIO BRANCO DO SUL",
+   "ibge": "4122206",
+   "lat": -25.05521,
+   "lon": -49.38221,
+   "empresas": 136
+  },
+  {
+   "municipio": "REALEZA",
+   "ibge": "4121406",
+   "lat": -25.6709,
+   "lon": -53.55117,
+   "empresas": 132
+  },
+  {
+   "municipio": "TERRA ROXA",
+   "ibge": "4127403",
+   "lat": -24.1655,
+   "lon": -54.06194,
+   "empresas": 132
+  },
+  {
+   "municipio": "IMBITUVA",
+   "ibge": "4110102",
+   "lat": -25.22398,
+   "lon": -50.6548,
+   "empresas": 131
+  },
+  {
+   "municipio": "QUERENCIA DO NORTE",
+   "ibge": "4121000",
+   "lat": -23.05167,
+   "lon": -53.5258,
+   "empresas": 131
+  },
+  {
+   "municipio": "CAPANEMA",
+   "ibge": "4104501",
+   "lat": -25.60629,
+   "lon": -53.70463,
+   "empresas": 127
+  },
+  {
+   "municipio": "LOANDA",
+   "ibge": "4113502",
+   "lat": -22.97152,
+   "lon": -53.07667,
+   "empresas": 125
+  },
+  {
+   "municipio": "MISSAL",
+   "ibge": "4116059",
+   "lat": -25.10735,
+   "lon": -54.26227,
+   "empresas": 125
+  },
+  {
+   "municipio": "SANTO ANTONIO DO SUDOESTE",
+   "ibge": "4124400",
+   "lat": -26.06516,
+   "lon": -53.63649,
+   "empresas": 125
+  },
+  {
+   "municipio": "BALSA NOVA",
+   "ibge": "4102307",
+   "lat": -25.48881,
+   "lon": -49.6864,
+   "empresas": 123
+  },
+  {
+   "municipio": "TIJUCAS DO SUL",
+   "ibge": "4127601",
+   "lat": -25.88534,
+   "lon": -49.10609,
+   "empresas": 122
+  },
+  {
+   "municipio": "GUARANIACU",
+   "ibge": "4109302",
+   "lat": -25.04681,
+   "lon": -52.85605,
+   "empresas": 121
+  },
+  {
+   "municipio": "SENGES",
+   "ibge": "4126306",
+   "lat": -24.26419,
+   "lon": -49.44466,
+   "empresas": 121
+  },
+  {
+   "municipio": "CAFELANDIA",
+   "ibge": "4103453",
+   "lat": -24.68938,
+   "lon": -53.37145,
+   "empresas": 118
+  },
+  {
+   "municipio": "FAXINAL",
+   "ibge": "4107603",
+   "lat": -24.00297,
+   "lon": -51.24454,
+   "empresas": 115
+  },
+  {
+   "municipio": "MAMBORE",
+   "ibge": "4114005",
+   "lat": -24.35009,
+   "lon": -52.57526,
+   "empresas": 115
+  },
+  {
+   "municipio": "MORRETES",
+   "ibge": "4116208",
+   "lat": -25.50749,
+   "lon": -48.82938,
+   "empresas": 115
+  },
+  {
+   "municipio": "INACIO MARTINS",
+   "ibge": "4110201",
+   "lat": -25.64422,
+   "lon": -51.1973,
+   "empresas": 113
+  },
+  {
+   "municipio": "GUAIRA",
+   "ibge": "4108809",
+   "lat": -24.19125,
+   "lon": -54.24636,
+   "empresas": 112
+  },
+  {
+   "municipio": "BOCAIUVA DO SUL",
+   "ibge": "4103107",
+   "lat": -25.09873,
+   "lon": -48.9667,
+   "empresas": 111
+  },
+  {
+   "municipio": "TEIXEIRA SOARES",
+   "ibge": "4127007",
+   "lat": -25.31105,
+   "lon": -50.42463,
+   "empresas": 109
+  },
+  {
+   "municipio": "CLEVELANDIA",
+   "ibge": "4105706",
+   "lat": -26.31145,
+   "lon": -52.35854,
+   "empresas": 108
+  },
+  {
+   "municipio": "IPIRANGA",
+   "ibge": "4110508",
+   "lat": -25.0066,
+   "lon": -50.56414,
+   "empresas": 108
+  },
+  {
+   "municipio": "TURVO",
+   "ibge": "4127965",
+   "lat": -24.96556,
+   "lon": -51.45123,
+   "empresas": 108
+  },
+  {
+   "municipio": "CARLOPOLIS",
+   "ibge": "4104709",
+   "lat": -23.45691,
+   "lon": -49.7322,
+   "empresas": 106
+  },
+  {
+   "municipio": "IPORA",
+   "ibge": "4110607",
+   "lat": -24.05915,
+   "lon": -53.68247,
+   "empresas": 106
+  },
+  {
+   "municipio": "BELA VISTA DO PARAISO",
+   "ibge": "4102802",
+   "lat": -23.00785,
+   "lon": -51.24373,
+   "empresas": 105
+  },
+  {
+   "municipio": "TAPEJARA",
+   "ibge": "4126801",
+   "lat": -23.64255,
+   "lon": -52.87557,
+   "empresas": 105
+  },
+  {
+   "municipio": "ANDIRA",
+   "ibge": "4101101",
+   "lat": -23.02597,
+   "lon": -50.27747,
+   "empresas": 104
+  },
+  {
+   "municipio": "RIBEIRAO CLARO",
+   "ibge": "4121802",
+   "lat": -23.26477,
+   "lon": -49.76192,
+   "empresas": 102
+  },
+  {
+   "municipio": "NOVA AURORA",
+   "ibge": "4116703",
+   "lat": -24.49404,
+   "lon": -53.25442,
+   "empresas": 101
+  },
+  {
+   "municipio": "WENCESLAU BRAZ",
+   "ibge": "4128500",
+   "lat": -23.87009,
+   "lon": -49.80085,
+   "empresas": 101
+  },
+  {
+   "municipio": "ITAPEJARA D'OESTE",
+   "ibge": "4111209",
+   "lat": -25.98381,
+   "lon": -52.849,
+   "empresas": 98
+  },
+  {
+   "municipio": "CRUZEIRO DO OESTE",
+   "ibge": "4106605",
+   "lat": -23.73497,
+   "lon": -53.06972,
+   "empresas": 97
+  },
+  {
+   "municipio": "SAO JOAO",
+   "ibge": "4124806",
+   "lat": -25.74053,
+   "lon": -52.78775,
+   "empresas": 97
+  },
+  {
+   "municipio": "ANTONINA",
+   "ibge": "4101200",
+   "lat": -25.29535,
+   "lon": -48.71924,
+   "empresas": 96
+  },
+  {
+   "municipio": "CIDADE GAUCHA",
+   "ibge": "4105607",
+   "lat": -23.37377,
+   "lon": -52.94696,
+   "empresas": 96
+  },
+  {
+   "municipio": "PRIMEIRO DE MAIO",
+   "ibge": "4120507",
+   "lat": -22.85614,
+   "lon": -51.05499,
+   "empresas": 96
+  },
+  {
+   "municipio": "VENTANIA",
+   "ibge": "4128534",
+   "lat": -24.19277,
+   "lon": -50.26404,
+   "empresas": 96
+  },
+  {
+   "municipio": "SANTA FE",
+   "ibge": "4123402",
+   "lat": -23.05875,
+   "lon": -51.83522,
+   "empresas": 95
+  },
+  {
+   "municipio": "RONCADOR",
+   "ibge": "4122503",
+   "lat": -24.57191,
+   "lon": -52.27757,
+   "empresas": 93
+  },
+  {
+   "municipio": "CONTENDA",
+   "ibge": "4106209",
+   "lat": -25.69877,
+   "lon": -49.53604,
+   "empresas": 92
+  },
+  {
+   "municipio": "VERE",
+   "ibge": "4128609",
+   "lat": -25.84775,
+   "lon": -52.93972,
+   "empresas": 92
+  },
+  {
+   "municipio": "SAO JORGE D'OESTE",
+   "ibge": "4125209",
+   "lat": -25.66047,
+   "lon": -52.92981,
+   "empresas": 91
+  },
+  {
+   "municipio": "ICARAIMA",
+   "ibge": "4109906",
+   "lat": -23.37283,
+   "lon": -53.60235,
+   "empresas": 90
+  },
+  {
+   "municipio": "QUATRO PONTES",
+   "ibge": "4120853",
+   "lat": -24.57334,
+   "lon": -53.96575,
+   "empresas": 90
+  },
+  {
+   "municipio": "BARRACAO",
+   "ibge": "4102604",
+   "lat": -26.24982,
+   "lon": -53.54355,
+   "empresas": 89
+  },
+  {
+   "municipio": "MATELANDIA",
+   "ibge": "4115606",
+   "lat": -25.33338,
+   "lon": -53.89215,
+   "empresas": 89
+  },
+  {
+   "municipio": "SAO PEDRO DO IVAI",
+   "ibge": "4125803",
+   "lat": -23.82825,
+   "lon": -51.88242,
+   "empresas": 89
+  },
+  {
+   "municipio": "CATANDUVAS",
+   "ibge": "4105003",
+   "lat": -25.22794,
+   "lon": -53.12602,
+   "empresas": 88
+  },
+  {
+   "municipio": "PEABIRU",
+   "ibge": "4118808",
+   "lat": -23.93213,
+   "lon": -52.29625,
+   "empresas": 88
+  },
+  {
+   "municipio": "NOVA PRATA DO IGUACU",
+   "ibge": "4117255",
+   "lat": -25.58713,
+   "lon": -53.38541,
+   "empresas": 87
+  },
+  {
+   "municipio": "TERRA RICA",
+   "ibge": "4127304",
+   "lat": -22.71948,
+   "lon": -52.69484,
+   "empresas": 87
+  },
+  {
+   "municipio": "TUPASSI",
+   "ibge": "4127957",
+   "lat": -24.63924,
+   "lon": -53.50945,
+   "empresas": 87
+  },
+  {
+   "municipio": "CAMPINA DA LAGOA",
+   "ibge": "4103909",
+   "lat": -24.61854,
+   "lon": -52.7946,
+   "empresas": 86
+  },
+  {
+   "municipio": "COLORADO",
+   "ibge": "4105904",
+   "lat": -22.81772,
+   "lon": -51.99771,
+   "empresas": 86
+  },
+  {
+   "municipio": "NOVA LONDRINA",
+   "ibge": "4117107",
+   "lat": -22.74975,
+   "lon": -52.98142,
+   "empresas": 86
+  },
+  {
+   "municipio": "CAPITAO LEONIDAS MARQUES",
+   "ibge": "4104600",
+   "lat": -25.45622,
+   "lon": -53.59548,
+   "empresas": 85
+  },
+  {
+   "municipio": "ENGENHEIRO BELTRAO",
+   "ibge": "4107504",
+   "lat": -23.76231,
+   "lon": -52.2829,
+   "empresas": 85
+  },
+  {
+   "municipio": "ENTRE RIOS DO OESTE",
+   "ibge": "4107538",
+   "lat": -24.70763,
+   "lon": -54.23809,
+   "empresas": 85
+  },
+  {
+   "municipio": "NOVA CANTU",
+   "ibge": "4116802",
+   "lat": -24.63138,
+   "lon": -52.54041,
+   "empresas": 85
+  },
+  {
+   "municipio": "PATO BRAGADO",
+   "ibge": "4118451",
+   "lat": -24.63792,
+   "lon": -54.25515,
+   "empresas": 85
+  },
+  {
+   "municipio": "PAICANDU",
+   "ibge": "4117503",
+   "lat": -23.46157,
+   "lon": -52.10312,
+   "empresas": 84
+  },
+  {
+   "municipio": "CEU AZUL",
+   "ibge": "4105300",
+   "lat": -25.28769,
+   "lon": -53.76017,
+   "empresas": 83
+  },
+  {
+   "municipio": "MANOEL RIBAS",
+   "ibge": "4114500",
+   "lat": -24.49531,
+   "lon": -51.62281,
+   "empresas": 82
+  },
+  {
+   "municipio": "ARARUNA",
+   "ibge": "4101705",
+   "lat": -23.92575,
+   "lon": -52.51268,
+   "empresas": 80
+  },
+  {
+   "municipio": "SIQUEIRA CAMPOS",
+   "ibge": "4126603",
+   "lat": -23.65583,
+   "lon": -49.80877,
+   "empresas": 80
+  },
+  {
+   "municipio": "CAMPO DO TENENTE",
+   "ibge": "4104105",
+   "lat": -25.98012,
+   "lon": -49.66666,
+   "empresas": 79
+  },
+  {
+   "municipio": "BOA VISTA DA APARECIDA",
+   "ibge": "4103057",
+   "lat": -25.44004,
+   "lon": -53.43369,
+   "empresas": 78
+  },
+  {
+   "municipio": "CORONEL DOMINGOS SOARES",
+   "ibge": "4106456",
+   "lat": -26.17342,
+   "lon": -51.90728,
+   "empresas": 78
+  },
+  {
+   "municipio": "IMBAU",
+   "ibge": "4110078",
+   "lat": -24.43931,
+   "lon": -50.74933,
+   "empresas": 77
+  },
+  {
+   "municipio": "AMPERE",
+   "ibge": "4101002",
+   "lat": -25.90762,
+   "lon": -53.4988,
+   "empresas": 76
+  },
+  {
+   "municipio": "FLORESTA",
+   "ibge": "4107900",
+   "lat": -23.6051,
+   "lon": -52.08439,
+   "empresas": 76
+  },
+  {
+   "municipio": "MARMELEIRO",
+   "ibge": "4115408",
+   "lat": -26.24569,
+   "lon": -53.12275,
+   "empresas": 76
+  },
+  {
+   "municipio": "SANTA TEREZINHA DE ITAIPU",
+   "ibge": "4124053",
+   "lat": -25.43859,
+   "lon": -54.42738,
+   "empresas": 76
+  },
+  {
+   "municipio": "TERRA BOA",
+   "ibge": "4127205",
+   "lat": -23.69471,
+   "lon": -52.37824,
+   "empresas": 76
+  },
+  {
+   "municipio": "SANTA MARIA DO OESTE",
+   "ibge": "4123857",
+   "lat": -24.90311,
+   "lon": -51.93655,
+   "empresas": 75
+  },
+  {
+   "municipio": "JARDIM ALEGRE",
+   "ibge": "4112504",
+   "lat": -24.2096,
+   "lon": -51.79818,
+   "empresas": 74
+  },
+  {
+   "municipio": "JURANDA",
+   "ibge": "4112959",
+   "lat": -24.40687,
+   "lon": -52.85514,
+   "empresas": 74
+  },
+  {
+   "municipio": "MERCEDES",
+   "ibge": "4115853",
+   "lat": -24.43396,
+   "lon": -54.19206,
+   "empresas": 74
+  },
+  {
+   "municipio": "ITAMBE",
+   "ibge": "4111100",
+   "lat": -23.71581,
+   "lon": -52.00877,
+   "empresas": 73
+  },
+  {
+   "municipio": "MAUA DA SERRA",
+   "ibge": "4115754",
+   "lat": -23.9161,
+   "lon": -51.0972,
+   "empresas": 73
+  },
+  {
+   "municipio": "QUITANDINHA",
+   "ibge": "4121208",
+   "lat": -25.92118,
+   "lon": -49.52392,
+   "empresas": 73
+  },
+  {
+   "municipio": "SANTA TEREZA DO OESTE",
+   "ibge": "4124020",
+   "lat": -25.01949,
+   "lon": -53.61439,
+   "empresas": 72
+  },
+  {
+   "municipio": "ALTONIA",
+   "ibge": "4100509",
+   "lat": -23.91411,
+   "lon": -53.93364,
+   "empresas": 71
+  },
+  {
+   "municipio": "SAO JOAO DO IVAI",
+   "ibge": "4125001",
+   "lat": -24.0018,
+   "lon": -51.83565,
+   "empresas": 71
+  },
+  {
+   "municipio": "TRES BARRAS DO PARANA",
+   "ibge": "4127858",
+   "lat": -25.44722,
+   "lon": -53.23264,
+   "empresas": 71
+  },
+  {
+   "municipio": "CAMBIRA",
+   "ibge": "4103800",
+   "lat": -23.61111,
+   "lon": -51.57556,
+   "empresas": 70
+  },
+  {
+   "municipio": "LUIZIANA",
+   "ibge": "4113734",
+   "lat": -24.34607,
+   "lon": -52.31356,
+   "empresas": 70
+  },
+  {
+   "municipio": "AGUDOS DO SUL",
+   "ibge": "4100301",
+   "lat": -26.0407,
+   "lon": -49.30758,
+   "empresas": 69
+  },
+  {
+   "municipio": "BOA ESPERANCA",
+   "ibge": "4103008",
+   "lat": -24.26264,
+   "lon": -52.73579,
+   "empresas": 69
+  },
+  {
+   "municipio": "IVAI",
+   "ibge": "4111407",
+   "lat": -24.99519,
+   "lon": -50.85618,
+   "empresas": 69
+  },
+  {
+   "municipio": "RONDON",
+   "ibge": "4122602",
+   "lat": -23.46543,
+   "lon": -52.80791,
+   "empresas": 69
+  },
+  {
+   "municipio": "SAO JOAO DO TRIUNFO",
+   "ibge": "4125100",
+   "lat": -25.68883,
+   "lon": -50.30631,
+   "empresas": 69
+  },
+  {
+   "municipio": "TAMARANA",
+   "ibge": "4126678",
+   "lat": -23.81609,
+   "lon": -51.04528,
+   "empresas": 69
+  },
+  {
+   "municipio": "URAI",
+   "ibge": "4128401",
+   "lat": -23.20728,
+   "lon": -50.83441,
+   "empresas": 69
+  },
+  {
+   "municipio": "ALVORADA DO SUL",
+   "ibge": "4100806",
+   "lat": -22.81631,
+   "lon": -51.23625,
+   "empresas": 68
+  },
+  {
+   "municipio": "CERRO AZUL",
+   "ibge": "4105201",
+   "lat": -24.88446,
+   "lon": -49.24354,
+   "empresas": 68
+  },
+  {
+   "municipio": "PALMITAL",
+   "ibge": "4117800",
+   "lat": -24.88896,
+   "lon": -52.24236,
+   "empresas": 68
+  },
+  {
+   "municipio": "SABAUDIA",
+   "ibge": "4122701",
+   "lat": -23.34848,
+   "lon": -51.579,
+   "empresas": 68
+  },
+  {
+   "municipio": "SANTA CRUZ DE MONTE CASTELO",
+   "ibge": "4123303",
+   "lat": -23.08111,
+   "lon": -53.3701,
+   "empresas": 68
+  },
+  {
+   "municipio": "SERTANEJA",
+   "ibge": "4126405",
+   "lat": -22.95283,
+   "lon": -50.88935,
+   "empresas": 68
+  },
+  {
+   "municipio": "VITORINO",
+   "ibge": "4128708",
+   "lat": -26.25573,
+   "lon": -52.82421,
+   "empresas": 68
+  },
+  {
+   "municipio": "JAGUAPITA",
+   "ibge": "4111902",
+   "lat": -23.04992,
+   "lon": -51.61362,
+   "empresas": 67
+  },
+  {
+   "municipio": "CURIUVA",
+   "ibge": "4107009",
+   "lat": -23.99142,
+   "lon": -50.4489,
+   "empresas": 66
+  },
+  {
+   "municipio": "PARAISO DO NORTE",
+   "ibge": "4118006",
+   "lat": -23.25557,
+   "lon": -52.63089,
+   "empresas": 66
+  },
+  {
+   "municipio": "RESERVA DO IGUACU",
+   "ibge": "4121752",
+   "lat": -25.87348,
+   "lon": -51.97899,
+   "empresas": 66
+  },
+  {
+   "municipio": "PLANALTO",
+   "ibge": "4119806",
+   "lat": -25.73207,
+   "lon": -53.72939,
+   "empresas": 64
+  },
+  {
+   "municipio": "PIEN",
+   "ibge": "4119103",
+   "lat": -26.06632,
+   "lon": -49.44054,
+   "empresas": 63
+  },
+  {
+   "municipio": "SANTA IZABEL DO OESTE",
+   "ibge": "4123808",
+   "lat": -25.77764,
+   "lon": -53.42347,
+   "empresas": 63
+  },
+  {
+   "municipio": "TUNEIRAS DO OESTE",
+   "ibge": "4127908",
+   "lat": -23.85949,
+   "lon": -52.88263,
+   "empresas": 63
+  },
+  {
+   "municipio": "ASSAI",
+   "ibge": "4101903",
+   "lat": -23.4183,
+   "lon": -50.87915,
+   "empresas": 62
+  },
+  {
+   "municipio": "MARIOPOLIS",
+   "ibge": "4115309",
+   "lat": -26.32698,
+   "lon": -52.59497,
+   "empresas": 62
+  },
+  {
+   "municipio": "CAMPO MAGRO",
+   "ibge": "4104253",
+   "lat": -25.29635,
+   "lon": -49.45462,
+   "empresas": 60
+  },
+  {
+   "municipio": "QUARTO CENTENARIO",
+   "ibge": "4120655",
+   "lat": -24.31569,
+   "lon": -53.17492,
+   "empresas": 60
+  },
+  {
+   "municipio": "SALTO DO LONTRA",
+   "ibge": "4123006",
+   "lat": -25.77394,
+   "lon": -53.24926,
+   "empresas": 60
+  },
+  {
+   "municipio": "VERA CRUZ DO OESTE",
+   "ibge": "4128559",
+   "lat": -24.99609,
+   "lon": -53.94198,
+   "empresas": 59
+  },
+  {
+   "municipio": "CANTAGALO",
+   "ibge": "4104451",
+   "lat": -25.30576,
+   "lon": -52.10915,
+   "empresas": 58
+  },
+  {
+   "municipio": "PRESIDENTE CASTELO BRANCO",
+   "ibge": "4120408",
+   "lat": -23.26353,
+   "lon": -52.16417,
+   "empresas": 57
+  },
+  {
+   "municipio": "DOUTOR CAMARGO",
+   "ibge": "4107306",
+   "lat": -23.56921,
+   "lon": -52.23446,
+   "empresas": 56
+  },
+  {
+   "municipio": "MARIPA",
+   "ibge": "4115358",
+   "lat": -24.47335,
+   "lon": -53.76958,
+   "empresas": 56
+  },
+  {
+   "municipio": "PORECATU",
+   "ibge": "4120002",
+   "lat": -22.74418,
+   "lon": -51.41821,
+   "empresas": 56
+  },
+  {
+   "municipio": "RENASCENCA",
+   "ibge": "4121604",
+   "lat": -26.22037,
+   "lon": -52.95706,
+   "empresas": 56
+  },
+  {
+   "municipio": "RIO AZUL",
+   "ibge": "4122008",
+   "lat": -25.7313,
+   "lon": -50.78896,
+   "empresas": 56
+  },
+  {
+   "municipio": "SAO CARLOS DO IVAI",
+   "ibge": "4124608",
+   "lat": -23.36772,
+   "lon": -52.47208,
+   "empresas": 56
+  },
+  {
+   "municipio": "SERRANOPOLIS DO IGUACU",
+   "ibge": "4126355",
+   "lat": -25.47632,
+   "lon": -54.02628,
+   "empresas": 56
+  },
+  {
+   "municipio": "BOM SUCESSO",
+   "ibge": "4103206",
+   "lat": -23.71651,
+   "lon": -51.81856,
+   "empresas": 55
+  },
+  {
+   "municipio": "SAO PEDRO DO IGUACU",
+   "ibge": "4125753",
+   "lat": -24.88692,
+   "lon": -53.94467,
+   "empresas": 55
+  },
+  {
+   "municipio": "ADRIANOPOLIS",
+   "ibge": "4100202",
+   "lat": -24.78865,
+   "lon": -48.79803,
+   "empresas": 53
+  },
+  {
+   "municipio": "JESUITAS",
+   "ibge": "4112751",
+   "lat": -24.4125,
+   "lon": -53.42013,
+   "empresas": 53
+  },
+  {
+   "municipio": "BARBOSA FERRAZ",
+   "ibge": "4102505",
+   "lat": -24.07291,
+   "lon": -52.00807,
+   "empresas": 52
+  },
+  {
+   "municipio": "FORMOSA DO OESTE",
+   "ibge": "4108205",
+   "lat": -24.29514,
+   "lon": -53.32866,
+   "empresas": 52
+  },
+  {
+   "municipio": "GUARAQUECABA",
+   "ibge": "4109500",
+   "lat": -25.17487,
+   "lon": -48.41189,
+   "empresas": 52
+  },
+  {
+   "municipio": "IVATUBA",
+   "ibge": "4111605",
+   "lat": -23.58715,
+   "lon": -52.15981,
+   "empresas": 52
+  },
+  {
+   "municipio": "JUSSARA",
+   "ibge": "4113007",
+   "lat": -23.65535,
+   "lon": -52.46146,
+   "empresas": 52
+  },
+  {
+   "municipio": "MARILANDIA DO SUL",
+   "ibge": "4114906",
+   "lat": -23.74221,
+   "lon": -51.30274,
+   "empresas": 52
+  },
+  {
+   "municipio": "SANTA ISABEL DO IVAI",
+   "ibge": "4123709",
+   "lat": -23.10985,
+   "lon": -53.24267,
+   "empresas": 52
+  },
+  {
+   "municipio": "SAPOPEMA",
+   "ibge": "4126207",
+   "lat": -23.88272,
+   "lon": -50.63724,
+   "empresas": 52
+  },
+  {
+   "municipio": "CONGONHINHAS",
+   "ibge": "4106001",
+   "lat": -23.62322,
+   "lon": -50.51734,
+   "empresas": 51
+  },
+  {
+   "municipio": "ENEAS MARQUES",
+   "ibge": "4107405",
+   "lat": -25.88153,
+   "lon": -53.12172,
+   "empresas": 51
+  },
+  {
+   "municipio": "RIBEIRAO DO PINHAL",
+   "ibge": "4121901",
+   "lat": -23.42326,
+   "lon": -50.36968,
+   "empresas": 51
+  },
+  {
+   "municipio": "DOUTOR ULYSSES",
+   "ibge": "4128633",
+   "lat": -24.60767,
+   "lon": -49.40807,
+   "empresas": 50
+  },
+  {
+   "municipio": "LOBATO",
+   "ibge": "4113601",
+   "lat": -22.97864,
+   "lon": -51.9719,
+   "empresas": 50
+  },
+  {
+   "municipio": "MOREIRA SALES",
+   "ibge": "4116109",
+   "lat": -24.02252,
+   "lon": -53.00061,
+   "empresas": 50
+  },
+  {
+   "municipio": "NOVA LARANJEIRAS",
+   "ibge": "4117057",
+   "lat": -25.22596,
+   "lon": -52.58765,
+   "empresas": 50
+  },
+  {
+   "municipio": "SANTA MARIANA",
+   "ibge": "4123907",
+   "lat": -23.05448,
+   "lon": -50.52719,
+   "empresas": 50
+  },
+  {
+   "municipio": "FERNANDES PINHEIRO",
+   "ibge": "4107736",
+   "lat": -25.48259,
+   "lon": -50.50896,
+   "empresas": 49
+  },
+  {
+   "municipio": "PORTO AMAZONAS",
+   "ibge": "4120101",
+   "lat": -25.52714,
+   "lon": -49.88767,
+   "empresas": 49
+  },
+  {
+   "municipio": "RIO BONITO DO IGUACU",
+   "ibge": "4122156",
+   "lat": -25.56028,
+   "lon": -52.60507,
+   "empresas": 49
+  },
+  {
+   "municipio": "DOURADINA",
+   "ibge": "4107256",
+   "lat": -23.35065,
+   "lon": -53.29397,
+   "empresas": 48
+  },
+  {
+   "municipio": "JOAQUIM TAVORA",
+   "ibge": "4112801",
+   "lat": -23.43753,
+   "lon": -49.90703,
+   "empresas": 48
+  },
+  {
+   "municipio": "NOVA FATIMA",
+   "ibge": "4117008",
+   "lat": -23.40976,
+   "lon": -50.54439,
+   "empresas": 48
+  },
+  {
+   "municipio": "QUINTA DO SOL",
+   "ibge": "4121109",
+   "lat": -23.82453,
+   "lon": -52.12297,
+   "empresas": 48
+  },
+  {
+   "municipio": "REBOUCAS",
+   "ibge": "4121505",
+   "lat": -25.66826,
+   "lon": -50.57941,
+   "empresas": 48
+  },
+  {
+   "municipio": "SANTO INACIO",
+   "ibge": "4124509",
+   "lat": -22.7221,
+   "lon": -51.79977,
+   "empresas": 48
+  },
+  {
+   "municipio": "ATALAIA",
+   "ibge": "4102208",
+   "lat": -23.1265,
+   "lon": -52.07742,
+   "empresas": 47
+  },
+  {
+   "municipio": "SAO JERONIMO DA SERRA",
+   "ibge": "4124707",
+   "lat": -23.70738,
+   "lon": -50.74614,
+   "empresas": 47
+  },
+  {
+   "municipio": "IRETAMA",
+   "ibge": "4110805",
+   "lat": -24.3582,
+   "lon": -52.0801,
+   "empresas": 46
+  },
+  {
+   "municipio": "PARANACITY",
+   "ibge": "4118105",
+   "lat": -22.83427,
+   "lon": -52.15743,
+   "empresas": 46
+  },
+  {
+   "municipio": "BRAGANEY",
+   "ibge": "4103354",
+   "lat": -24.78769,
+   "lon": -53.10408,
+   "empresas": 45
+  },
+  {
+   "municipio": "FOZ DO JORDAO",
+   "ibge": "4108452",
+   "lat": -25.69356,
+   "lon": -52.06983,
+   "empresas": 45
+  },
+  {
+   "municipio": "OURO VERDE DO OESTE",
+   "ibge": "4117453",
+   "lat": -24.79812,
+   "lon": -53.89112,
+   "empresas": 45
+  },
+  {
+   "municipio": "PLANALTINA DO PARANA",
+   "ibge": "4119707",
+   "lat": -23.09045,
+   "lon": -52.96567,
+   "empresas": 45
+  },
+  {
+   "municipio": "HONORIO SERPA",
+   "ibge": "4109658",
+   "lat": -26.16045,
+   "lon": -52.36593,
+   "empresas": 43
+  },
+  {
+   "municipio": "PINHALAO",
+   "ibge": "4119202",
+   "lat": -23.86528,
+   "lon": -50.08828,
+   "empresas": 43
+  },
+  {
+   "municipio": "BOA VENTURA DE SAO ROQUE",
+   "ibge": "4103040",
+   "lat": -24.82969,
+   "lon": -51.53522,
+   "empresas": 42
+  },
+  {
+   "municipio": "CRUZEIRO DO IGUACU",
+   "ibge": "4106571",
+   "lat": -25.59617,
+   "lon": -53.12588,
+   "empresas": 42
+  },
+  {
+   "municipio": "LINDOESTE",
+   "ibge": "4113452",
+   "lat": -25.24725,
+   "lon": -53.53012,
+   "empresas": 42
+  },
+  {
+   "municipio": "PAULA FREITAS",
+   "ibge": "4118600",
+   "lat": -26.17364,
+   "lon": -50.86855,
+   "empresas": 42
+  },
+  {
+   "municipio": "CANDIDO DE ABREU",
+   "ibge": "4104402",
+   "lat": -24.68267,
+   "lon": -51.25688,
+   "empresas": 41
+  },
+  {
+   "municipio": "FRANCISCO ALVES",
+   "ibge": "4108320",
+   "lat": -24.09868,
+   "lon": -53.88706,
+   "empresas": 41
+  },
+  {
+   "municipio": "LUPIONOPOLIS",
+   "ibge": "4113809",
+   "lat": -22.74246,
+   "lon": -51.65869,
+   "empresas": 41
+  },
+  {
+   "municipio": "SAO JOSE DAS PALMEIRAS",
+   "ibge": "4125456",
+   "lat": -24.81607,
+   "lon": -54.119,
+   "empresas": 41
+  },
+  {
+   "municipio": "ALTO PIQUIRI",
+   "ibge": "4100707",
+   "lat": -24.09122,
+   "lon": -53.39233,
+   "empresas": 40
+  },
+  {
+   "municipio": "BORRAZOPOLIS",
+   "ibge": "4103305",
+   "lat": -23.95246,
+   "lon": -51.6065,
+   "empresas": 40
+  },
+  {
+   "municipio": "IBEMA",
+   "ibge": "4109757",
+   "lat": -25.15022,
+   "lon": -53.02345,
+   "empresas": 40
+  },
+  {
+   "municipio": "PRANCHITA",
+   "ibge": "4120358",
+   "lat": -25.97308,
+   "lon": -53.72624,
+   "empresas": 40
+  },
+  {
+   "municipio": "SAO JORGE DO IVAI",
+   "ibge": "4125308",
+   "lat": -23.43566,
+   "lon": -52.34724,
+   "empresas": 40
+  },
+  {
+   "municipio": "ITAMBARACA",
+   "ibge": "4111001",
+   "lat": -22.98694,
+   "lon": -50.41538,
+   "empresas": 39
+  },
+  {
+   "municipio": "PAULO FRONTIN",
+   "ibge": "4118709",
+   "lat": -26.06922,
+   "lon": -50.71833,
+   "empresas": 39
+  },
+  {
+   "municipio": "SAUDADE DO IGUACU",
+   "ibge": "4126272",
+   "lat": -25.70477,
+   "lon": -52.59113,
+   "empresas": 39
+  },
+  {
+   "municipio": "TOMAZINA",
+   "ibge": "4127809",
+   "lat": -23.72049,
+   "lon": -49.93198,
+   "empresas": 39
+  },
+  {
+   "municipio": "MARUMBI",
+   "ibge": "4115507",
+   "lat": -23.75376,
+   "lon": -51.65121,
+   "empresas": 38
+  },
+  {
+   "municipio": "RIO BOM",
+   "ibge": "4122107",
+   "lat": -23.79645,
+   "lon": -51.42311,
+   "empresas": 38
+  },
+  {
+   "municipio": "FLOR DA SERRA DO SUL",
+   "ibge": "4107850",
+   "lat": -26.25432,
+   "lon": -53.23321,
+   "empresas": 37
+  },
+  {
+   "municipio": "JAPURA",
+   "ibge": "4112405",
+   "lat": -23.43684,
+   "lon": -52.54219,
+   "empresas": 37
+  },
+  {
+   "municipio": "MARIA HELENA",
+   "ibge": "4114708",
+   "lat": -23.59096,
+   "lon": -53.22154,
+   "empresas": 37
+  },
+  {
+   "municipio": "NOVA ESPERANCA DO SUDOESTE",
+   "ibge": "4116950",
+   "lat": -25.88971,
+   "lon": -53.26005,
+   "empresas": 37
+  },
+  {
+   "municipio": "PEROBAL",
+   "ibge": "4118857",
+   "lat": -23.95708,
+   "lon": -53.30592,
+   "empresas": 37
+  },
+  {
+   "municipio": "PEROLA",
+   "ibge": "4118907",
+   "lat": -23.83244,
+   "lon": -53.70651,
+   "empresas": 37
+  },
+  {
+   "municipio": "TAPIRA",
+   "ibge": "4126900",
+   "lat": -23.33786,
+   "lon": -53.12675,
+   "empresas": 37
+  },
+  {
+   "municipio": "ALTO PARAISO",
+   "ibge": "4128625",
+   "lat": -23.50735,
+   "lon": -53.83168,
+   "empresas": 36
+  },
+  {
+   "municipio": "FLORAI",
+   "ibge": "4107801",
+   "lat": -23.33127,
+   "lon": -52.35233,
+   "empresas": 36
+  },
+  {
+   "municipio": "GUAIRACA",
+   "ibge": "4108908",
+   "lat": -22.92008,
+   "lon": -52.74308,
+   "empresas": 36
+  },
+  {
+   "municipio": "JATAIZINHO",
+   "ibge": "4112702",
+   "lat": -23.2481,
+   "lon": -50.94017,
+   "empresas": 36
+  },
+  {
+   "municipio": "MARILENA",
+   "ibge": "4115002",
+   "lat": -22.73757,
+   "lon": -53.05865,
+   "empresas": 36
+  },
+  {
+   "municipio": "ANGULO",
+   "ibge": "4101150",
+   "lat": -23.19744,
+   "lon": -51.92002,
+   "empresas": 35
+  },
+  {
+   "municipio": "BOM SUCESSO DO SUL",
+   "ibge": "4103222",
+   "lat": -26.08472,
+   "lon": -52.85974,
+   "empresas": 35
+  },
+  {
+   "municipio": "CRUZMALTINA",
+   "ibge": "4106852",
+   "lat": -24.0018,
+   "lon": -51.46547,
+   "empresas": 35
+  },
+  {
+   "municipio": "MARILUZ",
+   "ibge": "4115101",
+   "lat": -24.0549,
+   "lon": -53.21014,
+   "empresas": 35
+  },
+  {
+   "municipio": "MUNHOZ DE MELO",
+   "ibge": "4116307",
+   "lat": -23.13095,
+   "lon": -51.72837,
+   "empresas": 35
+  },
+  {
+   "municipio": "SAO SEBASTIAO DA AMOREIRA",
+   "ibge": "4126009",
+   "lat": -23.44996,
+   "lon": -50.70438,
+   "empresas": 35
+  },
+  {
+   "municipio": "ANTONIO OLINTO",
+   "ibge": "4101309",
+   "lat": -25.94605,
+   "lon": -50.10397,
+   "empresas": 34
+  },
+  {
+   "municipio": "CENTENARIO DO SUL",
+   "ibge": "4105102",
+   "lat": -22.79367,
+   "lon": -51.55754,
+   "empresas": 34
+  },
+  {
+   "municipio": "FAROL",
+   "ibge": "4107553",
+   "lat": -24.12328,
+   "lon": -52.61756,
+   "empresas": 34
+  },
+  {
+   "municipio": "FLORESTOPOLIS",
+   "ibge": "4108007",
+   "lat": -22.89428,
+   "lon": -51.4108,
+   "empresas": 34
+  },
+  {
+   "municipio": "GUAPIRAMA",
+   "ibge": "4109005",
+   "lat": -23.4723,
+   "lon": -50.07661,
+   "empresas": 34
+  },
+  {
+   "municipio": "GOIOXIM",
+   "ibge": "4108650",
+   "lat": -25.13821,
+   "lon": -51.98153,
+   "empresas": 33
+  },
+  {
+   "municipio": "GUAMIRANGA",
+   "ibge": "4108957",
+   "lat": -25.17108,
+   "lon": -50.8327,
+   "empresas": 33
+  },
+  {
+   "municipio": "JANIOPOLIS",
+   "ibge": "4112207",
+   "lat": -24.15285,
+   "lon": -52.79269,
+   "empresas": 33
+  },
+  {
+   "municipio": "LARANJAL",
+   "ibge": "4113254",
+   "lat": -24.89232,
+   "lon": -52.49412,
+   "empresas": 33
+  },
+  {
+   "municipio": "NOVA SANTA BARBARA",
+   "ibge": "4117214",
+   "lat": -23.59129,
+   "lon": -50.7493,
+   "empresas": 33
+  },
+  {
+   "municipio": "NOVA TEBAS",
+   "ibge": "4117271",
+   "lat": -24.43158,
+   "lon": -51.93639,
+   "empresas": 33
+  },
+  {
+   "municipio": "ITAGUAJE",
+   "ibge": "4110904",
+   "lat": -22.67168,
+   "lon": -51.98253,
+   "empresas": 32
+  },
+  {
+   "municipio": "KALORE",
+   "ibge": "4113106",
+   "lat": -23.86295,
+   "lon": -51.67245,
+   "empresas": 32
+  },
+  {
+   "municipio": "NOSSA SENHORA DAS GRACAS",
+   "ibge": "4116406",
+   "lat": -22.91955,
+   "lon": -51.78852,
+   "empresas": 32
+  },
+  {
+   "municipio": "DIAMANTE D'OESTE",
+   "ibge": "4107157",
+   "lat": -24.96892,
+   "lon": -54.0897,
+   "empresas": 31
+  },
+  {
+   "municipio": "GUARACI",
+   "ibge": "4109203",
+   "lat": -22.96025,
+   "lon": -51.67125,
+   "empresas": 31
+  },
+  {
+   "municipio": "IGUARACU",
+   "ibge": "4110003",
+   "lat": -23.21786,
+   "lon": -51.81354,
+   "empresas": 31
+  },
+  {
+   "municipio": "PORTO VITORIA",
+   "ibge": "4120309",
+   "lat": -26.25141,
+   "lon": -51.21485,
+   "empresas": 31
+  },
+  {
+   "municipio": "RANCHO ALEGRE",
+   "ibge": "4121307",
+   "lat": -23.06386,
+   "lon": -50.93058,
+   "empresas": 31
+  },
+  {
+   "municipio": "CAFEZAL DO SUL",
+   "ibge": "4103479",
+   "lat": -23.95348,
+   "lon": -53.54309,
+   "empresas": 30
+  },
+  {
+   "municipio": "DIAMANTE DO NORTE",
+   "ibge": "4107108",
+   "lat": -22.6367,
+   "lon": -52.89067,
+   "empresas": 30
+  },
+  {
+   "municipio": "PEROLA D'OESTE",
+   "ibge": "4119004",
+   "lat": -25.84545,
+   "lon": -53.76325,
+   "empresas": 30
+  },
+  {
+   "municipio": "PITANGUEIRAS",
+   "ibge": "4119657",
+   "lat": -23.20811,
+   "lon": -51.56755,
+   "empresas": 30
+  },
+  {
+   "municipio": "PORTO RICO",
+   "ibge": "4120200",
+   "lat": -22.83447,
+   "lon": -53.33286,
+   "empresas": 30
+  },
+  {
+   "municipio": "CAMPINA DO SIMAO",
+   "ibge": "4103958",
+   "lat": -25.10966,
+   "lon": -51.77535,
+   "empresas": 29
+  },
+  {
+   "municipio": "TAMBOARA",
+   "ibge": "4126702",
+   "lat": -23.20739,
+   "lon": -52.48408,
+   "empresas": 29
+  },
+  {
+   "municipio": "CALIFORNIA",
+   "ibge": "4103503",
+   "lat": -23.6663,
+   "lon": -51.33447,
+   "empresas": 28
+  },
+  {
+   "municipio": "XAMBRE",
+   "ibge": "4128807",
+   "lat": -23.74977,
+   "lon": -53.56735,
+   "empresas": 28
+  },
+  {
+   "municipio": "FIGUEIRA",
+   "ibge": "4107751",
+   "lat": -23.85729,
+   "lon": -50.42091,
+   "empresas": 27
+  },
+  {
+   "municipio": "LEOPOLIS",
+   "ibge": "4113403",
+   "lat": -23.0182,
+   "lon": -50.6979,
+   "empresas": 27
+  },
+  {
+   "municipio": "NOVA OLIMPIA",
+   "ibge": "4117206",
+   "lat": -23.42265,
+   "lon": -53.07126,
+   "empresas": 27
+  },
+  {
+   "municipio": "PRADO FERREIRA",
+   "ibge": "4120333",
+   "lat": -23.02739,
+   "lon": -51.40357,
+   "empresas": 27
+  },
+  {
+   "municipio": "FLORIDA",
+   "ibge": "4108106",
+   "lat": -23.10492,
+   "lon": -51.96408,
+   "empresas": 26
+  },
+  {
+   "municipio": "ITAUNA DO SUL",
+   "ibge": "4111308",
+   "lat": -22.72994,
+   "lon": -52.8962,
+   "empresas": 26
+  },
+  {
+   "municipio": "ROSARIO DO IVAI",
+   "ibge": "4122651",
+   "lat": -24.31362,
+   "lon": -51.18124,
+   "empresas": 26
+  },
+  {
+   "municipio": "SAO JORGE DO PATROCINIO",
+   "ibge": "4125357",
+   "lat": -23.7225,
+   "lon": -53.95639,
+   "empresas": 26
+  },
+  {
+   "municipio": "BRASILANDIA DO SUL",
+   "ibge": "4103370",
+   "lat": -24.15551,
+   "lon": -53.53641,
+   "empresas": 25
+  },
+  {
+   "municipio": "CRUZEIRO DO SUL",
+   "ibge": "4106704",
+   "lat": -22.98109,
+   "lon": -52.15492,
+   "empresas": 25
+  },
+  {
+   "municipio": "GRANDES RIOS",
+   "ibge": "4108700",
+   "lat": -24.18847,
+   "lon": -51.4294,
+   "empresas": 25
+  },
+  {
+   "municipio": "LUNARDELLI",
+   "ibge": "4113759",
+   "lat": -24.07571,
+   "lon": -51.77556,
+   "empresas": 25
+  },
+  {
+   "municipio": "MATO RICO",
+   "ibge": "4115739",
+   "lat": -24.69639,
+   "lon": -52.22063,
+   "empresas": 25
+  },
+  {
+   "municipio": "INDIANOPOLIS",
+   "ibge": "4110409",
+   "lat": -23.48271,
+   "lon": -52.66715,
+   "empresas": 24
+  },
+  {
+   "municipio": "LIDIANOPOLIS",
+   "ibge": "4113429",
+   "lat": -24.07235,
+   "lon": -51.63202,
+   "empresas": 24
+  },
+  {
+   "municipio": "SANTANA DO ITARARE",
+   "ibge": "4124004",
+   "lat": -23.74931,
+   "lon": -49.62963,
+   "empresas": 24
+  },
+  {
+   "municipio": "ALTAMIRA DO PARANA",
+   "ibge": "4100459",
+   "lat": -24.8244,
+   "lon": -52.67046,
+   "empresas": 23
+  },
+  {
+   "municipio": "CONSELHEIRO MAIRINCK",
+   "ibge": "4106100",
+   "lat": -23.58557,
+   "lon": -50.14132,
+   "empresas": 23
+  },
+  {
+   "municipio": "FENIX",
+   "ibge": "4107702",
+   "lat": -23.89314,
+   "lon": -52.02768,
+   "empresas": 23
+  },
+  {
+   "municipio": "JAPIRA",
+   "ibge": "4112306",
+   "lat": -23.71101,
+   "lon": -50.18084,
+   "empresas": 23
+  },
+  {
+   "municipio": "MARQUINHO",
+   "ibge": "4115457",
+   "lat": -25.11591,
+   "lon": -52.23101,
+   "empresas": 23
+  },
+  {
+   "municipio": "QUATIGUA",
+   "ibge": "4120705",
+   "lat": -23.55682,
+   "lon": -49.97851,
+   "empresas": 23
+  },
+  {
+   "municipio": "PORTO BARREIRO",
+   "ibge": "4120150",
+   "lat": -25.59108,
+   "lon": -52.37418,
+   "empresas": 22
+  },
+  {
+   "municipio": "SAO JOAO DO CAIUA",
+   "ibge": "4124905",
+   "lat": -22.82999,
+   "lon": -52.32878,
+   "empresas": 22
+  },
+  {
+   "municipio": "VIRMOND",
+   "ibge": "4128658",
+   "lat": -25.42147,
+   "lon": -52.22836,
+   "empresas": 22
+  },
+  {
+   "municipio": "BARRA DO JACARE",
+   "ibge": "4102703",
+   "lat": -23.10819,
+   "lon": -50.14766,
+   "empresas": 21
+  },
+  {
+   "municipio": "BOM JESUS DO SUL",
+   "ibge": "4103156",
+   "lat": -26.15358,
+   "lon": -53.54691,
+   "empresas": 21
+  },
+  {
+   "municipio": "IVATE",
+   "ibge": "4111555",
+   "lat": -23.375,
+   "lon": -53.3956,
+   "empresas": 21
+  },
+  {
+   "municipio": "JUNDIAI DO SUL",
+   "ibge": "4112900",
+   "lat": -23.471,
+   "lon": -50.21413,
+   "empresas": 21
+  },
+  {
+   "municipio": "SANTA LUCIA",
+   "ibge": "4123824",
+   "lat": -25.38836,
+   "lon": -53.55678,
+   "empresas": 21
+  },
+  {
+   "municipio": "SAO TOME",
+   "ibge": "4126108",
+   "lat": -23.52356,
+   "lon": -52.57949,
+   "empresas": 21
+  },
+  {
+   "municipio": "SULINA",
+   "ibge": "4126652",
+   "lat": -25.66644,
+   "lon": -52.72845,
+   "empresas": 21
+  },
+  {
+   "municipio": "ABATIA",
+   "ibge": "4100103",
+   "lat": -23.30352,
+   "lon": -50.33996,
+   "empresas": 20
+  },
+  {
+   "municipio": "BOA ESPERANCA DO IGUACU",
+   "ibge": "4103024",
+   "lat": -25.63407,
+   "lon": -53.23631,
+   "empresas": 20
+  },
+  {
+   "municipio": "RIO BRANCO DO IVAI",
+   "ibge": "4122172",
+   "lat": -24.34358,
+   "lon": -51.31325,
+   "empresas": 20
+  },
+  {
+   "municipio": "AMAPORA",
+   "ibge": "4100905",
+   "lat": -23.13862,
+   "lon": -52.83461,
+   "empresas": 19
+  },
+  {
+   "municipio": "JABOTI",
+   "ibge": "4111704",
+   "lat": -23.71883,
+   "lon": -50.07092,
+   "empresas": 19
+  },
+  {
+   "municipio": "SANTA MONICA",
+   "ibge": "4123956",
+   "lat": -23.14287,
+   "lon": -53.10879,
+   "empresas": 19
+  },
+  {
+   "municipio": "CAMPO BONITO",
+   "ibge": "4104055",
+   "lat": -24.90139,
+   "lon": -53.0279,
+   "empresas": 18
+  },
+  {
+   "municipio": "RANCHO ALEGRE D'OESTE",
+   "ibge": "4121356",
+   "lat": -24.27215,
+   "lon": -52.93604,
+   "empresas": 18
+  },
+  {
+   "municipio": "ESPIGAO ALTO DO IGUACU",
+   "ibge": "4107546",
+   "lat": -25.3838,
+   "lon": -52.77582,
+   "empresas": 17
+  },
+  {
+   "municipio": "NOVA AMERICA DA COLINA",
+   "ibge": "4116604",
+   "lat": -23.33521,
+   "lon": -50.70417,
+   "empresas": 17
+  },
+  {
+   "municipio": "RAMILANDIA",
+   "ibge": "4121257",
+   "lat": -25.09848,
+   "lon": -54.0845,
+   "empresas": 17
+  },
+  {
+   "municipio": "GODOY MOREIRA",
+   "ibge": "4108551",
+   "lat": -24.15371,
+   "lon": -51.88591,
+   "empresas": 16
+  },
+  {
+   "municipio": "OURIZONA",
+   "ibge": "4117404",
+   "lat": -23.46136,
+   "lon": -52.23208,
+   "empresas": 16
+  },
+  {
+   "municipio": "SANTO ANTONIO DO CAIUA",
+   "ibge": "4124202",
+   "lat": -22.69145,
+   "lon": -52.35253,
+   "empresas": 16
+  },
+  {
+   "municipio": "ARAPUA",
+   "ibge": "4101655",
+   "lat": -24.32689,
+   "lon": -51.84248,
+   "empresas": 15
+  },
+  {
+   "municipio": "GUAPOREMA",
+   "ibge": "4109104",
+   "lat": -23.33134,
+   "lon": -52.80985,
+   "empresas": 15
+  },
+  {
+   "municipio": "SANTO ANTONIO DO PARAISO",
+   "ibge": "4124301",
+   "lat": -23.5823,
+   "lon": -50.64603,
+   "empresas": 15
+  },
+  {
+   "municipio": "SAO JOSE DA BOA VISTA",
+   "ibge": "4125407",
+   "lat": -23.95481,
+   "lon": -49.64717,
+   "empresas": 15
+  },
+  {
+   "municipio": "CAFEARA",
+   "ibge": "4103404",
+   "lat": -22.796,
+   "lon": -51.72522,
+   "empresas": 14
+  },
+  {
+   "municipio": "MANFRINOPOLIS",
+   "ibge": "4114351",
+   "lat": -26.10468,
+   "lon": -53.32493,
+   "empresas": 14
+  },
+  {
+   "municipio": "SAO PEDRO DO PARANA",
+   "ibge": "4125902",
+   "lat": -22.77404,
+   "lon": -53.1768,
+   "empresas": 14
+  },
+  {
+   "municipio": "UNIFLOR",
+   "ibge": "4128302",
+   "lat": -23.06678,
+   "lon": -52.11451,
+   "empresas": 14
+  },
+  {
+   "municipio": "BELA VISTA DA CAROBA",
+   "ibge": "4102752",
+   "lat": -25.88424,
+   "lon": -53.63262,
+   "empresas": 13
+  },
+  {
+   "municipio": "DIAMANTE DO SUL",
+   "ibge": "4107124",
+   "lat": -24.99362,
+   "lon": -52.70425,
+   "empresas": 13
+  },
+  {
+   "municipio": "IRACEMA DO OESTE",
+   "ibge": "4110656",
+   "lat": -24.43269,
+   "lon": -53.35271,
+   "empresas": 13
+  },
+  {
+   "municipio": "CORUMBATAI DO SUL",
+   "ibge": "4106555",
+   "lat": -24.12423,
+   "lon": -52.12711,
+   "empresas": 12
+  },
+  {
+   "municipio": "ESPERANCA NOVA",
+   "ibge": "4107520",
+   "lat": -23.72295,
+   "lon": -53.79865,
+   "empresas": 12
+  },
+  {
+   "municipio": "IGUATU",
+   "ibge": "4110052",
+   "lat": -24.68066,
+   "lon": -53.07766,
+   "empresas": 12
+  },
+  {
+   "municipio": "NOVA ALIANCA DO IVAI",
+   "ibge": "4116505",
+   "lat": -23.17022,
+   "lon": -52.60286,
+   "empresas": 12
+  },
+  {
+   "municipio": "NOVO ITACOLOMI",
+   "ibge": "4117297",
+   "lat": -23.78198,
+   "lon": -51.52446,
+   "empresas": 12
+  },
+  {
+   "municipio": "JARDIM OLINDA",
+   "ibge": "4112603",
+   "lat": -22.57925,
+   "lon": -52.07142,
+   "empresas": 11
+  },
+  {
+   "municipio": "MIRASELVA",
+   "ibge": "4116000",
+   "lat": -22.99048,
+   "lon": -51.49053,
+   "empresas": 11
+  },
+  {
+   "municipio": "PARANAPOEMA",
+   "ibge": "4118303",
+   "lat": -22.65022,
+   "lon": -52.08849,
+   "empresas": 11
+  },
+  {
+   "municipio": "SALGADO FILHO",
+   "ibge": "4122800",
+   "lat": -26.13682,
+   "lon": -53.41057,
+   "empresas": 11
+  },
+  {
+   "municipio": "SANTA CECILIA DO PAVAO",
+   "ibge": "4123204",
+   "lat": -23.53617,
+   "lon": -50.80186,
+   "empresas": 11
+  },
+  {
+   "municipio": "PINHAL DE SAO BENTO",
+   "ibge": "4119251",
+   "lat": -26.01224,
+   "lon": -53.45387,
+   "empresas": 10
+  },
+  {
+   "municipio": "ANAHY",
+   "ibge": "4101051",
+   "lat": -24.64216,
+   "lon": -53.14141,
+   "empresas": 9
+  },
+  {
+   "municipio": "SANTA AMELIA",
+   "ibge": "4123105",
+   "lat": -23.25392,
+   "lon": -50.41048,
+   "empresas": 9
+  },
+  {
+   "municipio": "SANTA INES",
+   "ibge": "4123600",
+   "lat": -22.71684,
+   "lon": -51.89813,
+   "empresas": 9
+  },
+  {
+   "municipio": "MIRADOR",
+   "ibge": "4115903",
+   "lat": -23.2025,
+   "lon": -52.74479,
+   "empresas": 7
+  },
+  {
+   "municipio": "SAO MANOEL DO PARANA",
+   "ibge": "4125555",
+   "lat": -23.37806,
+   "lon": -52.60132,
+   "empresas": 7
+  },
+  {
+   "municipio": "SALTO DO ITARARE",
+   "ibge": "4122909",
+   "lat": -23.62057,
+   "lon": -49.7044,
+   "empresas": 6
+  },
+  {
+   "municipio": "INAJA",
+   "ibge": "4110300",
+   "lat": -22.71817,
+   "lon": -52.22354,
+   "empresas": 5
+  },
+  {
+   "municipio": "ARIRANHA DO IVAI",
+   "ibge": "4101853",
+   "lat": -24.37827,
+   "lon": -51.54572,
+   "empresas": 4
+  }
+ ]
+}

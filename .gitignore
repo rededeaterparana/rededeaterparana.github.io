@@ -18,6 +18,10 @@ prompt.txt
 BI.zip
 dados/
 
+# Base bruta de CNPJ (Dados Abertos da Receita) e recortes gerados — fora do Git
+# (volume e campos de contato). O que eventualmente vai para o ar é agregado.
+dados-cnpj/
+
 # ─── Apps Script (segredos e IDs de planilha/drive) ─────────────────────────
 apps-script/.clasp.json
 apps-script/.clasprc.json

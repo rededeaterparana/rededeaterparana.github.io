@@ -193,6 +193,10 @@ jobs:
                   <strong>Diagnóstico estadual →</strong>
                   <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
                 </a>
+                <a class="card" href="./painel/#/empresas">
+                  <strong>Empresas de ATER →</strong>
+                  <span>Prestadores de ATER no Paraná, por município e atividade.</span>
+                </a>
               </div>
 
               <div class="rodape">
