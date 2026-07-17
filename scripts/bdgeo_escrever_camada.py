@@ -16,7 +16,8 @@ from pathlib import Path
 import psycopg2
 
 CSV = Path(r"C:\Users\apgomes\gestaodeater\dados-cnpj\cnpj-ater-pr-geo.csv")
-DSN = dict(host="localhost", port=5432, user="bdgeo_user", password="bdgeo", dbname="bdgeo")
+# Escrita exige o dono do banco (bdgeo); bdgeo_user é somente-leitura.
+DSN = dict(host="localhost", port=5432, user="bdgeo", password="bdgeo", dbname="bdgeo")
 SCHEMA, TABELA = "web", "cnpj_ater"
 
 # Colunas mantidas na tabela (nível empresa; sem PII de sócios).
@@ -30,9 +31,12 @@ NUM = {"lat", "lon", "lat_mun", "lon_mun"}
 
 def main() -> int:
     fq = f"{SCHEMA}.{TABELA}"
-    con = psycopg2.connect(**DSN)
+    con = psycopg2.connect(connect_timeout=10, **DSN)
     con.autocommit = False
     cur = con.cursor()
+    # falha rápido se a tabela ainda estiver presa por conexão-zumbi (em vez de travar)
+    cur.execute("SET lock_timeout = '15s'")
+    cur.execute("SET statement_timeout = '180s'")
     cur.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA}")
     cur.execute(f"DROP TABLE IF EXISTS {fq}")
     coldefs = ",\n  ".join(f'"{c}" double precision' if c in NUM else f'"{c}" text' for c in COLS)
@@ -59,6 +63,12 @@ def main() -> int:
     cur.execute(f"UPDATE {fq} SET geom = ST_SetSRID(ST_MakePoint(lon, lat), 4326)")
     cur.execute(f'CREATE INDEX {TABELA}_geom_gist ON {fq} USING GIST (geom)')
     cur.execute(f'CREATE INDEX {TABELA}_mun_idx ON {fq} (municipio)')
+    # leitura para o papel só-leitura (mesma convenção das demais camadas web.*)
+    try:
+        cur.execute(f"GRANT USAGE ON SCHEMA {SCHEMA} TO bdgeo_user")
+        cur.execute(f"GRANT SELECT ON {fq} TO bdgeo_user")
+    except Exception:
+        pass
     con.commit()
 
     cur.execute(f"SELECT count(*), count(geom) FROM {fq}")
