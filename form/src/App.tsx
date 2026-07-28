@@ -90,11 +90,25 @@ export function App() {
 
   return (
     <FormProvider {...metodos}>
-      <div className="container">
-        <header className="cabecalho">
-          <a className="voltar" href="../">← Voltar ao início</a>
-          <h1>Cadastro de Entidades</h1>
-          <p>Adesão à Rede Paranaense de Assistência Técnica e Extensão Rural.</p>
+      <header className="cabecalho">
+        <div className="cabecalho-inner">
+          <a className="voltar" href="../">← Início</a>
+          <div className="marca">
+            <span className="marca-kicker">Rede Paranaense de Assistência Técnica e Extensão Rural</span>
+            <span className="marca-titulo">Cadastro de Entidades</span>
+          </div>
+          <a className="acao-painel" href="../painel/">Ver o painel</a>
+        </div>
+      </header>
+      <main className="container">
+        <header className="pagina-cabecalho">
+          <p className="kicker">Formulário de adesão</p>
+          <h1>Adesão à Rede Paranaense de ATER</h1>
+          <p>
+            Preencha os dados da entidade prestadora de ATER e anexe a documentação
+            institucional. Os campos marcados com * são obrigatórios; o cadastro gera
+            um protocolo de acompanhamento ao final.
+          </p>
         </header>
 
         <AvisoLGPD />
@@ -141,7 +155,7 @@ export function App() {
             </button>
           </div>
         </form>
-      </div>
+      </main>
     </FormProvider>
   );
 }
@@ -349,7 +363,7 @@ function AreaAtuacao() {
   return (
     <section className="cartao">
       <h2>5. Área geográfica de atuação</h2>
-      <p style={{ fontSize: '0.85rem', color: '#57606a', marginTop: 0 }}>
+      <p className="dica">
         Selecione os municípios paranaenses atendidos. O código IBGE é preenchido
         automaticamente ao escolher um nome da lista.
       </p>
@@ -485,13 +499,13 @@ function Infraestrutura() {
           </div>
         )}
       />
-      <hr style={{ margin: '16px 0', border: 0, borderTop: '1px solid #eee' }} />
+      <hr className="separador" />
       {equipamentoLista('veiculos', 'Veículos')}
-      <hr style={{ margin: '16px 0', border: 0, borderTop: '1px solid #eee' }} />
+      <hr className="separador" />
       {equipamentoLista('eq_informatica', 'Equipamentos de Informática')}
-      <hr style={{ margin: '16px 0', border: 0, borderTop: '1px solid #eee' }} />
+      <hr className="separador" />
       {equipamentoLista('eq_rede', 'Equipamentos de Comunicação (rede)')}
-      <hr style={{ margin: '16px 0', border: 0, borderTop: '1px solid #eee' }} />
+      <hr className="separador" />
       {equipamentoLista('eq_extensionista', 'Equipamentos do extensionista')}
     </section>
   );
