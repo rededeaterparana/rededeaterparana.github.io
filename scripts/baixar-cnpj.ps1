@@ -21,7 +21,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-$token = "YggdBLfdninEJX9"   # share público "CNPJ" do repositório SERPRO+
+$token = "YggdBLfdninEJX9"   # share público "CNPJ" do repositório SERPRO+ (não é segredo) gitleaks:allow
 $davBase = "https://arquivos.receitafederal.gov.br/public.php/webdav/$Mes"
 
 # Arquivos usados pelo ETL (Socios* propositalmente fora — é PII).
@@ -39,7 +39,7 @@ foreach ($f in $Arquivos) {
   Write-Host "baixando $f ..."
   # -C - retoma; --retry re-tenta a intermitência do proxy; -f falha em HTTP>=400
   curl.exe -f -L -C - --retry 15 --retry-delay 5 --retry-all-errors --retry-connrefused `
-    -x $Proxy -A $ua -u "${token}:" -o $out $url
+    -x $Proxy -A $ua -u "${token}:" -o $out $url  # gitleaks:allow
   if ($LASTEXITCODE -ne 0) {
     Write-Warning "  falha em $f (curl exit $LASTEXITCODE) — reexecute para retomar."
     $falhas += $f

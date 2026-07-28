@@ -1,0 +1,5 @@
+# Falsos positivos conhecidos (fingerprint = commit:arquivo:regra:linha).
+# Token do share PÚBLICO "CNPJ" da Receita Federal/SERPRO (arquivos.receitafederal.gov.br)
+# usado em scripts/baixar-cnpj.ps1 — é um identificador público de download, não um segredo.
+14860a37ed57046456b1bdbec080c013b52a1083:scripts/baixar-cnpj.ps1:generic-api-key:24
+14860a37ed57046456b1bdbec080c013b52a1083:scripts/baixar-cnpj.ps1:curl-auth-user:41
