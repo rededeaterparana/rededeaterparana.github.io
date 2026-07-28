@@ -7,6 +7,7 @@ Rural (ATER) que aderirem à rede, com painel de visualização agregada.
 
 | Diretório | O que é | Onde roda |
 |---|---|---|
+| `landing/` | Landing page e página de legislação (HTML estático + `rede.css` compartilhado) | GitHub Pages |
 | `form/` | SPA pública do formulário de adesão (Vite + React + TS + Zod) | GitHub Pages |
 | `painel/` | Painel de visualização (Vite + React + TS + Recharts) | GitHub Pages |
 | `apps-script/` | Backend Google Apps Script (doPost grava em Sheets/Drive, doGet retorna agregado) | script.google.com |

@@ -21,9 +21,20 @@ export function Layout() {
     <div className="layout">
       <a className="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
 
+      <nav className="barra-rede" aria-label="Navegação da Rede de ATER">
+        <div className="barra-rede-inner">
+          <span className="barra-rede-marca">Rede Paranaense de ATER</span>
+          <div className="barra-rede-links">
+            <a href="../">Início</a>
+            <a href="../form/">Formulário de adesão</a>
+            <a href="../painel/" className="ativo" aria-current="page">Painel</a>
+            <a href="../legislacao.html">Legislação</a>
+          </div>
+        </div>
+      </nav>
+
       <header className="cabecalho">
         <div className="cabecalho-inner">
-          <a className="voltar" href="../">← Início</a>
           <div className="marca">
             <span className="marca-kicker">Rede Paranaense de Assistência Técnica e Extensão Rural</span>
             <span className="marca-titulo">Painel da Rede de ATER</span>
@@ -84,6 +95,7 @@ export function Layout() {
             <p className="rodape-titulo">Participe</p>
             <ul>
               <li><a href="../form/">Formulário de adesão</a></li>
+              <li><a href="../legislacao.html">Legislação</a></li>
               <li><a href="../">Página inicial</a></li>
             </ul>
           </div>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Rede Paranaense de ATER">
+  <meta property="og:description" content="Rede de entidades prestadoras de Assistência Técnica e Extensão Rural no Paraná — cadastro de adesão e visualização da capacidade instalada.">
+  <meta property="og:image" content="https://rededeaterparana.github.io/og-image.png">
+  <meta property="og:url" content="https://rededeaterparana.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Rede Paranaense de ATER</title>
+  <link rel="stylesheet" href="./rede.css">
+  <style>
+    main { max-width: 860px; margin: 0 auto; padding: 56px 16px 80px; }
+    h1 {
+      font-family: var(--serif); font-size: 1.8rem; margin: 0 0 6px;
+      line-height: 1.2; color: var(--terra-950);
+    }
+    p.subtitulo { margin: 0 0 40px; color: var(--tinta-suave); font-size: 1.05rem; }
+    .acessos {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 600px) { .acessos { grid-template-columns: 1fr; } }
+    a.card {
+      display: block; padding: 20px; background: var(--superficie);
+      border: 1px solid var(--borda); border-radius: 8px;
+      text-decoration: none; color: var(--tinta);
+      transition: border-color .15s, background .15s;
+    }
+    a.card:hover { background: var(--terra-50); border-color: var(--terra-700); }
+    a.card strong { display: block; margin-bottom: 4px; font-size: 1.05rem; color: var(--terra-700); }
+    a.card span { font-size: 0.9rem; color: var(--tinta-suave); }
+  </style>
+</head>
+<body>
+  <nav class="barra-rede" aria-label="Navegação da Rede de ATER">
+    <div class="barra-rede-inner">
+      <span class="barra-rede-marca">Rede Paranaense de ATER</span>
+      <div class="barra-rede-links">
+        <a href="./" class="ativo" aria-current="page">Início</a>
+        <a href="./form/">Formulário de adesão</a>
+        <a href="./painel/">Painel</a>
+        <a href="./legislacao.html">Legislação</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Rede Paranaense de Assistência Técnica e Extensão Rural</h1>
+    <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
+
+    <div class="acessos">
+      <a class="card" href="./form/">
+        <strong>Formulário de adesão →</strong>
+        <span>Para entidades que desejam integrar a rede.</span>
+      </a>
+      <a class="card" href="./painel/">
+        <strong>Painel de visualização →</strong>
+        <span>Dados agregados das entidades já cadastradas.</span>
+      </a>
+      <a class="card" href="./painel/#/diagnostico">
+        <strong>Diagnóstico estadual →</strong>
+        <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
+      </a>
+      <a class="card" href="./painel/#/empresas">
+        <strong>Empresas do meio rural →</strong>
+        <span>CNPJs ativos com atividades ligadas ao meio rural, por município e atividade.</span>
+      </a>
+      <a class="card" href="./legislacao.html">
+        <strong>Legislação e a rede →</strong>
+        <span>O que é a rede, quem pode aderir e o marco legal da ATER.</span>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

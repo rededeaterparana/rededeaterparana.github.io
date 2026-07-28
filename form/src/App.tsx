@@ -90,9 +90,19 @@ export function App() {
 
   return (
     <FormProvider {...metodos}>
+      <nav className="barra-rede" aria-label="Navegação da Rede de ATER">
+        <div className="barra-rede-inner">
+          <span className="barra-rede-marca">Rede Paranaense de ATER</span>
+          <div className="barra-rede-links">
+            <a href="../">Início</a>
+            <a href="../form/" className="ativo" aria-current="page">Formulário de adesão</a>
+            <a href="../painel/">Painel</a>
+            <a href="../legislacao.html">Legislação</a>
+          </div>
+        </div>
+      </nav>
       <header className="cabecalho">
         <div className="cabecalho-inner">
-          <a className="voltar" href="../">← Início</a>
           <div className="marca">
             <span className="marca-kicker">Rede Paranaense de Assistência Técnica e Extensão Rural</span>
             <span className="marca-titulo">Cadastro de Entidades</span>

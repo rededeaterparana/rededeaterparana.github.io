@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Rede Paranaense de ATER — base compartilhada das páginas estáticas
+   (landing e legislação). Mesma identidade visual do painel e do formulário:
+   papel quente, caqui e marrom institucionais, títulos em serifa.
+   ========================================================================== */
+
+:root {
+  /* Terras institucionais (caqui e marrom) */
+  --terra-950: #2b2114;
+  --terra-900: #382b18;
+  --terra-800: #4a3a1f;
+  --terra-700: #6b5427;
+  --terra-500: #8f7743;
+  --terra-200: #d9cfa8;
+  --terra-100: #e8e0c4;
+  --terra-50: #f2eddb;
+
+  /* Papel e tinta */
+  --papel: #f6f2e6;
+  --superficie: #fffdf6;
+  --tinta: #29241a;
+  --tinta-suave: #635b48;
+  --tinta-fraca: #948a70;
+  --borda: #e2dac2;
+  --borda-forte: #c9bd99;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+
+  --altura-barra-rede: 42px;
+
+  font-family: var(--sans);
+  color: var(--tinta);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   Barra de navegação permanente da rede (presente em todas as páginas)
+   -------------------------------------------------------------------------- */
+.barra-rede {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--terra-950);
+  border-bottom: 1px solid var(--terra-800);
+}
+.barra-rede-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 24px;
+  min-height: var(--altura-barra-rede);
+  display: flex; align-items: stretch; gap: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.barra-rede-marca {
+  align-self: center;
+  font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--terra-200);
+  white-space: nowrap;
+}
+.barra-rede-links { display: flex; gap: 2px; margin-left: auto; }
+.barra-rede-links a {
+  display: flex; align-items: center;
+  color: rgba(255, 255, 255, 0.72); text-decoration: none;
+  font-size: 0.82rem; font-weight: 600; white-space: nowrap;
+  padding: 0 12px;
+  box-shadow: inset 0 -3px 0 transparent;
+  transition: color 0.15s ease, box-shadow 0.15s ease;
+}
+.barra-rede-links a:hover { color: #fff; }
+.barra-rede-links a.ativo {
+  color: #fff;
+  box-shadow: inset 0 -3px 0 var(--terra-500);
+}
+@media (max-width: 640px) {
+  .barra-rede-inner { padding: 0 14px; gap: 10px; }
+  .barra-rede-marca { display: none; }
+  .barra-rede-links { margin-left: 0; }
+}
