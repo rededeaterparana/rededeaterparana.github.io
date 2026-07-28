@@ -194,8 +194,8 @@ jobs:
                   <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
                 </a>
                 <a class="card" href="./painel/#/empresas">
-                  <strong>Empresas de ATER →</strong>
-                  <span>Prestadores de ATER no Paraná, por município e atividade.</span>
+                  <strong>Empresas do meio rural →</strong>
+                  <span>CNPJs ativos com atividades ligadas ao meio rural, por município e atividade.</span>
                 </a>
               </div>
 
