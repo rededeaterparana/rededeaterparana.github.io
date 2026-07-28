@@ -4,6 +4,7 @@ import {
 } from 'recharts';
 import { empresas } from '../lib/empresas';
 import { inteiro, porcentagem } from '../lib/formato';
+import { PageHeader } from '../components/PageHeader';
 
 const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51', '#4d6b9a'];
 
@@ -14,12 +15,20 @@ export function Empresas() {
 
   return (
     <>
-      <p className="intro">
-        Empresas e cooperativas com CNPJ <strong>ativo no Paraná</strong> cujas atividades se ligam
-        à assistência técnica e extensão rural: apoio à produção agrícola, pecuária e florestal,
-        atividades veterinárias, crédito rural e a própria produção animal. Base: Dados Abertos do
-        CNPJ da Receita Federal, geocodificados com as camadas do banco geográfico da rede.
-      </p>
+      <PageHeader kicker="Contexto rural" titulo="Empresas do meio rural no Paraná">
+        <p>
+          Empresas e cooperativas com CNPJ <strong>ativo no Paraná</strong> cujas atividades (CNAEs)
+          se relacionam ao meio rural: apoio à produção agrícola, pecuária e florestal, atividades
+          veterinárias, crédito rural e a própria produção animal. Base: Dados Abertos do CNPJ da
+          Receita Federal, geocodificados com as camadas do banco geográfico da rede.
+        </p>
+        <p>
+          Estas empresas <strong>não são, por si só, prestadoras de ATER</strong>. As entidades de
+          ATER são as que aderem à rede pelo formulário de cadastro; elas podem estar neste
+          universo, mas o levantamento não se restringe a elas. O conjunto descreve o contexto
+          empresarial rural em que a rede atua.
+        </p>
+      </PageHeader>
 
       <div className="cards">
         <Card label="Empresas ativas" valor={inteiro(resumo.empresas)} />
@@ -114,7 +123,7 @@ export function Empresas() {
             <Bar dataKey="empresas" name="Empresas" fill="#5aa66a" />
           </BarChart>
         </ResponsiveContainer>
-        <p className="legenda">Os 25 municípios com maior número de empresas de ATER.</p>
+        <p className="legenda">Os 25 municípios com maior número de empresas com atividades ligadas ao meio rural.</p>
       </section>
 
       <p className="fonte">

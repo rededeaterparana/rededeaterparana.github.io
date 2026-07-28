@@ -1,5 +1,6 @@
 import { diagnostico } from '../lib/diagnostico';
 import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
+import { PageHeader } from '../components/PageHeader';
 
 const { meta, resumo } = diagnostico;
 
@@ -29,13 +30,15 @@ const REFERENCIAS = [
 export function Metodologia() {
   return (
     <>
-      <p className="intro">
-        O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> é um indicador composto
-        aditivo: <code>ID-ATER = Σ(fator × peso) / 10</code>, com 11 indicadores em três áreas. Cada
-        fator é um inteiro de 1 a 10 obtido por limiares absolutos sobre o valor bruto, e os pesos
-        somam 1,0. O cálculo é próprio da rede, reconstruído e validado a partir dos insumos do
-        Levantamento da Capacidade Instalada de ATER.
-      </p>
+      <PageHeader kicker="Diagnóstico estadual" titulo="Metodologia do ID-ATER">
+        <p>
+          O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> é um indicador composto
+          aditivo: <code>ID-ATER = Σ(fator × peso) / 10</code>, com 11 indicadores em três áreas. Cada
+          fator é um inteiro de 1 a 10 obtido por limiares absolutos sobre o valor bruto, e os pesos
+          somam 1,0. O cálculo é próprio da rede, reconstruído e validado a partir dos insumos do
+          Levantamento da Capacidade Instalada de ATER.
+        </p>
+      </PageHeader>
 
       <section className="painel">
         <h2>Indicadores, pesos e funções de fator</h2>

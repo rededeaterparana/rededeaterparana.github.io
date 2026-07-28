@@ -4,15 +4,27 @@ import {
 } from 'recharts';
 import { useEntidades } from '../hooks/useEntidades';
 import { porChave, serieAdesoes } from '../lib/agregacoes';
+import { PageHeader } from '../components/PageHeader';
+import { Carregando } from '../components/Carregando';
 
 const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51'];
 
 export function Visao() {
   const { dados, carregando, erro } = useEntidades();
-  if (carregando) return <p>Carregando...</p>;
-  if (erro) return <div className="erro">Falha ao carregar: {erro}</div>;
+
+  const cabecalho = (
+    <PageHeader kicker="A rede" titulo="Visão geral da rede">
+      <p>
+        Entidades que aderiram à Rede Paranaense de ATER pelo formulário público:
+        quantas são, onde estão e como as adesões evoluem ao longo do tempo.
+      </p>
+    </PageHeader>
+  );
+
+  if (carregando) return <>{cabecalho}<Carregando /></>;
+  if (erro) return <>{cabecalho}<div className="erro">Falha ao carregar: {erro}</div></>;
   if (!dados || dados.entidades.length === 0) {
-    return <div className="aviso-vazio">Nenhuma entidade cadastrada ainda.</div>;
+    return <>{cabecalho}<div className="aviso-vazio">Nenhuma entidade cadastrada ainda.</div></>;
   }
 
   const porMunicipio = porChave<string>(dados.entidades, 'municipio');
@@ -21,6 +33,7 @@ export function Visao() {
 
   return (
     <>
+      {cabecalho}
       <div className="cards">
         <Card label="Entidades cadastradas" valor={dados.total} />
         <Card label="Municípios com entidades" valor={porMunicipio.length} />

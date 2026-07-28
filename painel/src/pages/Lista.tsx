@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useEntidades } from '../hooks/useEntidades';
+import { PageHeader } from '../components/PageHeader';
+import { Carregando } from '../components/Carregando';
 
 export function Lista() {
   const { dados, carregando, erro } = useEntidades();
@@ -15,15 +17,28 @@ export function Lista() {
     );
   }, [dados, filtro]);
 
-  if (carregando) return <p>Carregando...</p>;
-  if (erro) return <div className="erro">{erro}</div>;
+  const cabecalho = (
+    <PageHeader kicker="A rede" titulo="Entidades cadastradas">
+      <p>
+        Lista completa das entidades que aderiram à rede. Use a busca para
+        filtrar por nome, município, UF ou tipo de entidade.
+      </p>
+    </PageHeader>
+  );
+
+  if (carregando) return <>{cabecalho}<Carregando /></>;
+  if (erro) return <>{cabecalho}<div className="erro">{erro}</div></>;
   if (!dados) return null;
 
   return (
+    <>
+    {cabecalho}
     <section className="painel">
       <h2>Entidades da rede ({filtradas.length})</h2>
       <input
         className="busca"
+        name="busca-entidades"
+        type="search"
         aria-label="Buscar entidades"
         placeholder="buscar por nome, município, UF..."
         value={filtro}
@@ -60,5 +75,6 @@ export function Lista() {
         </table>
       </div>
     </section>
+    </>
   );
 }

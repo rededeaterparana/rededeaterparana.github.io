@@ -5,6 +5,7 @@ import {
 import { diagnostico } from '../lib/diagnostico';
 import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
 import { TabelaMunicipios } from '../components/TabelaMunicipios';
+import { PageHeader } from '../components/PageHeader';
 
 const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51', '#4d6b9a'];
 // Escala divergente do vermelho (índice baixo) ao verde (índice alto).
@@ -23,13 +24,15 @@ export function Diagnostico() {
 
   return (
     <>
-      <p className="intro">
-        O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> resume, numa escala de
-        0,1 a 1,0, a capacidade instalada de assistência técnica em cada município, a partir de
-        11 indicadores agrupados em três áreas — Situação da ATER (40%), Abrangência (20%) e
-        Impacto da ATER (40%). Os números vêm do Levantamento da Capacidade Instalada de ATER,
-        realizado pelas Unidades Regionais do IDR-Paraná nos {inteiro(resumo.municipios)} municípios.
-      </p>
+      <PageHeader kicker="Diagnóstico estadual" titulo="Diagnóstico da ATER no Paraná">
+        <p>
+          O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> resume, numa escala de
+          0,1 a 1,0, a capacidade instalada de assistência técnica em cada município, a partir de
+          11 indicadores agrupados em três áreas — Situação da ATER (40%), Abrangência (20%) e
+          Impacto da ATER (40%). Os números vêm do Levantamento da Capacidade Instalada de ATER,
+          realizado pelas Unidades Regionais do IDR-Paraná nos {inteiro(resumo.municipios)} municípios.
+        </p>
+      </PageHeader>
 
       <div className="cards">
         <Card label="Municípios" valor={inteiro(resumo.municipios)} />

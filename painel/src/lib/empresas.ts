@@ -1,4 +1,4 @@
-// Carrega o agregado de empresas de ATER (gerado por scripts/agregar-cnpj-painel.py).
+// Carrega o agregado de empresas com CNAEs ligados ao meio rural (gerado por scripts/agregar-cnpj-painel.py).
 // Dados agregados/anonimizados — sem CNPJ, razão social ou endereço individual.
 
 import dados from '../data/empresas-ater.json';

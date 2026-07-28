@@ -67,6 +67,8 @@ export function TabelaMunicipios({ municipios }: { municipios: Municipio[] }) {
       <h2>Municípios ({linhas.length})</h2>
       <input
         className="busca"
+        name="busca-municipios"
+        type="search"
         aria-label="Buscar municípios"
         placeholder="buscar por município, regional ou mesorregião..."
         value={filtro}
