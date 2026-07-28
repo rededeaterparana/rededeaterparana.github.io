@@ -114,6 +114,10 @@ def filtrar_estabelecimentos(fonte: Path):
                 "numero": r[15].strip(),
                 "bairro": r[17].strip(),
                 "cep": r[18].strip(),
+                # contato (layout RF: 21 DDD1,22 TEL1,23 DDD2,24 TEL2,27 email)
+                "telefone1": (f"({r[21].strip()}) {r[22].strip()}".strip() if len(r) > 22 and r[22].strip() else ""),
+                "telefone2": (f"({r[23].strip()}) {r[24].strip()}".strip() if len(r) > 24 and r[24].strip() else ""),
+                "email": (r[27].strip().lower() if len(r) > 27 else ""),
             }
 
 
@@ -133,7 +137,7 @@ def main() -> int:
     colunas = ["cnpj", "razao_social", "nome_fantasia", "porte", "situacao",
                "cnae_principal", "cnae_principal_desc", "cnae_secundarias_alvo",
                "municipio_cod", "municipio", "tipo_logradouro", "logradouro", "numero",
-               "bairro", "cep", "matriz_filial", "data_inicio"]
+               "bairro", "cep", "telefone1", "telefone2", "email", "matriz_filial", "data_inicio"]
 
     # 1ª passada (streaming): grava estabelecimentos-alvo direto no CSV temporário e
     # coleta só o conjunto de CNPJs básicos + contagens em memória. Evita segurar
@@ -160,8 +164,9 @@ def main() -> int:
                 e["cnae_principal"], cnaes_desc.get(e["cnae_principal"], CNAES.get(e["cnae_principal"], "")),
                 e["cnae_secundarias_alvo"], e["municipio_cod"],
                 munic_desc.get(e["municipio_cod"], e["municipio_cod"]),
-                e["tipo_logradouro"], e["logradouro"], e["numero"], e["bairro"],
-                e["cep"], e["matriz_filial"], e["data_inicio"],
+                e["tipo_logradouro"], e["logradouro"], e["numero"], e["bairro"], e["cep"],
+                e["telefone1"], e["telefone2"], e["email"],
+                e["matriz_filial"], e["data_inicio"],
             ])
     print(f"estabelecimentos PR nos CNAEs-alvo{' (ativas)' if args.somente_ativas else ''}: {total}", file=sys.stderr)
 
@@ -186,7 +191,8 @@ def main() -> int:
             b = r[0]  # cnpj_basico
             w.writerow([
                 r[1], razao.get(b, ""), r[2], porte.get(b, ""), r[3],
-                r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15],
+                r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],
+                r[14], r[15], r[16], r[17], r[18],
             ])
     temp_csv.unlink(missing_ok=True)
 
