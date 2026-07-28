@@ -6,7 +6,7 @@ import { empresas } from '../lib/empresas';
 import { inteiro, porcentagem } from '../lib/formato';
 import { PageHeader } from '../components/PageHeader';
 
-const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51', '#4d6b9a'];
+const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
 
 const { meta, resumo, categorias, cnaes, portes, municipios, pontos } = empresas;
 
@@ -50,7 +50,7 @@ export function Empresas() {
             <Tooltip cursor={{ strokeDasharray: '3 3' }}
               formatter={(v, n) => [n === 'Empresas' ? inteiro(Number(v)) : Number(v).toFixed(3), n]}
               labelFormatter={() => ''} />
-            <Scatter data={pontos} fill="#2e6e3a" fillOpacity={0.55} />
+            <Scatter data={pontos} fill="#6b5427" fillOpacity={0.55} />
           </ScatterChart>
         </ResponsiveContainer>
         <p className="legenda">
@@ -120,7 +120,7 @@ export function Empresas() {
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="municipio" width={140} tick={{ fontSize: 11 }} />
             <Tooltip formatter={(v) => inteiro(Number(v))} />
-            <Bar dataKey="empresas" name="Empresas" fill="#5aa66a" />
+            <Bar dataKey="empresas" name="Empresas" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
         <p className="legenda">Os 25 municípios com maior número de empresas com atividades ligadas ao meio rural.</p>

@@ -1,29 +1,29 @@
 /* ==========================================================================
    Painel — Rede Paranaense de ATER
-   Direção visual: relatório estatístico editorial — papel quente, verde
-   institucional profundo, títulos em serifa, sobretítulos em versalete.
+   Direção visual: relatório estatístico editorial — papel quente, caqui e
+   marrom institucionais, títulos em serifa, sobretítulos em versalete.
    Fontes de sistema apenas (CSP: font-src 'self').
    ========================================================================== */
 
 :root {
-  /* Verdes institucionais */
-  --verde-950: #12351b;
-  --verde-900: #17421f;
-  --verde-800: #1e5228;
-  --verde-700: #2e6e3a;
-  --verde-500: #4d9160;
-  --verde-200: #bcd9c2;
-  --verde-100: #dcebdf;
-  --verde-50: #eef5ef;
+  /* Terras institucionais (caqui e marrom) */
+  --terra-950: #2b2114;
+  --terra-900: #382b18;
+  --terra-800: #4a3a1f;
+  --terra-700: #6b5427;
+  --terra-500: #8f7743;
+  --terra-200: #d9cfa8;
+  --terra-100: #e8e0c4;
+  --terra-50: #f2eddb;
 
   /* Papel e tinta */
-  --papel: #f6f4ec;
-  --superficie: #fffefa;
-  --tinta: #232920;
-  --tinta-suave: #5d6456;
-  --tinta-fraca: #8a9082;
-  --borda: #e0ddd0;
-  --borda-forte: #c9c5b2;
+  --papel: #f6f2e6;
+  --superficie: #fffdf6;
+  --tinta: #29241a;
+  --tinta-suave: #635b48;
+  --tinta-fraca: #948a70;
+  --borda: #e2dac2;
+  --borda-forte: #c9bd99;
 
   /* Apoio */
   --ambar: #8a6d00;
@@ -31,7 +31,7 @@
   --ambar-fundo: #fdf6dd;
   --erro: #a03024;
   --erro-fundo: #faeae7;
-  --foco: #1d6f42;
+  --foco: #6b5427;
 
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
@@ -66,7 +66,7 @@ body {
    -------------------------------------------------------------------------- */
 .pular-conteudo {
   position: absolute; left: -9999px; top: 0;
-  background: var(--verde-900); color: #fff;
+  background: var(--terra-900); color: #fff;
   padding: 10px 18px; z-index: 100;
   border-radius: 0 0 8px 0; text-decoration: none; font-weight: 600;
 }
@@ -77,9 +77,9 @@ body {
    -------------------------------------------------------------------------- */
 .cabecalho {
   background:
-    linear-gradient(160deg, var(--verde-950) 0%, var(--verde-800) 78%, var(--verde-700) 100%);
+    linear-gradient(160deg, var(--terra-950) 0%, var(--terra-800) 78%, var(--terra-700) 100%);
   color: #fff;
-  border-bottom: 3px solid var(--verde-500);
+  border-bottom: 3px solid var(--terra-500);
 }
 .cabecalho-inner {
   max-width: 1200px; margin: 0 auto;
@@ -90,7 +90,7 @@ body {
 .marca-kicker {
   font-size: 0.68rem; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--verde-200);
+  color: var(--terra-200);
 }
 .marca-titulo {
   font-family: var(--serif);
@@ -107,7 +107,7 @@ body {
 .voltar:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.6); }
 .acao-aderir {
   margin-left: auto; white-space: nowrap;
-  background: #fff; color: var(--verde-900);
+  background: #fff; color: var(--terra-900);
   text-decoration: none; font-weight: 700; font-size: 0.88rem;
   padding: 9px 18px; border-radius: 999px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
@@ -148,10 +148,10 @@ body {
   border-bottom: 3px solid transparent;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.nav-links a:hover { color: var(--verde-800); }
+.nav-links a:hover { color: var(--terra-800); }
 .nav-links a.ativo {
-  color: var(--verde-900);
-  border-bottom-color: var(--verde-700);
+  color: var(--terra-900);
+  border-bottom-color: var(--terra-700);
 }
 
 /* --------------------------------------------------------------------------
@@ -174,14 +174,14 @@ main { flex: 1; width: 100%; }
   margin: 0 0 6px;
   font-size: 0.7rem; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--verde-700);
+  color: var(--terra-700);
 }
 .pagina-cabecalho h1 {
   margin: 0 0 12px;
   font-family: var(--serif);
   font-size: clamp(1.7rem, 3.2vw, 2.3rem);
   line-height: 1.12; font-weight: 700;
-  color: var(--verde-950);
+  color: var(--terra-950);
 }
 .pagina-descricao { color: var(--tinta-suave); line-height: 1.6; }
 .pagina-descricao p { margin: 0 0 10px; }
@@ -200,7 +200,7 @@ main { flex: 1; width: 100%; }
 .card {
   background: var(--superficie);
   border: 1px solid var(--borda);
-  border-top: 3px solid var(--verde-700);
+  border-top: 3px solid var(--terra-700);
   border-radius: var(--raio);
   padding: 14px 16px 16px;
   box-shadow: var(--sombra-card);
@@ -213,7 +213,7 @@ main { flex: 1; width: 100%; }
 .card .valor {
   font-family: var(--serif);
   font-size: 1.9rem; font-weight: 700;
-  color: var(--verde-900); margin-top: 6px;
+  color: var(--terra-900); margin-top: 6px;
   font-variant-numeric: tabular-nums; line-height: 1.1;
 }
 
@@ -232,7 +232,7 @@ main { flex: 1; width: 100%; }
   margin: 0 0 14px;
   font-family: var(--serif);
   font-size: 1.18rem; font-weight: 700;
-  color: var(--verde-950);
+  color: var(--terra-950);
   padding-bottom: 10px;
   border-bottom: 1px solid var(--borda);
 }
@@ -277,21 +277,21 @@ th, td {
 td { font-variant-numeric: tabular-nums; }
 thead th {
   position: sticky; top: 0;
-  background: var(--verde-50);
-  color: var(--verde-950);
+  background: var(--terra-50);
+  color: var(--terra-950);
   font-size: 0.78rem; font-weight: 700;
   letter-spacing: 0.04em; text-transform: uppercase;
-  border-bottom: 2px solid var(--verde-200);
+  border-bottom: 2px solid var(--terra-200);
 }
-tbody tr:nth-child(even) { background: rgba(46, 110, 58, 0.03); }
-tbody tr:hover { background: var(--verde-50); }
+tbody tr:nth-child(even) { background: rgba(107, 84, 39, 0.03); }
+tbody tr:hover { background: var(--terra-50); }
 
 th button.ordenar {
   all: unset; box-sizing: border-box; cursor: pointer;
   font: inherit; color: inherit; white-space: nowrap;
   display: inline-flex; align-items: center;
 }
-th button.ordenar:hover { color: var(--verde-700); }
+th button.ordenar:hover { color: var(--terra-700); }
 th button.ordenar:focus-visible {
   outline: 2px solid var(--foco); outline-offset: 2px; border-radius: 2px;
 }
@@ -310,8 +310,8 @@ input.busca {
 }
 input.busca:focus {
   outline: none;
-  border-color: var(--verde-700);
-  box-shadow: 0 0 0 3px rgba(46, 110, 58, 0.15);
+  border-color: var(--terra-700);
+  box-shadow: 0 0 0 3px rgba(107, 84, 39, 0.15);
 }
 
 .aviso-vazio {
@@ -333,7 +333,7 @@ input.busca:focus {
 }
 .esqueleto-bloco {
   border-radius: var(--raio);
-  background: linear-gradient(100deg, var(--verde-50) 40%, #fff 50%, var(--verde-50) 60%);
+  background: linear-gradient(100deg, var(--terra-50) 40%, #fff 50%, var(--terra-50) 60%);
   background-size: 200% 100%;
   animation: brilho 1.4s ease-in-out infinite;
 }
@@ -361,7 +361,7 @@ input.busca:focus {
   box-shadow: var(--sombra-card);
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.pager-link:hover { border-color: var(--verde-500); transform: translateY(-2px); }
+.pager-link:hover { border-color: var(--terra-500); transform: translateY(-2px); }
 .pager-proxima { text-align: right; align-items: flex-end; }
 .pager-rotulo {
   font-size: 0.7rem; font-weight: 700;
@@ -371,16 +371,16 @@ input.busca:focus {
 .pager-titulo {
   font-family: var(--serif);
   font-size: 1.05rem; font-weight: 700;
-  color: var(--verde-900);
+  color: var(--terra-900);
 }
 
 /* --------------------------------------------------------------------------
    Rodapé
    -------------------------------------------------------------------------- */
 .rodape {
-  background: var(--verde-950); color: var(--verde-100);
+  background: var(--terra-950); color: var(--terra-100);
   margin-top: 48px;
-  border-top: 3px solid var(--verde-500);
+  border-top: 3px solid var(--terra-500);
 }
 .rodape-inner {
   max-width: 1200px; margin: 0 auto;
@@ -398,8 +398,8 @@ input.busca:focus {
 .rodape p { margin: 0; }
 .rodape ul { list-style: none; margin: 0; padding: 0; }
 .rodape li { margin-bottom: 6px; }
-.rodape a { color: var(--verde-100); text-decoration: none; border-bottom: 1px solid transparent; }
-.rodape a:hover { color: #fff; border-bottom-color: var(--verde-500); }
+.rodape a { color: var(--terra-100); text-decoration: none; border-bottom: 1px solid transparent; }
+.rodape a:hover { color: #fff; border-bottom-color: var(--terra-500); }
 
 /* --------------------------------------------------------------------------
    Foco visível e movimento reduzido

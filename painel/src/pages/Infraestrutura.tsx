@@ -35,7 +35,7 @@ export function Infraestrutura() {
           <XAxis dataKey="categoria" />
           <YAxis allowDecimals={false} />
           <Tooltip />
-          <Bar dataKey="total" fill="#5aa66a" />
+          <Bar dataKey="total" fill="#8f7743" />
         </BarChart>
       </ResponsiveContainer>
       <p className="legenda">

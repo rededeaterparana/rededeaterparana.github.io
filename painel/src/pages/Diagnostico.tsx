@@ -7,10 +7,10 @@ import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
 import { TabelaMunicipios } from '../components/TabelaMunicipios';
 import { PageHeader } from '../components/PageHeader';
 
-const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51', '#4d6b9a'];
-// Escala divergente do vermelho (índice baixo) ao verde (índice alto).
-const CORES_FAIXA = ['#e76f51', '#f4a261', '#e9c46a', '#88c596', '#2e6e3a'];
-const CORES_CONSELHO = ['#2e6e3a', '#f4a261', '#e76f51'];
+const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
+// Escala divergente do vermelho (índice baixo) ao marrom escuro (índice alto).
+const CORES_FAIXA = ['#c0563a', '#d98e4a', '#e0c56a', '#a58a4a', '#6b5427'];
+const CORES_CONSELHO = ['#6b5427', '#d98e4a', '#c0563a'];
 
 const { meta, resumo, indice: idx, governanca, entidades, profissionais, analise, municipios } = diagnostico;
 
@@ -78,7 +78,7 @@ export function Diagnostico() {
               strokeDasharray="4 4"
               label={{ value: `média ${indice(resumo.idAterMedio)}`, position: 'top', fontSize: 11 }}
             />
-            <Bar dataKey="media" name="ID-ATER médio" fill="#2e6e3a" />
+            <Bar dataKey="media" name="ID-ATER médio" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
       </section>
@@ -118,7 +118,7 @@ export function Diagnostico() {
             <XAxis type="number" domain={[0, 1]} tickFormatter={(v) => porcentagem(Number(v) * 100, 0)} />
             <YAxis type="category" dataKey="nome" width={210} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(v) => porcentagem(Number(v) * 100)} />
-            <Bar dataKey="aproveitamento" name="Aproveitamento" fill="#5aa66a" />
+            <Bar dataKey="aproveitamento" name="Aproveitamento" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
         {notaConstantes && <p className="legenda">{notaConstantes}</p>}
@@ -170,7 +170,7 @@ export function Diagnostico() {
             <XAxis type="number" allowDecimals={false} domain={[0, resumo.municipios]} />
             <YAxis type="category" dataKey="item" width={210} tick={{ fontSize: 12 }} />
             <Tooltip />
-            <Bar dataKey="sim" name="Municípios com" fill="#2e6e3a" />
+            <Bar dataKey="sim" name="Municípios com" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
         <p className="legenda">Número de municípios (de {inteiro(resumo.municipios)}) que declararam ter cada item.</p>
@@ -184,7 +184,7 @@ export function Diagnostico() {
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="formacao" width={180} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(v) => inteiro(Number(v))} />
-            <Bar dataKey="profissionais" name="Profissionais" fill="#5aa66a" />
+            <Bar dataKey="profissionais" name="Profissionais" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
       </section>
@@ -197,7 +197,7 @@ export function Diagnostico() {
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="area" width={230} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(v) => inteiro(Number(v))} />
-            <Bar dataKey="entidades" name="Entidades" fill="#88c596" />
+            <Bar dataKey="entidades" name="Entidades" fill="#b3a06b" />
           </BarChart>
         </ResponsiveContainer>
       </section>
@@ -212,7 +212,7 @@ export function Diagnostico() {
             <Tooltip formatter={(v) => decimal(Number(v), 2)} />
             <Legend />
             <Bar dataKey="situacao" name="Situação atual" fill="#f4a261" />
-            <Bar dataKey="relevancia" name="Relevância" fill="#2e6e3a" />
+            <Bar dataKey="relevancia" name="Relevância" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
         <p className="legenda">

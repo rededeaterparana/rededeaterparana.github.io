@@ -7,7 +7,7 @@ import { porChave, serieAdesoes } from '../lib/agregacoes';
 import { PageHeader } from '../components/PageHeader';
 import { Carregando } from '../components/Carregando';
 
-const CORES = ['#2e6e3a', '#5aa66a', '#88c596', '#b7e0c0', '#d9efde', '#f4a261', '#e76f51'];
+const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024'];
 
 export function Visao() {
   const { dados, carregando, erro } = useEntidades();
@@ -49,7 +49,7 @@ export function Visao() {
             <XAxis dataKey="nome" />
             <YAxis allowDecimals={false} />
             <Tooltip />
-            <Bar dataKey="valor" fill="#2e6e3a" />
+            <Bar dataKey="valor" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
       </section>
@@ -81,7 +81,7 @@ export function Visao() {
             <XAxis dataKey="mes" />
             <YAxis allowDecimals={false} />
             <Tooltip />
-            <Line type="monotone" dataKey="total" stroke="#2e6e3a" strokeWidth={2} />
+            <Line type="monotone" dataKey="total" stroke="#6b5427" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </section>
