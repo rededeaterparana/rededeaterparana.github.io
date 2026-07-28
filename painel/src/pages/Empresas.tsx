@@ -5,6 +5,7 @@ import {
 import { empresas } from '../lib/empresas';
 import { inteiro, porcentagem } from '../lib/formato';
 import { PageHeader } from '../components/PageHeader';
+import { GraficoTooltip } from '../components/GraficoTooltip';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
 
@@ -15,17 +16,21 @@ export function Empresas() {
 
   return (
     <>
-      <PageHeader kicker="Contexto rural" titulo="Empresas do meio rural no Paraná">
+      <PageHeader
+        kicker="Contexto rural"
+        titulo="Empresas do meio rural no Paraná"
+        fonte="Dados Abertos do CNPJ da Receita Federal, pesquisa própria da rede. É independente do Levantamento da Capacidade Instalada do IDR-Paraná (página Diagnóstico) e do cadastro de adesão à rede."
+      >
         <p>
           Empresas e cooperativas com CNPJ <strong>ativo no Paraná</strong> cujas atividades (CNAEs)
           se relacionam ao meio rural: apoio à produção agrícola, pecuária e florestal, atividades
-          veterinárias, crédito rural e a própria produção animal. Base: Dados Abertos do CNPJ da
-          Receita Federal, geocodificados com as camadas do banco geográfico da rede.
+          veterinárias, crédito rural e a própria produção animal, geocodificadas com as camadas do
+          banco geográfico da rede.
         </p>
         <p>
           Estas empresas <strong>não são, por si só, prestadoras de ATER</strong>. As entidades de
           ATER são as que aderem à rede pelo formulário de cadastro; elas podem estar neste
-          universo, mas o levantamento não se restringe a elas. O conjunto descreve o contexto
+          universo, mas a pesquisa não se restringe a elas. O conjunto descreve o contexto
           empresarial rural em que a rede atua.
         </p>
       </PageHeader>
@@ -47,9 +52,14 @@ export function Empresas() {
             <YAxis type="number" dataKey="lat" name="Latitude" domain={['dataMin', 'dataMax']}
               tickFormatter={(v) => Number(v).toFixed(1)} tick={{ fontSize: 11 }} />
             <ZAxis type="number" dataKey="empresas" range={[10, 600]} name="Empresas" />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }}
-              formatter={(v, n) => [n === 'Empresas' ? inteiro(Number(v)) : Number(v).toFixed(3), n]}
-              labelFormatter={() => ''} />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} content={
+              <GraficoTooltip
+                campoTitulo="municipio"
+                ocultar={['Longitude', 'Latitude']}
+                formatador={(v) => inteiro(v)}
+                descricao="Cada ponto é um município, posicionado pelo centroide; o tamanho do ponto reflete o número de empresas com CNAEs rurais ali sediadas."
+              />
+            } />
             <Scatter data={pontos} fill="#6b5427" fillOpacity={0.55} />
           </ScatterChart>
         </ResponsiveContainer>
@@ -66,7 +76,12 @@ export function Empresas() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="categoria" width={150} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => inteiro(Number(v))} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${inteiro(v)} empresas`}
+                descricao="Empresas ativas por categoria de atividade: agrupamento dos CNAEs pesquisados (apoio à produção, veterinária, crédito rural, produção animal etc.)."
+              />
+            } />
             <Bar dataKey="empresas" name="Empresas">
               {categorias.map((_, i) => <Cell key={i} fill={CORES[i % CORES.length]} />)}
             </Bar>
@@ -84,7 +99,12 @@ export function Empresas() {
                 {portes.map((_, i) => <Cell key={i} fill={CORES[i % CORES.length]} />)}
               </Pie>
               <Legend />
-              <Tooltip formatter={(v) => inteiro(Number(v))} />
+              <Tooltip content={
+                <GraficoTooltip
+                  formatador={(v) => `${inteiro(v)} empresas`}
+                  descricao="Porte declarado no CNPJ segundo a classificação da Receita Federal (ME, EPP, demais)."
+                />
+              } />
             </PieChart>
           </ResponsiveContainer>
         </section>
@@ -119,7 +139,12 @@ export function Empresas() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="municipio" width={140} tick={{ fontSize: 11 }} />
-            <Tooltip formatter={(v) => inteiro(Number(v))} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${inteiro(v)} empresas`}
+                descricao="Empresas ativas com CNAEs rurais sediadas no município, segundo os Dados Abertos do CNPJ."
+              />
+            } />
             <Bar dataKey="empresas" name="Empresas" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>

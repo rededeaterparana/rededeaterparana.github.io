@@ -6,6 +6,7 @@ import { useEntidades } from '../hooks/useEntidades';
 import { porChave, serieAdesoes } from '../lib/agregacoes';
 import { PageHeader } from '../components/PageHeader';
 import { Carregando } from '../components/Carregando';
+import { GraficoTooltip } from '../components/GraficoTooltip';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024'];
 
@@ -13,7 +14,11 @@ export function Visao() {
   const { dados, carregando, erro } = useEntidades();
 
   const cabecalho = (
-    <PageHeader kicker="A rede" titulo="Visão geral da rede">
+    <PageHeader
+      kicker="A rede"
+      titulo="Visão geral da rede"
+      fonte="cadastro de adesão à rede, preenchido pelas próprias entidades no formulário deste site. Não se confunde com o Levantamento do IDR-Paraná (página Diagnóstico) nem com a pesquisa de CNPJs (página Empresas)."
+    >
       <p>
         Entidades que aderiram à Rede Paranaense de ATER pelo formulário público:
         quantas são, onde estão e como as adesões evoluem ao longo do tempo.
@@ -48,8 +53,13 @@ export function Visao() {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="nome" />
             <YAxis allowDecimals={false} />
-            <Tooltip />
-            <Bar dataKey="valor" fill="#6b5427" />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${v} entidade${v === 1 ? '' : 's'}`}
+                descricao="Entidades cadastradas na rede com sede neste município, segundo o formulário de adesão."
+              />
+            } />
+            <Bar dataKey="valor" name="Entidades" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
       </section>
@@ -68,7 +78,12 @@ export function Visao() {
               {porTipo.map((_, i) => <Cell key={i} fill={CORES[i % CORES.length]} />)}
             </Pie>
             <Legend />
-            <Tooltip />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${v} entidade${v === 1 ? '' : 's'}`}
+                descricao="Distribuição das entidades cadastradas por tipo declarado na adesão (cooperativa, associação, empresa privada etc.)."
+              />
+            } />
           </PieChart>
         </ResponsiveContainer>
       </section>
@@ -80,8 +95,13 @@ export function Visao() {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="mes" />
             <YAxis allowDecimals={false} />
-            <Tooltip />
-            <Line type="monotone" dataKey="total" stroke="#6b5427" strokeWidth={2} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${v} adesão${v === 1 ? '' : 'ões'}`}
+                descricao="Número de entidades que enviaram o cadastro de adesão em cada mês."
+              />
+            } />
+            <Line type="monotone" dataKey="total" name="Adesões no mês" stroke="#6b5427" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </section>

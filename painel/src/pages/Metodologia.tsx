@@ -30,7 +30,11 @@ const REFERENCIAS = [
 export function Metodologia() {
   return (
     <>
-      <PageHeader kicker="Diagnóstico estadual" titulo="Metodologia do ID-ATER">
+      <PageHeader
+        kicker="Diagnóstico estadual"
+        titulo="Metodologia do ID-ATER"
+        fonte="mesmos insumos do Levantamento da Capacidade Instalada de ATER, questionário do IDR-Paraná aplicado pelos escritórios regionais. O ID-ATER é recalculado e validado pela rede a partir desses insumos."
+      >
         <p>
           O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> é um indicador composto
           aditivo: <code>ID-ATER = Σ(fator × peso) / 10</code>, com 11 indicadores em três áreas. Cada

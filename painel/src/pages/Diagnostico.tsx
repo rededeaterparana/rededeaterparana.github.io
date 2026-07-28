@@ -1,20 +1,44 @@
+import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
   PieChart, Pie, Cell, Legend, ReferenceLine,
 } from 'recharts';
 import { diagnostico } from '../lib/diagnostico';
+import type { Municipio } from '../lib/diagnostico';
 import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
-import { TabelaMunicipios } from '../components/TabelaMunicipios';
+import { TabelaMunicipios, FiltroMunicipios } from '../components/TabelaMunicipios';
 import { PageHeader } from '../components/PageHeader';
+import { GraficoTooltip } from '../components/GraficoTooltip';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
 // Escala divergente do vermelho (índice baixo) ao marrom escuro (índice alto).
 const CORES_FAIXA = ['#c0563a', '#d98e4a', '#e0c56a', '#a58a4a', '#6b5427'];
 const CORES_CONSELHO = ['#6b5427', '#d98e4a', '#c0563a'];
 
+// Intervalos semiabertos [min, max) de cada faixa — validados contra as
+// contagens publicadas no agregado (6, 63, 159, 137, 34).
+const FAIXA_INTERVALO: Record<string, [number, number]> = {
+  'Até 0,40': [-Infinity, 0.4],
+  '0,40 a 0,50': [0.4, 0.5],
+  '0,50 a 0,60': [0.5, 0.6],
+  '0,60 a 0,70': [0.6, 0.7],
+  'Acima de 0,70': [0.7, Infinity],
+};
+
 const { meta, resumo, indice: idx, governanca, entidades, profissionais, analise, municipios } = diagnostico;
 
+/** Extrai um campo string do payload de clique do Recharts. */
+function campoDoClique(dados: unknown, campo: string): string | null {
+  if (!dados || typeof dados !== 'object') return null;
+  const d = dados as Record<string, unknown> & { payload?: Record<string, unknown> };
+  const v = d[campo] ?? d.payload?.[campo];
+  return typeof v === 'string' ? v : null;
+}
+
 export function Diagnostico() {
+  const [faixaSel, setFaixaSel] = useState<string | null>(null);
+  const [regionalSel, setRegionalSel] = useState<string | null>(null);
+
   const indicadores = [...idx.indicadores].sort((a, b) => b.aproveitamento - a.aproveitamento);
   const estrutura = [...governanca.estrutura].sort((a, b) => b.sim - a.sim);
   const constantes = meta.indicadoresConstantes;
@@ -22,15 +46,66 @@ export function Diagnostico() {
     ? `${constantes.length} indicadores são constantes em todos os municípios (${porcentagem(meta.pesoConstante * 100, 0)} do peso): ${constantes.map((c) => c.nome).join(', ')}. Como não variam, o índice diferencia os municípios pelos demais indicadores.`
     : '';
 
+  function irParaTabela() {
+    document.getElementById('municipios')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function alternarFaixa(dados: unknown) {
+    const faixa = campoDoClique(dados, 'faixa');
+    if (!faixa || !FAIXA_INTERVALO[faixa]) return;
+    const ativar = faixaSel !== faixa;
+    setFaixaSel(ativar ? faixa : null);
+    if (ativar) irParaTabela();
+  }
+
+  function alternarRegional(dados: unknown) {
+    const regional = campoDoClique(dados, 'regional');
+    if (!regional) return;
+    const ativar = regionalSel !== regional;
+    setRegionalSel(ativar ? regional : null);
+    if (ativar) irParaTabela();
+  }
+
+  const filtros: FiltroMunicipios[] = [
+    ...(faixaSel ? [{
+      chave: 'faixa',
+      rotulo: `Faixa de ID-ATER: ${faixaSel}`,
+      predicado: (m: Municipio) => {
+        const [min, max] = FAIXA_INTERVALO[faixaSel];
+        return m.idAter >= min && m.idAter < max;
+      },
+    }] : []),
+    ...(regionalSel ? [{
+      chave: 'regional',
+      rotulo: `Regional: ${regionalSel}`,
+      predicado: (m: Municipio) => m.regional === regionalSel,
+    }] : []),
+  ];
+
+  function removerFiltro(chave: string) {
+    if (chave === 'faixa') setFaixaSel(null);
+    if (chave === 'regional') setRegionalSel(null);
+  }
+
   return (
     <>
-      <PageHeader kicker="Diagnóstico estadual" titulo="Diagnóstico da ATER no Paraná">
+      <PageHeader
+        kicker="Diagnóstico estadual"
+        titulo="Diagnóstico da ATER no Paraná"
+        fonte={
+          <>
+            Levantamento da Capacidade Instalada de ATER, questionário elaborado pelo
+            IDR-Paraná e aplicado por seus escritórios regionais nos {inteiro(resumo.municipios)}{' '}
+            municípios, refeito a cada quatro anos. É uma pesquisa distinta do cadastro de
+            adesão à rede (páginas "A rede") e da pesquisa de CNPJs (página Empresas).
+          </>
+        }
+      >
         <p>
           O <strong>Índice de Desenvolvimento da ATER (ID-ATER)</strong> resume, numa escala de
           0,1 a 1,0, a capacidade instalada de assistência técnica em cada município, a partir de
           11 indicadores agrupados em três áreas — Situação da ATER (40%), Abrangência (20%) e
-          Impacto da ATER (40%). Os números vêm do Levantamento da Capacidade Instalada de ATER,
-          realizado pelas Unidades Regionais do IDR-Paraná nos {inteiro(resumo.municipios)} municípios.
+          Impacto da ATER (40%).
         </p>
       </PageHeader>
 
@@ -50,17 +125,29 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="faixa" />
             <YAxis allowDecimals={false} />
-            <Tooltip />
-            <Bar dataKey="municipios" name="Municípios">
-              {idx.faixas.map((_, i) => (
-                <Cell key={i} fill={CORES_FAIXA[i % CORES_FAIXA.length]} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => inteiro(v)}
+                descricao="Número de municípios cujo ID-ATER cai nesta faixa. O índice resume 11 indicadores de capacidade de ATER numa escala de 0,1 a 1,0."
+                acao="Clique na barra para filtrar a tabela de municípios."
+              />
+            } />
+            <Bar dataKey="municipios" name="Municípios" onClick={alternarFaixa} cursor="pointer">
+              {idx.faixas.map((f, i) => (
+                <Cell
+                  key={i}
+                  fill={CORES_FAIXA[i % CORES_FAIXA.length]}
+                  fillOpacity={faixaSel && f.faixa !== faixaSel ? 0.35 : 1}
+                  stroke={faixaSel === f.faixa ? '#29241a' : undefined}
+                />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
         <p className="legenda">
           ID-ATER de {indice(resumo.idAterMinimo)} a {indice(resumo.idAterMaximo)};
-          mediana de {indice(resumo.idAterMediana)}.
+          mediana de {indice(resumo.idAterMediana)}. Clique numa barra para ver os
+          municípios da faixa na tabela ao final da página.
         </p>
       </section>
 
@@ -71,16 +158,32 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" domain={[0, 1]} tickFormatter={(v) => decimal(Number(v), 1)} />
             <YAxis type="category" dataKey="regional" width={140} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => indice(Number(v))} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => indice(v)}
+                descricao="Média simples do ID-ATER dos municípios atendidos pelo escritório regional do IDR-Paraná. A linha tracejada marca a média estadual."
+                acao="Clique na barra para filtrar a tabela de municípios."
+              />
+            } />
             <ReferenceLine
               x={resumo.idAterMedio}
-              stroke="#57606a"
+              stroke="#635b48"
               strokeDasharray="4 4"
               label={{ value: `média ${indice(resumo.idAterMedio)}`, position: 'top', fontSize: 11 }}
             />
-            <Bar dataKey="media" name="ID-ATER médio" fill="#6b5427" />
+            <Bar dataKey="media" name="ID-ATER médio" fill="#6b5427" onClick={alternarRegional} cursor="pointer">
+              {idx.porRegional.map((r, i) => (
+                <Cell
+                  key={i}
+                  fill="#6b5427"
+                  fillOpacity={regionalSel && r.regional !== regionalSel ? 0.35 : 1}
+                  stroke={regionalSel === r.regional ? '#29241a' : undefined}
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
+        <p className="legenda">Clique numa barra para ver os municípios da regional na tabela ao final da página.</p>
       </section>
 
       <section className="painel">
@@ -117,7 +220,12 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" domain={[0, 1]} tickFormatter={(v) => porcentagem(Number(v) * 100, 0)} />
             <YAxis type="category" dataKey="nome" width={210} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => porcentagem(Number(v) * 100)} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => porcentagem(v * 100)}
+                descricao="Fração do valor máximo possível (fator 10) que a média estadual atinge no indicador. Aproveitamento baixo mostra onde a capacidade de ATER está mais distante do teto."
+              />
+            } />
             <Bar dataKey="aproveitamento" name="Aproveitamento" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
@@ -141,7 +249,12 @@ export function Diagnostico() {
                 ))}
               </Pie>
               <Legend />
-              <Tooltip />
+              <Tooltip content={
+                <GraficoTooltip
+                  formatador={(v) => `${inteiro(v)} municípios`}
+                  descricao="Situação do Conselho Municipal de Desenvolvimento Rural Sustentável (CMDRS) declarada no levantamento do IDR-Paraná."
+                />
+              } />
             </PieChart>
           </ResponsiveContainer>
         </section>
@@ -156,7 +269,12 @@ export function Diagnostico() {
                 ))}
               </Pie>
               <Legend />
-              <Tooltip />
+              <Tooltip content={
+                <GraficoTooltip
+                  formatador={(v) => `${inteiro(v)} entidades`}
+                  descricao="Entidades prestadoras de ATER identificadas pelo levantamento nos municípios, agrupadas pela natureza da instituição."
+                />
+              } />
             </PieChart>
           </ResponsiveContainer>
         </section>
@@ -169,7 +287,12 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} domain={[0, resumo.municipios]} />
             <YAxis type="category" dataKey="item" width={210} tick={{ fontSize: 12 }} />
-            <Tooltip />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${inteiro(v)} de ${inteiro(resumo.municipios)} municípios`}
+                descricao="Municípios que declararam possuir o item de estrutura de governança rural (conselho, plano, fundo etc.) no levantamento."
+              />
+            } />
             <Bar dataKey="sim" name="Municípios com" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
@@ -183,7 +306,12 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="formacao" width={180} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => inteiro(Number(v))} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${inteiro(v)} profissionais`}
+                descricao="Profissionais que prestam ATER nos municípios, por formação declarada no levantamento. Um profissional pode atender mais de um município."
+              />
+            } />
             <Bar dataKey="profissionais" name="Profissionais" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
@@ -196,7 +324,12 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="area" width={230} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => inteiro(Number(v))} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${inteiro(v)} entidades`}
+                descricao="Número de entidades do levantamento que declararam atuar na área temática. Cada entidade pode atuar em várias áreas."
+              />
+            } />
             <Bar dataKey="entidades" name="Entidades" fill="#b3a06b" />
           </BarChart>
         </ResponsiveContainer>
@@ -209,9 +342,14 @@ export function Diagnostico() {
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" domain={[0, 3]} tickCount={4} />
             <YAxis type="category" dataKey="tema" width={200} tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(v) => decimal(Number(v), 2)} />
+            <Tooltip content={
+              <GraficoTooltip
+                formatador={(v) => `${decimal(v, 2)} de 3,00`}
+                descricao="Nota média atribuída pelos conselhos municipais: situação atual do tema versus relevância percebida. A lacuna entre as duas barras aponta onde a ATER é mais demandada do que atendida."
+              />
+            } />
             <Legend />
-            <Bar dataKey="situacao" name="Situação atual" fill="#f4a261" />
+            <Bar dataKey="situacao" name="Situação atual" fill="#d98e4a" />
             <Bar dataKey="relevancia" name="Relevância" fill="#6b5427" />
           </BarChart>
         </ResponsiveContainer>
@@ -221,7 +359,7 @@ export function Diagnostico() {
         </p>
       </section>
 
-      <TabelaMunicipios municipios={municipios} />
+      <TabelaMunicipios municipios={municipios} filtros={filtros} aoRemoverFiltro={removerFiltro} />
 
       <section className="painel">
         <h2>Metodologia</h2>

@@ -3,12 +3,17 @@ import { useEntidades } from '../hooks/useEntidades';
 import { somaInfra } from '../lib/agregacoes';
 import { PageHeader } from '../components/PageHeader';
 import { Carregando } from '../components/Carregando';
+import { GraficoTooltip } from '../components/GraficoTooltip';
 
 export function Infraestrutura() {
   const { dados, carregando, erro } = useEntidades();
 
   const cabecalho = (
-    <PageHeader kicker="A rede" titulo="Infraestrutura da rede">
+    <PageHeader
+      kicker="A rede"
+      titulo="Infraestrutura da rede"
+      fonte="cadastro de adesão à rede, preenchido pelas próprias entidades no formulário deste site."
+    >
       <p>
         Capacidade instalada declarada pelas entidades no ato de adesão:
         veículos, imóveis e equipamentos disponíveis para o serviço de ATER.
@@ -34,8 +39,13 @@ export function Infraestrutura() {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="categoria" />
           <YAxis allowDecimals={false} />
-          <Tooltip />
-          <Bar dataKey="total" fill="#8f7743" />
+          <Tooltip content={
+            <GraficoTooltip
+              formatador={(v) => `${v} ite${v === 1 ? 'm' : 'ns'}`}
+              descricao="Soma dos itens declarados por todas as entidades no cadastro de adesão: veículos, imóveis e equipamentos de informática, rede e uso do extensionista."
+            />
+          } />
+          <Bar dataKey="total" name="Itens declarados" fill="#8f7743" />
         </BarChart>
       </ResponsiveContainer>
       <p className="legenda">

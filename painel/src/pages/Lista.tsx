@@ -18,7 +18,11 @@ export function Lista() {
   }, [dados, filtro]);
 
   const cabecalho = (
-    <PageHeader kicker="A rede" titulo="Entidades cadastradas">
+    <PageHeader
+      kicker="A rede"
+      titulo="Entidades cadastradas"
+      fonte="cadastro de adesão à rede, preenchido pelas próprias entidades no formulário deste site."
+    >
       <p>
         Lista completa das entidades que aderiram à rede. Use a busca para
         filtrar por nome, município, UF ou tipo de entidade.

@@ -187,6 +187,18 @@ main { flex: 1; width: 100%; }
 .pagina-descricao p { margin: 0 0 10px; }
 .pagina-descricao p:last-child { margin-bottom: 0; }
 
+.pagina-origem {
+  margin: 14px 0 0;
+  padding: 8px 12px;
+  max-width: 82ch;
+  font-size: 0.85rem; line-height: 1.55;
+  color: var(--tinta-suave);
+  background: var(--terra-50);
+  border-left: 3px solid var(--terra-500);
+  border-radius: 0 8px 8px 0;
+}
+.pagina-origem strong { color: var(--terra-900); }
+
 .intro { color: var(--tinta-suave); margin: 0 0 20px; max-width: 80ch; line-height: 1.6; }
 
 /* --------------------------------------------------------------------------
@@ -312,6 +324,66 @@ input.busca:focus {
   outline: none;
   border-color: var(--terra-700);
   box-shadow: 0 0 0 3px rgba(107, 84, 39, 0.15);
+}
+
+/* Tooltip rico dos gráficos */
+.grafico-tooltip {
+  background: var(--superficie);
+  border: 1px solid var(--borda-forte);
+  border-radius: 8px;
+  padding: 10px 12px;
+  max-width: 280px;
+  box-shadow: 0 6px 20px rgba(41, 36, 26, 0.16);
+  font-size: 0.85rem;
+}
+.grafico-tooltip p { margin: 0; }
+.grafico-tooltip-titulo {
+  font-family: var(--serif);
+  font-weight: 700; font-size: 0.95rem;
+  color: var(--terra-950);
+  margin-bottom: 4px !important;
+}
+.grafico-tooltip-valor { display: flex; align-items: center; gap: 6px; }
+.grafico-tooltip-valor strong { font-variant-numeric: tabular-nums; }
+.grafico-tooltip-cor {
+  display: inline-block; width: 9px; height: 9px;
+  border-radius: 2px; flex-shrink: 0;
+}
+.grafico-tooltip-descricao {
+  margin-top: 8px !important;
+  padding-top: 8px;
+  border-top: 1px solid var(--borda);
+  color: var(--tinta-suave);
+  font-size: 0.78rem; line-height: 1.45;
+}
+.grafico-tooltip-acao {
+  margin-top: 6px !important;
+  color: var(--terra-700);
+  font-size: 0.78rem; font-weight: 600;
+}
+
+/* Chips de filtro aplicados por clique nos gráficos */
+.filtro-chips {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 8px; margin-bottom: 12px;
+}
+.filtro-chips-rotulo {
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+.filtro-chip {
+  background: var(--terra-100);
+  color: var(--terra-900);
+  border: 1px solid var(--terra-500);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.82rem; font-weight: 600;
+  box-shadow: none;
+}
+.filtro-chip:hover:not(:disabled) {
+  background: var(--terra-200);
+  transform: none; box-shadow: none;
 }
 
 .aviso-vazio {
