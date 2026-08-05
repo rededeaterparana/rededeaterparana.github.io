@@ -31,8 +31,20 @@
       transition: border-color .15s, background .15s;
     }
     a.card:hover { background: var(--terra-50); border-color: var(--terra-700); }
-    a.card.destaque { border-color: var(--terra-500); background: var(--terra-50); }
-    a.card.destaque:hover { border-color: var(--terra-700); background: var(--terra-100); }
+
+    /* Chamada temporária: enquanto a escolha da identidade estiver aberta.
+       Ao encerrar, remover o card, o selo e este bloco de estilo. */
+    a.card.destaque {
+      background: var(--terra-900); border-color: var(--terra-900); color: var(--terra-50);
+    }
+    a.card.destaque:hover { background: var(--terra-950); border-color: var(--terra-950); }
+    a.card.destaque strong { color: #fff; }
+    a.card.destaque span { color: var(--terra-200); }
+    a.card.destaque .selo {
+      display: inline-block; margin-bottom: 8px; padding: 3px 9px; border-radius: 999px;
+      background: var(--terra-500); color: var(--terra-950);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    }
     a.card strong { display: block; margin-bottom: 4px; font-size: 1.05rem; color: var(--terra-700); }
     a.card span { font-size: 0.9rem; color: var(--tinta-suave); }
   </style>
@@ -56,6 +68,11 @@
     <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
 
     <div class="acessos">
+      <a class="card destaque" href="./enquete.html">
+        <span class="selo">Aberta para votação</span>
+        <strong>Enquete: identidade&nbsp;visual&nbsp;→</strong>
+        <span>Sete propostas de logomarca, cada uma aplicada no site. Escolha a sua.</span>
+      </a>
       <a class="card" href="./form/">
         <strong>Formulário de adesão →</strong>
         <span>Para entidades que desejam integrar a rede.</span>
@@ -75,10 +92,6 @@
       <a class="card" href="./legislacao.html">
         <strong>Legislação e a rede →</strong>
         <span>O que é a rede, quem pode aderir e o marco legal da ATER.</span>
-      </a>
-      <a class="card destaque" href="./enquete.html">
-        <strong>Enquete: identidade visual →</strong>
-        <span>Sete propostas de logomarca aplicadas no site. Escolha a sua — um voto por pessoa.</span>
       </a>
     </div>
   </main>
