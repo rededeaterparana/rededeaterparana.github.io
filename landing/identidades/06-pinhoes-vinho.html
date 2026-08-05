@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Rede Paranaense de ATER — identidade Pinhões vinho &amp; azul</title>
+<style>
+  /* Identidade 06 — "Pinhões" versão vinho & azul (LOCAMARCA - PINHÕES.pdf).
+     Selo circular com pinhões gravados, assinatura verde e filete azul.
+     Mesma estrutura da página publicada: barra da rede + main (h1, subtítulo, acessos). */
+  :root{
+    --vinho:#4A1508; --vinho-2:#6B2A16; --verde:#008232; --verde-esc:#00631F;
+    --azul:#0014B4; --azul-2:#2A3ED4;
+    --papel:#FAF7F2; --superficie:#FFFFFF; --papel-2:#F1EBE2;
+    --borda:#DED4C6; --borda-forte:#C0B2A0;
+    --tinta:#241812; --tinta-suave:#5F5147;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    --altura-barra-rede:144px;
+    font-family:var(--sans);color:var(--tinta);font-size:16px;line-height:1.58;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+
+  .barra-rede{position:sticky;top:0;z-index:60;background:var(--superficie);
+        border-bottom:1px solid var(--borda);box-shadow:0 3px 0 -1px var(--azul)}
+  .barra-rede-inner{max-width:1200px;margin:0 auto;padding:0 24px;min-height:var(--altura-barra-rede);
+        display:flex;align-items:center;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .barra-rede-marca img{height:114px;width:auto}
+  .barra-rede-links{display:flex;gap:2px;margin-left:auto}
+  .barra-rede-links a{display:flex;align-items:center;color:var(--verde-esc);text-decoration:none;
+        font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;
+        padding:8px 14px;border-bottom:3px solid transparent;transition:color .15s,border-color .15s}
+  .barra-rede-links a:hover{color:var(--vinho);border-color:var(--borda-forte)}
+  .barra-rede-links a.ativo{color:var(--vinho);border-color:var(--azul)}
+
+  main{max-width:900px;margin:0 auto;padding:58px 16px 90px}
+  h1{font-family:var(--serif);font-size:2.05rem;font-weight:600;margin:0 0 6px;line-height:1.2;
+     color:var(--vinho);max-width:18em}
+  .regua{display:flex;align-items:center;gap:0;margin:22px 0 0;max-width:280px}
+  .regua i{flex:1;height:3px;background:var(--azul)}
+  .regua b{width:9px;height:9px;border-radius:50%;background:var(--verde);display:block;margin-left:-1px}
+  p.subtitulo{margin:18px 0 12px;color:var(--tinta-suave);font-size:1.06rem;max-width:38em}
+  p.lema{margin:0 0 42px;font-size:.76rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+     color:var(--azul)}
+
+  .acessos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  @media (max-width:600px){.acessos{grid-template-columns:1fr}}
+  a.card{display:block;padding:22px;background:var(--superficie);border:1px solid var(--borda);
+     border-radius:6px;text-decoration:none;color:var(--tinta);position:relative;
+     transition:border-color .15s,box-shadow .15s,transform .15s}
+  a.card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--verde);
+     opacity:0;transition:opacity .15s}
+  a.card:nth-child(even)::after{background:var(--azul)}
+  a.card:hover{border-color:var(--borda-forte);transform:translateY(-3px);
+     box-shadow:0 12px 26px rgba(74,21,8,.12)}
+  a.card:hover::after{opacity:1}
+  a.card strong{display:block;margin-bottom:5px;font-size:1.03rem;color:var(--verde-esc)}
+  a.card span{font-size:.9rem;color:var(--tinta-suave)}
+
+  /* ─── faixa de avaliação (não faz parte da identidade) ─────────────── */
+  body{padding-bottom:76px}
+  .faixa-avaliacao{position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:#2b2114;color:#e8e0c4;border-top:1px solid #4a3a1f;
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  .faixa-avaliacao-inner{max-width:1200px;margin:0 auto;padding:12px 24px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .faixa-avaliacao .qual{font-size:.82rem;letter-spacing:.02em}
+  .faixa-avaliacao .qual b{color:#fff;display:block;font-size:.95rem;letter-spacing:0}
+  .faixa-avaliacao .acoes{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+  .faixa-avaliacao a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font-size:.86rem;font-weight:700;padding:10px 18px;border-radius:6px;transition:.15s}
+  .faixa-avaliacao a.voltar{color:#e8e0c4;border:1px solid #6b5427}
+  .faixa-avaliacao a.voltar:hover{background:#4a3a1f;color:#fff}
+  .faixa-avaliacao a.votar{background:#e8e0c4;color:#2b2114}
+  .faixa-avaliacao a.votar:hover{background:#fff}
+  @media (max-width:620px){
+    body{padding-bottom:120px}
+    .faixa-avaliacao .acoes{margin-left:0;width:100%}
+    .faixa-avaliacao a{flex:1;justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+
+<nav class="barra-rede" aria-label="Navegação da Rede de ATER">
+  <div class="barra-rede-inner">
+    <span class="barra-rede-marca">
+      <img src="./marcas/pinhoes-vinho-cor.png" alt="Rede Paranaense de ATER — Assistência Técnica e Extensão Rural">
+    </span>
+    <div class="barra-rede-links">
+      <a href="../" class="ativo" aria-current="page">Início</a>
+      <a href="../form/">Formulário de adesão</a>
+      <a href="../painel/">Painel</a>
+      <a href="../legislacao.html">Legislação</a>
+      <a href="../enquete.html">Enquete</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <h1>Rede Paranaense de Assistência Técnica e Extensão Rural</h1>
+  <div class="regua"><i></i><b></b></div>
+  <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
+  <p class="lema">Integração e sustentabilidade</p>
+
+  <div class="acessos">
+    <a class="card" href="../form/">
+      <strong>Formulário de adesão →</strong>
+      <span>Para entidades que desejam integrar a rede.</span>
+    </a>
+    <a class="card" href="../painel/">
+      <strong>Painel de visualização →</strong>
+      <span>Dados agregados das entidades já cadastradas.</span>
+    </a>
+    <a class="card" href="../painel/#/diagnostico">
+      <strong>Diagnóstico estadual →</strong>
+      <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
+    </a>
+    <a class="card" href="../painel/#/empresas">
+      <strong>Empresas do meio rural →</strong>
+      <span>CNPJs ativos com atividades ligadas ao meio rural, por município e atividade.</span>
+    </a>
+    <a class="card" href="../legislacao.html">
+      <strong>Legislação e a rede →</strong>
+      <span>O que é a rede, quem pode aderir e o marco legal da ATER.</span>
+    </a>
+  </div>
+</main>
+
+
+<div class="faixa-avaliacao">
+  <div class="faixa-avaliacao-inner">
+    <span class="qual">Proposta 6 de 7 <b>Pinhões — vinho & azul</b></span>
+    <div class="acoes">
+      <a class="voltar" href="../enquete.html">&larr; Voltar para a enquete</a>
+      <a class="votar" href="../enquete.html?escolha=06-pinhoes-vinho#votar">Votar nesta proposta &rarr;</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

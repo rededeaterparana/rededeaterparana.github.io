@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Rede Paranaense de ATER — identidade Institucional</title>
+<style>
+  /* Identidade 02 — "Institucional" (assinatura ATER + nome em extenso, verde e marrom chapados)
+     Mesma estrutura da página publicada: barra da rede + main (h1, subtítulo, acessos). */
+  :root{
+    --verde:#185424; --verde-claro:#307824; --verde-fundo:#EDF3EC;
+    --marrom:#782400; --marrom-2:#8F3405;
+    --papel:#F4F5F3; --superficie:#FFFFFF; --borda:#D4D9D2; --borda-forte:#B3BCB1;
+    --tinta:#1B1F1C; --tinta-suave:#5A625A;
+    --sans:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    --altura-barra-rede:94px;
+    font-family:var(--sans);color:var(--tinta);font-size:16px;line-height:1.55;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+
+  .barra-rede{position:sticky;top:0;z-index:60;background:var(--superficie);
+        border-bottom:3px solid var(--verde)}
+  .barra-rede-inner{max-width:1200px;margin:0 auto;padding:0 24px;min-height:var(--altura-barra-rede);
+        display:flex;align-items:stretch;gap:16px;overflow-x:auto;scrollbar-width:none}
+  .barra-rede-marca{align-self:center}
+  .barra-rede-marca img{height:64px;width:auto}
+  .barra-rede-links{display:flex;gap:0;margin-left:auto}
+  .barra-rede-links a{display:flex;align-items:center;color:var(--tinta-suave);text-decoration:none;
+        font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+        padding:0 16px;border-left:1px solid var(--borda);transition:color .15s,background .15s}
+  .barra-rede-links a:last-child{border-right:1px solid var(--borda)}
+  .barra-rede-links a:hover{color:var(--verde);background:var(--verde-fundo)}
+  .barra-rede-links a.ativo{color:#fff;background:var(--verde);border-color:var(--verde)}
+
+  main{max-width:900px;margin:0 auto;padding:56px 16px 90px}
+  .fio{width:60px;height:5px;background:var(--marrom);margin-bottom:20px}
+  h1{font-size:1.9rem;font-weight:700;margin:0 0 6px;line-height:1.2;color:var(--verde);
+     letter-spacing:-.01em;max-width:19em}
+  p.subtitulo{margin:14px 0 40px;color:var(--tinta-suave);font-size:1.05rem;max-width:40em}
+
+  .acessos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  @media (max-width:600px){.acessos{grid-template-columns:1fr}}
+  a.card{display:block;padding:22px;background:var(--superficie);text-decoration:none;color:var(--tinta);
+     border:1px solid var(--borda);border-left:4px solid var(--borda);transition:background .15s,border-color .15s}
+  a.card:hover{background:var(--verde-fundo);border-left-color:var(--marrom)}
+  a.card strong{display:block;margin-bottom:4px;font-size:1.02rem;color:var(--verde)}
+  a.card span{font-size:.9rem;color:var(--tinta-suave)}
+
+  /* ─── faixa de avaliação (não faz parte da identidade) ─────────────── */
+  body{padding-bottom:76px}
+  .faixa-avaliacao{position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:#2b2114;color:#e8e0c4;border-top:1px solid #4a3a1f;
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  .faixa-avaliacao-inner{max-width:1200px;margin:0 auto;padding:12px 24px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .faixa-avaliacao .qual{font-size:.82rem;letter-spacing:.02em}
+  .faixa-avaliacao .qual b{color:#fff;display:block;font-size:.95rem;letter-spacing:0}
+  .faixa-avaliacao .acoes{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+  .faixa-avaliacao a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font-size:.86rem;font-weight:700;padding:10px 18px;border-radius:6px;transition:.15s}
+  .faixa-avaliacao a.voltar{color:#e8e0c4;border:1px solid #6b5427}
+  .faixa-avaliacao a.voltar:hover{background:#4a3a1f;color:#fff}
+  .faixa-avaliacao a.votar{background:#e8e0c4;color:#2b2114}
+  .faixa-avaliacao a.votar:hover{background:#fff}
+  @media (max-width:620px){
+    body{padding-bottom:120px}
+    .faixa-avaliacao .acoes{margin-left:0;width:100%}
+    .faixa-avaliacao a{flex:1;justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+
+<nav class="barra-rede" aria-label="Navegação da Rede de ATER">
+  <div class="barra-rede-inner">
+    <span class="barra-rede-marca"><img src="./marcas/ater-inst-cor.png" alt="Rede Paranaense de ATER"></span>
+    <div class="barra-rede-links">
+      <a href="../" class="ativo" aria-current="page">Início</a>
+      <a href="../form/">Formulário de adesão</a>
+      <a href="../painel/">Painel</a>
+      <a href="../legislacao.html">Legislação</a>
+      <a href="../enquete.html">Enquete</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="fio"></div>
+  <h1>Rede Paranaense de Assistência Técnica e Extensão Rural</h1>
+  <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
+
+  <div class="acessos">
+    <a class="card" href="../form/">
+      <strong>Formulário de adesão →</strong>
+      <span>Para entidades que desejam integrar a rede.</span>
+    </a>
+    <a class="card" href="../painel/">
+      <strong>Painel de visualização →</strong>
+      <span>Dados agregados das entidades já cadastradas.</span>
+    </a>
+    <a class="card" href="../painel/#/diagnostico">
+      <strong>Diagnóstico estadual →</strong>
+      <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
+    </a>
+    <a class="card" href="../painel/#/empresas">
+      <strong>Empresas do meio rural →</strong>
+      <span>CNPJs ativos com atividades ligadas ao meio rural, por município e atividade.</span>
+    </a>
+    <a class="card" href="../legislacao.html">
+      <strong>Legislação e a rede →</strong>
+      <span>O que é a rede, quem pode aderir e o marco legal da ATER.</span>
+    </a>
+  </div>
+</main>
+
+
+<div class="faixa-avaliacao">
+  <div class="faixa-avaliacao-inner">
+    <span class="qual">Proposta 2 de 7 <b>Institucional</b></span>
+    <div class="acoes">
+      <a class="voltar" href="../enquete.html">&larr; Voltar para a enquete</a>
+      <a class="votar" href="../enquete.html?escolha=02-institucional#votar">Votar nesta proposta &rarr;</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

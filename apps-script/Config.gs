@@ -30,5 +30,6 @@ var LIMITS = {
   RATE_PER_IP_HOURLY: 5,                  // 5 envios por IP por hora
   RECAPTCHA_MIN_SCORE: 0.5,
   ALLOWED_MIME: ['application/pdf', 'image/jpeg', 'image/png'],
-  CACHE_GET_SECONDS: 300
+  CACHE_GET_SECONDS: 300,
+  CACHE_ENQUETE_SECONDS: 60          // apuração da enquete muda mais rápido
 };
