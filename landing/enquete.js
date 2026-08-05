@@ -151,10 +151,19 @@
 
     var titulo = document.createElement('h2');
     titulo.style.fontSize = '1.1rem';
-    titulo.style.marginBottom = '14px';
+    titulo.style.marginBottom = '4px';
     titulo.textContent = 'Apuração parcial — ' + apuracao.total +
       (apuracao.total === 1 ? ' voto' : ' votos');
     caixaResultado.appendChild(titulo);
+
+    // a contagem exibida é bruta; o resultado final pondera por entidade
+    var nota = document.createElement('p');
+    nota.style.margin = '0 0 16px';
+    nota.style.fontSize = '.86rem';
+    nota.style.color = 'var(--tinta-fraca)';
+    nota.textContent = 'Contagem por pessoa. Na decisão final os votos são ponderados ' +
+      'para que cada entidade pese uma vez, então esta ordem pode mudar.';
+    caixaResultado.appendChild(nota);
 
     linhas.forEach(function (l) {
       var pct = Math.round((l.votos / apuracao.total) * 100);
@@ -212,7 +221,7 @@
     var consentimento = document.getElementById('consentimento');
     var honeypot = document.getElementById('website_url');
 
-    [nome, email].forEach(function (c) { c.removeAttribute('aria-invalid'); });
+    [nome, email, entidade].forEach(function (c) { c.removeAttribute('aria-invalid'); });
 
     var identidade = selecionada();
     if (!identidade) {
@@ -232,9 +241,15 @@
       mostrarErro('Informe um e-mail válido.');
       return;
     }
+    if (entidade.value.trim().length < 2) {
+      entidade.setAttribute('aria-invalid', 'true');
+      entidade.focus();
+      mostrarErro('Informe a entidade que você representa — a apuração final pondera um voto por entidade.');
+      return;
+    }
     if (!consentimento.checked) {
       consentimento.focus();
-      mostrarErro('É preciso autorizar o uso do nome e do e-mail para registrar o voto.');
+      mostrarErro('É preciso autorizar o uso do nome, do e-mail e da entidade para registrar o voto.');
       return;
     }
     if (!API_URL) {

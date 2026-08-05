@@ -76,9 +76,9 @@ avisa que o registro não está ativo. O workflow emite um `::warning::` nesse c
 Do lado do Apps Script não há configuração nova: `Enquete.gs` reaproveita
 `SHEET_ID`, `RECAPTCHA_SECRET`, `ALLOWED_ORIGIN` e `IP_HASH_SALT`. Na primeira
 gravação a aba `enquete_votos` é criada sozinha, com as colunas
-`criado_em, identidade, nome, email, email_norm, entidade, origin, ip_hash`.
+`criado_em, identidade, nome, email, email_norm, entidade, entidade_norm, origin, ip_hash`.
 
-Regras de contagem, para quem for apurar:
+### Regras de contagem
 
 - **Um voto por e-mail.** A unicidade é checada dentro do `LockService`, contra a
   coluna `email_norm` — não confie no rate limit por cache, ele é só a primeira barreira.
@@ -87,6 +87,30 @@ Regras de contagem, para quem for apurar:
 - Voto repetido devolve `409` e a página trata como "você já votou" — o primeiro voto prevalece.
 - A apuração pública (`?action=enquete_resultado`) devolve **só a contagem por proposta**.
   Nome, e-mail e entidade nunca saem da planilha.
+
+### Apuração ponderada — um voto por entidade
+
+O campo **entidade é obrigatório**: a decisão final pesa cada entidade uma vez,
+independentemente de quantas pessoas dela votaram.
+
+Rode a função `apurarPorEntidade()` pelo editor do Apps Script (*Executar* →
+selecione a função → veja o *Registro de execução*). Ela:
+
+1. agrupa os votos por `entidade_norm`;
+2. em cada entidade, aplica **maioria simples**;
+3. soma um voto por entidade decidida;
+4. lista à parte as entidades com **empate interno** — que não pontuam e ficam
+   para decisão humana.
+
+Ela **não** é exposta pelo `doGet`, e isso é deliberado: publicar o voto
+consolidado por entidade permitiria inferir como cada organização votou, coisa
+que a contagem simples não revela.
+
+> **Antes de bater o martelo:** `entidade_norm` só resolve diferenças de
+> digitação — caixa, acentos, pontuação e espaços. Ele agrupa "IDR-Paraná",
+> "IDR Parana" e "idr paraná", mas **não** agrupa "IDR-PR" com "Instituto de
+> Desenvolvimento Rural". Passe os olhos na coluna `entidade` e junte as
+> variações do mesmo nome antes de considerar o resultado final.
 
 Para encerrar a enquete, remova o link da barra em `landing/*.html` e o card do
 `index.html`; para congelar a apuração, basta parar de divulgar a URL — os votos
@@ -106,7 +130,10 @@ continuam válidos na planilha.
 - [ ] Votar com um e-mail de teste → confirmação + apuração parcial.
 - [ ] Votar de novo com o mesmo e-mail (outro navegador) → mensagem de "já votou", sem nova linha na planilha.
 - [ ] Votar com `fulano+teste@dominio` depois de `fulano@dominio` → também barrado (normalização do `+tag`).
-- [ ] Abrir `<VITE_API_URL>?action=enquete_resultado` → só contagens, sem nome nem e-mail.
+- [ ] Tentar votar sem preencher a entidade → bloqueado no formulário e no servidor.
+- [ ] Votar duas vezes pela mesma entidade escrita diferente ("IDR-Paraná" e "IDR Parana", e-mails distintos)
+      → rodar `apurarPorEntidade()`: as duas linhas contam como **uma** entidade.
+- [ ] Abrir `<VITE_API_URL>?action=enquete_resultado` → só contagens, sem nome, e-mail nem entidade.
 
 ## Rotação / troca de conta dona
 

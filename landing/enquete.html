@@ -193,8 +193,11 @@
       <strong>Como funciona</strong>
       <ul>
         <li>Abra cada proposta em <em>Ver aplicada no site</em> — o conteúdo é o mesmo, só muda a identidade.</li>
-        <li>Volte, marque a sua escolha e informe nome e e-mail.</li>
+        <li>Volte, marque a sua escolha e informe nome, e-mail e a entidade que você representa.</li>
         <li><strong>Um voto por e-mail.</strong> Nome e e-mail servem apenas para validar o voto e evitar duplicidade.</li>
+        <li><strong>Um voto por entidade na apuração final.</strong> Se várias pessoas da mesma entidade
+          votarem, os votos são ponderados para que cada entidade pese igual — por isso o campo da
+          entidade é obrigatório.</li>
         <li>Os dados não são divulgados: a apuração é publicada só com o total por proposta, conforme a LGPD
           (<strong>Lei nº 13.709/2018</strong>).</li>
       </ul>
@@ -329,7 +332,8 @@
 
       <section class="votar" id="votar">
         <h2>Registrar o voto</h2>
-        <p class="ajuda">Um voto por pessoa. O e-mail não aparece na apuração.</p>
+        <p class="ajuda">Um voto por pessoa e, na apuração final, um voto por entidade.
+          Nem o e-mail nem o nome aparecem no resultado.</p>
 
         <div class="caixa-form">
           <p class="escolhido" id="escolhido" data-vazio="true">Nenhuma proposta marcada ainda.</p>
@@ -347,8 +351,12 @@
           </div>
 
           <div class="campo" style="margin-top:16px">
-            <label for="entidade">Entidade ou município <span style="font-weight:400;color:var(--tinta-fraca)">(opcional)</span></label>
-            <input type="text" id="entidade" name="entidade" maxlength="120">
+            <label for="entidade">Entidade que você representa</label>
+            <input type="text" id="entidade" name="entidade" autocomplete="organization"
+                   maxlength="120" required
+                   placeholder="Ex.: IDR-Paraná, Prefeitura de Guarapuava, Sindicato Rural de Toledo">
+            <span class="dica">Escreva o nome por extenso, do mesmo jeito que os colegas da sua
+              entidade escreveriam — a apuração final considera <strong>um voto por entidade</strong>.</span>
           </div>
 
           <div class="hp" aria-hidden="true">
@@ -358,8 +366,8 @@
 
           <label class="consentimento">
             <input type="checkbox" id="consentimento" required>
-            <span>Autorizo o uso do meu nome e e-mail exclusivamente para registrar e validar este voto,
-              conforme a LGPD (Lei nº 13.709/2018).</span>
+            <span>Autorizo o uso do meu nome, e-mail e entidade exclusivamente para registrar e validar
+              este voto e para ponderar o resultado por entidade, conforme a LGPD (Lei nº 13.709/2018).</span>
           </label>
 
           <div class="acoes-form">

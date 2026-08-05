@@ -22,6 +22,7 @@ var ENQUETE_IDENTIDADES = [
 var ENQUETE_LIMITES = {
   MAX_NOME: 120,
   MAX_ENTIDADE: 120,
+  MIN_ENTIDADE: 2,
   RATE_POR_EMAIL_SEGUNDOS: 60
 };
 
@@ -40,6 +41,26 @@ function normalizarEmail(email) {
   var mais = local.indexOf('+');
   if (mais > 0) local = local.substring(0, mais);
   return local + '@' + dominio;
+}
+
+/**
+ * Normaliza o nome da entidade para agrupar os votos na apuração ponderada.
+ *
+ * Resolve só as diferenças de digitação: caixa, acentos, pontuação e espaços.
+ * NÃO resolve sinônimos — "IDR-PR", "IDR Paraná" e "Instituto de Desenvolvimento
+ * Rural" viram chaves distintas. Por isso o agrupamento final é uma conferência
+ * humana sobre a coluna `entidade` original; `entidade_norm` só reduz o trabalho.
+ */
+function normalizarEntidade(texto) {
+  var s = String(texto || '').trim().toLowerCase();
+  // Remove acentos. As marcas do NFD são montadas por código para o fonte
+  // ficar ASCII puro, e precisam sair ANTES do filtro abaixo — senão "São"
+  // viraria "sa o" em vez de "sao".
+  var COMBINANTES = new RegExp('[' + String.fromCharCode(0x300) + '-' +
+                               String.fromCharCode(0x36f) + ']', 'g');
+  try { s = s.normalize('NFD').replace(COMBINANTES, ''); } catch (e) { /* runtime antigo */ }
+  s = s.replace(/[^a-z0-9]+/g, ' ');   // pontuação e hífens viram separador
+  return s.trim().replace(/\s+/g, ' ');
 }
 
 function registrarVotoIdentidade(corpo) {
@@ -63,7 +84,7 @@ function registrarVotoIdentidade(corpo) {
   }
 
   // 4. Campos
-  var faltando = exigirCampos(corpo, ['identidade', 'nome', 'email', 'consentimento_lgpd']);
+  var faltando = exigirCampos(corpo, ['identidade', 'nome', 'email', 'entidade', 'consentimento_lgpd']);
   if (faltando.length) {
     return resposta(400, { erro: 'campos obrigatórios faltando', campos: faltando });
   }
@@ -80,7 +101,12 @@ function registrarVotoIdentidade(corpo) {
   if (nome.length < 3) {
     return resposta(400, { erro: 'nome muito curto' });
   }
-  var entidade = String(corpo.entidade || '').trim().substring(0, ENQUETE_LIMITES.MAX_ENTIDADE);
+  var entidade = String(corpo.entidade).trim().substring(0, ENQUETE_LIMITES.MAX_ENTIDADE);
+  var entidadeNorm = normalizarEntidade(entidade);
+  // valida a forma normalizada: um campo só com pontuação não identifica ninguém
+  if (entidadeNorm.length < ENQUETE_LIMITES.MIN_ENTIDADE) {
+    return resposta(400, { erro: 'informe a entidade que você representa' });
+  }
   var emailNorm = normalizarEmail(corpo.email);
 
   // 5. Rate limit por e-mail (barreira barata contra reenvio em rajada)
@@ -107,6 +133,7 @@ function registrarVotoIdentidade(corpo) {
       email: String(corpo.email).trim(),
       email_norm: emailNorm,
       entidade: entidade,
+      entidade_norm: entidadeNorm,
       origin: corpo.origin || '',
       ip_hash: ipHash
     }));
@@ -130,6 +157,99 @@ function jaVotou(ss, emailNorm) {
     if (String(valores[i][0]).trim().toLowerCase() === emailNorm) return true;
   }
   return false;
+}
+
+/**
+ * Apuração ponderada: um voto por entidade. Função ADMINISTRATIVA — rode pelo
+ * editor do Apps Script, não é exposta pelo doGet.
+ *
+ * Fica de fora da rota pública de propósito: divulgar o voto consolidado por
+ * entidade permitiria inferir como cada organização votou, o que a contagem
+ * simples do `enquete_resultado` não revela.
+ *
+ * Dentro de cada entidade vale a maioria simples. Empate interno não é
+ * desempatado por código — a entidade entra em `empates` para decisão humana,
+ * e não pontua em `por_identidade`.
+ *
+ * Escreve o resultado no log de execução e devolve o objeto.
+ */
+function apurarPorEntidade() {
+  var ss = abrirPlanilha();
+  var aba = abaPorNome(ss, 'enquete_votos');
+  var ultima = aba.getLastRow();
+  if (ultima < 2) {
+    console.log('Nenhum voto registrado.');
+    return { por_identidade: {}, entidades: 0, empates: [] };
+  }
+
+  var cols = SCHEMA.enquete_votos;
+  var dados = aba.getRange(2, 1, ultima - 1, cols.length).getValues();
+  var colId = cols.indexOf('identidade');
+  var colEntNorm = cols.indexOf('entidade_norm');
+  var colEnt = cols.indexOf('entidade');
+
+  // entidade -> { rotulo, contagem por identidade }
+  var porEntidade = {};
+  for (var i = 0; i < dados.length; i++) {
+    var chave = String(dados[i][colEntNorm] || '').trim();
+    // votos gravados antes desta coluna existir caem no rótulo original
+    if (!chave) chave = normalizarEntidade(dados[i][colEnt]);
+    if (!chave) continue;
+    if (!porEntidade[chave]) {
+      porEntidade[chave] = { rotulo: String(dados[i][colEnt] || chave), votos: {} };
+    }
+    var ident = String(dados[i][colId] || '').trim();
+    if (ENQUETE_IDENTIDADES.indexOf(ident) < 0) continue;
+    porEntidade[chave].votos[ident] = (porEntidade[chave].votos[ident] || 0) + 1;
+  }
+
+  var porIdentidade = {};
+  for (var k = 0; k < ENQUETE_IDENTIDADES.length; k++) porIdentidade[ENQUETE_IDENTIDADES[k]] = 0;
+
+  var empates = [];
+  var detalhe = [];
+  var chaves = Object.keys(porEntidade);
+  for (var j = 0; j < chaves.length; j++) {
+    var ent = porEntidade[chaves[j]];
+    var melhor = [];
+    var maxVotos = 0;
+    for (var ident2 in ent.votos) {
+      if (ent.votos[ident2] > maxVotos) { maxVotos = ent.votos[ident2]; melhor = [ident2]; }
+      else if (ent.votos[ident2] === maxVotos) { melhor.push(ident2); }
+    }
+    if (melhor.length === 1) {
+      porIdentidade[melhor[0]]++;
+      detalhe.push({ entidade: ent.rotulo, escolha: melhor[0], votos_internos: ent.votos });
+    } else {
+      empates.push({ entidade: ent.rotulo, empatadas: melhor, votos_internos: ent.votos });
+    }
+  }
+
+  var resultado = {
+    por_identidade: porIdentidade,
+    entidades: chaves.length,
+    entidades_decididas: chaves.length - empates.length,
+    empates: empates,
+    detalhe: detalhe
+  };
+
+  console.log('Apuração ponderada — 1 voto por entidade');
+  console.log('Entidades: ' + resultado.entidades +
+              ' (decididas: ' + resultado.entidades_decididas +
+              ', empatadas: ' + empates.length + ')');
+  for (var m = 0; m < ENQUETE_IDENTIDADES.length; m++) {
+    var id3 = ENQUETE_IDENTIDADES[m];
+    console.log('  ' + id3 + ': ' + porIdentidade[id3]);
+  }
+  if (empates.length) {
+    console.log('Empates internos (decidir manualmente):');
+    for (var n = 0; n < empates.length; n++) {
+      console.log('  ' + empates[n].entidade + ' -> ' + empates[n].empatadas.join(', '));
+    }
+  }
+  console.log('ATENÇÃO: `entidade_norm` só normaliza digitação. Confira a coluna ' +
+              '`entidade` para juntar variações do mesmo nome (ex.: "IDR-PR" e "IDR Paraná").');
+  return resultado;
 }
 
 /**
