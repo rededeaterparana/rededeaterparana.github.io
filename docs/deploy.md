@@ -29,6 +29,7 @@ Na conta institucional:
 1. Em https://script.google.com → Novo projeto.
 2. Cole o conteúdo de `apps-script/Code.gs`, `Sheets.gs`, `Drive.gs`,
    `Validacao.gs`, `Config.gs`, `Enquete.gs` em arquivos com os mesmos nomes.
+   *(A partir do segundo deploy, prefira o `clasp` — veja 4b.)*
 3. Substitua `appsscript.json` pelo do repo (menu *Configurações do projeto* →
    "Mostrar arquivo de manifesto appsscript.json no editor").
 4. *Configurações do projeto → Propriedades do script* — adicione:
@@ -43,6 +44,43 @@ Na conta institucional:
    - Quem pode acessar: **Qualquer pessoa**.
    - Anote a **URL** (`/exec`).
 6. *Acionadores → Adicionar acionador* → função `backupSemanal`, semanalmente.
+
+## 4b. Atualizar o Apps Script pelo `clasp`
+
+Depois do projeto criado, o caminho de menor atrito para publicar alterações é o
+[`clasp`](https://github.com/google/clasp), em vez de copiar e colar arquivo por arquivo.
+
+```bash
+npm install -g @google/clasp     # uma vez por máquina
+
+# 1. Autentique-se na CONTA INSTITUCIONAL dona do projeto (passo 1).
+#    Se você já estiver logado em outra conta, deslogue antes:
+clasp logout
+clasp login
+
+# 2. Confirme que a conta enxerga o projeto certo:
+clasp list                       # deve aparecer o projeto da Rede ATER
+
+# 3. Aponte o repositório para ele (só na primeira vez):
+cd apps-script
+cp .clasp.example.json .clasp.json
+#    substitua o scriptId — pegue em Configurações do projeto → ID do script,
+#    ou na URL: script.google.com/d/<SCRIPT_ID>/edit
+#    .clasp.json é gitignored, não vai para o repositório.
+
+# 4. Envie e publique:
+clasp push                       # sobe os .gs e o appsscript.json
+clasp deploy -d "enquete da identidade visual"
+```
+
+> **`clasp push` sobrescreve os arquivos do projeto remoto.** Antes de rodar,
+> confira com `clasp list` que você está na conta certa: enviar para o projeto
+> errado apaga o código dele. Na dúvida, `clasp push --watch` não ajuda —
+> use `clasp status` para ver o que seria enviado.
+
+Um `clasp push` **não** troca a versão publicada sozinho: o Web App continua
+servindo a última implantação até você rodar `clasp deploy` (ou publicar pelo
+editor). Isso é útil — dá para subir o código e testar antes de virar a chave.
 
 ## 5. GitHub
 
