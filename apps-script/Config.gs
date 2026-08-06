@@ -33,3 +33,25 @@ var LIMITS = {
   CACHE_GET_SECONDS: 300,
   CACHE_ENQUETE_SECONDS: 60          // apuração da enquete muda mais rápido
 };
+
+/**
+ * Diagnóstico das Script Properties e dos acessos. Rode pelo editor
+ * (Executar → testarConfig) e leia o Registro de execução.
+ */
+function testarConfig() {
+  var chaves = ['SHEET_ID', 'DRIVE_FOLDER_ID', 'BACKUP_FOLDER_ID',
+                'RECAPTCHA_SECRET', 'ALLOWED_ORIGIN', 'IP_HASH_SALT'];
+  chaves.forEach(function (k) {
+    var v = PropertiesService.getScriptProperties().getProperty(k);
+    Logger.log(k + ' = ' + (v ? '(' + v.length + ' chars) ✓' : 'AUSENTE ✗'));
+  });
+  // Testa acesso à planilha e à pasta
+  try {
+    var ss = SpreadsheetApp.openById(cfg('SHEET_ID'));
+    Logger.log('Planilha: ' + ss.getName() + ' ✓');
+  } catch (e) { Logger.log('Planilha ERRO: ' + e.message); }
+  try {
+    var pasta = DriveApp.getFolderById(cfg('DRIVE_FOLDER_ID'));
+    Logger.log('Pasta cadastros: ' + pasta.getName() + ' ✓');
+  } catch (e) { Logger.log('Pasta cadastros ERRO: ' + e.message); }
+}
