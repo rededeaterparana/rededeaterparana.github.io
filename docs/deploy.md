@@ -70,8 +70,21 @@ cp .clasp.example.json .clasp.json
 
 # 4. Envie e publique:
 clasp push                       # sobe os .gs e o appsscript.json
-clasp deploy -d "enquete da identidade visual"
+
+# 5. Atualize a implantação QUE O SITE USA — não crie uma nova.
+#    `clasp deployments` lista duas: a @HEAD e a versionada. A versionada é a
+#    que está no VITE_API_URL; criar outra geraria uma URL nova e o site
+#    continuaria na versão antiga.
+clasp deployments                # veja qual ID bate com o VITE_API_URL
+clasp deploy -i <DEPLOYMENT_ID> -d "descrição da mudança"
 ```
+
+Se o `clasp push` falhar com **"User has not enabled the Apps Script API"**,
+ative o interruptor em https://script.google.com/home/usersettings — logado na
+conta dona do projeto. Atenção: essa página abre na conta ativa do navegador,
+que pode não ser a mesma do `clasp`; use `?authuser=<email>` para garantir.
+O `clasp` imprime "Pushed N files" mesmo quando o push falha, então confirme
+com `clasp pull` num diretório separado.
 
 > **`clasp push` sobrescreve os arquivos do projeto remoto.** Antes de rodar,
 > confira com `clasp list` que você está na conta certa: enviar para o projeto
