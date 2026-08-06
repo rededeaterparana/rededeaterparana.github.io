@@ -211,8 +211,13 @@
 
   // ─── envio ────────────────────────────────────────────────────────────
 
-  form.addEventListener('submit', function (ev) {
-    ev.preventDefault();
+  // O botão é type="button" (inerte sem JS), então o clique precisa de listener
+  // próprio; o submit do formulário cobre o Enter nos campos de texto.
+  btn.addEventListener('click', enviar);
+  form.addEventListener('submit', enviar);
+
+  function enviar(ev) {
+    if (ev) ev.preventDefault();
     limparAvisos();
 
     var nome = document.getElementById('nome');
@@ -310,7 +315,7 @@
       btn.disabled = false;
       btn.textContent = rotuloOriginal;
     });
-  });
+  }
 
   // ─── inicialização ────────────────────────────────────────────────────
 

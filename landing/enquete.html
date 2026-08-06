@@ -371,7 +371,11 @@
           </label>
 
           <div class="acoes-form">
-            <button type="submit" class="enviar" id="btn-votar">Registrar meu voto</button>
+            <!-- type="button", não "submit": se o JS não carregar, o botão fica
+                 inerte em vez de disparar o submit GET padrão, que jogaria nome
+                 e e-mail na query string. O Enter nos campos continua valendo
+                 pelo listener de submit do formulário. -->
+            <button type="button" class="enviar" id="btn-votar">Registrar meu voto</button>
             <a class="voltar-form" href="./">&larr; Voltar para o início</a>
           </div>
 
