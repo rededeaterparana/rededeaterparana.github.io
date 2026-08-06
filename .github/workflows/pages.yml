@@ -97,3 +97,9 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # O padrão de 10 min vinha estourando com o deployment ainda em
+          # `deployment_in_progress` — o Pages aceita e processa, só devagar.
+          # Ao expirar, a action CANCELA o deployment, então o site nunca
+          # atualiza. 25 min dá margem sem deixar o job pendurado à toa.
+          timeout: 1500000
