@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Rede Paranaense de ATER — identidade Território Vivo</title>
+<style>
+  /* Identidade 03 — "Território Vivo / Micélio" (conceito 02 do manual)
+     Mesma estrutura da página publicada: barra da rede + main (h1, subtítulo, acessos). */
+  :root{
+    --verde-prof:#053819; --oliva:#486723; --mostarda-v:#7E8A1C; --terra:#8A5B16;
+    --teal:#036268; --azul:#003D6C;
+    --papel:#F7F6F1; --superficie:#FFFDF9; --borda:#DCD9CD; --borda-forte:#C2BCA8;
+    --tinta:#1C2620; --tinta-suave:#5D665F;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    --altura-barra-rede:128px;
+    font-family:var(--sans);color:var(--tinta);font-size:16px;line-height:1.6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+
+  .barra-rede{position:sticky;top:0;z-index:60;background:rgba(247,246,241,.94);
+        backdrop-filter:blur(10px);border-bottom:1px solid var(--borda)}
+  .barra-rede-inner{max-width:1200px;margin:0 auto;padding:0 24px;min-height:var(--altura-barra-rede);
+        display:flex;align-items:center;gap:16px;overflow-x:auto;scrollbar-width:none}
+  .barra-rede-marca img{height:98px;width:auto}
+  .barra-rede-links{display:flex;gap:6px;margin-left:auto}
+  .barra-rede-links a{position:relative;display:flex;align-items:center;color:var(--verde-prof);
+        text-decoration:none;font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+        white-space:nowrap;padding:8px 12px}
+  .barra-rede-links a::after{content:"";position:absolute;left:12px;right:100%;bottom:2px;height:1.5px;
+        background:var(--teal);transition:right .25s}
+  .barra-rede-links a:hover::after{right:12px}
+  .barra-rede-links a.ativo::after{right:12px;background:var(--terra)}
+
+  /* faixa do padrão gráfico do micélio, logo abaixo da barra */
+  .faixa-padrao{height:96px;background-size:cover;background-position:center;
+        border-bottom:1px solid var(--borda)}
+
+  main{max-width:900px;margin:0 auto;padding:56px 16px 90px}
+  h1{font-family:var(--serif);font-size:2rem;font-weight:600;margin:0 0 6px;line-height:1.22;
+     color:var(--verde-prof);max-width:18em}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--oliva),var(--terra) 52%,var(--azul));
+     -webkit-background-clip:text;background-clip:text;color:transparent}
+  .fio-no{display:flex;align-items:center;margin:22px 0 0}
+  .fio-no i{display:block;height:1px;width:110px;background:var(--verde-prof);opacity:.55}
+  .fio-no b{width:8px;height:8px;border-radius:50%;background:var(--teal);display:block}
+  p.subtitulo{margin:18px 0 42px;color:var(--tinta-suave);font-size:1.06rem;max-width:38em}
+
+  .acessos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  @media (max-width:600px){.acessos{grid-template-columns:1fr}}
+  a.card{display:block;padding:24px 22px;background:var(--superficie);text-decoration:none;
+     color:var(--tinta);position:relative;border:1px solid var(--borda);transition:background .2s,border-color .2s}
+  a.card::before{content:"";position:absolute;left:22px;top:0;width:7px;height:7px;border-radius:50%;
+     background:var(--mostarda-v);transform:translateY(-50%)}
+  a.card:nth-child(2)::before{background:var(--oliva)}
+  a.card:nth-child(3)::before{background:var(--terra)}
+  a.card:nth-child(4)::before{background:var(--teal)}
+  a.card:nth-child(5)::before{background:var(--azul)}
+  a.card:hover{background:#fff}
+  a.card strong{display:block;margin-bottom:5px;font-size:1.04rem;color:var(--verde-prof)}
+  a.card span{font-size:.9rem;color:var(--tinta-suave)}
+
+  /* ─── faixa de avaliação (não faz parte da identidade) ─────────────── */
+  body{padding-bottom:76px}
+  .faixa-avaliacao{position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:#2b2114;color:#e8e0c4;border-top:1px solid #4a3a1f;
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  .faixa-avaliacao-inner{max-width:1200px;margin:0 auto;padding:12px 24px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .faixa-avaliacao .qual{font-size:.82rem;letter-spacing:.02em}
+  .faixa-avaliacao .qual b{color:#fff;display:block;font-size:.95rem;letter-spacing:0}
+  .faixa-avaliacao .acoes{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+  .faixa-avaliacao a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font-size:.86rem;font-weight:700;padding:10px 18px;border-radius:6px;transition:.15s}
+  .faixa-avaliacao a.voltar{color:#e8e0c4;border:1px solid #6b5427}
+  .faixa-avaliacao a.voltar:hover{background:#4a3a1f;color:#fff}
+  .faixa-avaliacao a.votar{background:#e8e0c4;color:#2b2114}
+  .faixa-avaliacao a.votar:hover{background:#fff}
+  @media (max-width:620px){
+    body{padding-bottom:120px}
+    .faixa-avaliacao .acoes{margin-left:0;width:100%}
+    .faixa-avaliacao a{flex:1;justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+
+<nav class="barra-rede" aria-label="Navegação da Rede de ATER">
+  <div class="barra-rede-inner">
+    <span class="barra-rede-marca">
+      <img src="./marcas/micelio-lockup.png" alt="Rede Paranaense de ATER — Assistência Técnica e Extensão Rural">
+    </span>
+    <div class="barra-rede-links">
+      <a href="../" class="ativo" aria-current="page">Início</a>
+      <a href="../form/">Formulário de adesão</a>
+      <a href="../painel/">Painel</a>
+      <a href="../legislacao.html">Legislação</a>
+      <a href="../enquete.html">Enquete</a>
+    </div>
+  </div>
+</nav>
+
+<div class="faixa-padrao" style="background-image:url('./marcas/micelio-padrao.jpg')" role="presentation"></div>
+
+<main>
+  <h1>Rede Paranaense de Assistência Técnica e <em>Extensão Rural</em></h1>
+  <div class="fio-no"><i></i><b></b></div>
+  <p class="subtitulo">Articulação das entidades prestadoras de ATER que atuam no estado do Paraná.</p>
+
+  <div class="acessos">
+    <a class="card" href="../form/">
+      <strong>Formulário de adesão →</strong>
+      <span>Para entidades que desejam integrar a rede.</span>
+    </a>
+    <a class="card" href="../painel/">
+      <strong>Painel de visualização →</strong>
+      <span>Dados agregados das entidades já cadastradas.</span>
+    </a>
+    <a class="card" href="../painel/#/diagnostico">
+      <strong>Diagnóstico estadual →</strong>
+      <span>ID-ATER e capacidade instalada nos 399 municípios.</span>
+    </a>
+    <a class="card" href="../painel/#/empresas">
+      <strong>Empresas do meio rural →</strong>
+      <span>CNPJs ativos com atividades ligadas ao meio rural, por município e atividade.</span>
+    </a>
+    <a class="card" href="../legislacao.html">
+      <strong>Legislação e a rede →</strong>
+      <span>O que é a rede, quem pode aderir e o marco legal da ATER.</span>
+    </a>
+  </div>
+</main>
+
+
+<div class="faixa-avaliacao">
+  <div class="faixa-avaliacao-inner">
+    <span class="qual">Proposta 3 de 7 <b>Território Vivo / Micélio</b></span>
+    <div class="acoes">
+      <a class="voltar" href="../enquete.html">&larr; Voltar para a enquete</a>
+      <a class="votar" href="../enquete.html?escolha=03-territorio-vivo#votar">Votar nesta proposta &rarr;</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

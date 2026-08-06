@@ -54,14 +54,36 @@ jobs:
         run: npm run build
 
       # ─── Monta site estático combinado ─────────────────────────────
-      # A landing page e a página de legislação vivem em landing/ no repositório.
+      # As páginas estáticas (landing, legislação, enquete e as propostas de
+      # identidade) vivem em landing/ no repositório.
       - name: Montar diretório do Pages
         run: |
           mkdir -p site/form site/painel
           cp -r form/dist/* site/form/
           cp -r painel/dist/* site/painel/
           cp .github/og-image.png site/og-image.png
-          cp landing/*.html landing/*.css site/
+          cp landing/*.html landing/*.css landing/*.js site/
+          cp -r landing/identidades site/identidades
+
+      # A enquete é HTML estático (sem bundler), então os valores públicos
+      # entram por substituição de placeholder em vez de import.meta.env.
+      - name: Injetar configuração pública na enquete
+        env:
+          API_URL: ${{ secrets.VITE_API_URL }}
+          RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
+        run: |
+          if [ -z "$API_URL" ] || [ -z "$RECAPTCHA_SITE_KEY" ]; then
+            echo "::warning::VITE_API_URL ou VITE_RECAPTCHA_SITE_KEY ausente — a enquete sobe em modo somente visualização."
+          fi
+          python3 - <<'PY'
+          import os, pathlib
+          alvo = pathlib.Path('site/enquete.html')
+          html = alvo.read_text(encoding='utf-8')
+          html = html.replace('__API_URL__', os.environ.get('API_URL', ''))
+          html = html.replace('__RECAPTCHA_SITE_KEY__', os.environ.get('RECAPTCHA_SITE_KEY', ''))
+          alvo.write_text(html, encoding='utf-8')
+          print('enquete.html: placeholders substituídos')
+          PY
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site

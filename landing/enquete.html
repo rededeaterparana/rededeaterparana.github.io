@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://www.google.com https://www.gstatic.com;
+    connect-src 'self' https://script.google.com https://script.googleusercontent.com;
+    frame-src https://www.google.com;
+    img-src 'self' data:;
+    style-src 'self' 'unsafe-inline';
+    font-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+  ">
+  <meta property="og:title" content="Enquete — identidade visual da Rede Paranaense de ATER">
+  <meta property="og:description" content="Sete propostas de logomarca para a Rede Paranaense de ATER. Veja cada uma aplicada no site e escolha a sua.">
+  <meta property="og:image" content="https://rededeaterparana.github.io/og-image.png">
+  <meta property="og:url" content="https://rededeaterparana.github.io/enquete.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- injetados no build (pages.yml) a partir dos secrets do repositório -->
+  <meta name="ater:api-url" content="__API_URL__">
+  <meta name="ater:recaptcha-site-key" content="__RECAPTCHA_SITE_KEY__">
+
+  <title>Enquete da identidade visual — Rede Paranaense de ATER</title>
+  <link rel="stylesheet" href="./rede.css">
+  <style>
+    main { max-width: 980px; margin: 0 auto; padding: 44px 16px 90px; }
+    .voltar-topo {
+      display: inline-flex; align-items: center; gap: 7px; margin-bottom: 22px;
+      font-size: .9rem; font-weight: 600; color: var(--terra-700); text-decoration: none;
+    }
+    .voltar-topo:hover { text-decoration: underline; }
+    h1 { font-family: var(--serif); font-size: 1.8rem; margin: 0 0 6px; line-height: 1.2; color: var(--terra-950); }
+    p.subtitulo { margin: 0 0 26px; color: var(--tinta-suave); font-size: 1.05rem; max-width: 46em; }
+
+    .regras {
+      background: var(--superficie); border: 1px solid var(--borda);
+      border-left: 4px solid var(--terra-700); border-radius: 8px;
+      padding: 18px 22px; margin-bottom: 34px; font-size: .95rem; color: var(--tinta-suave);
+    }
+    .regras ul { margin: 10px 0 0; padding-left: 20px; }
+    .regras li { margin-bottom: 5px; }
+
+    h2 { font-family: var(--serif); font-size: 1.25rem; margin: 0 0 4px; color: var(--terra-950); }
+    p.ajuda { margin: 0 0 18px; color: var(--tinta-suave); font-size: .93rem; }
+
+    /* ─── grade das propostas ─────────────────────────────────────────── */
+    .propostas { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+    @media (max-width: 620px) { .propostas { grid-template-columns: 1fr; } }
+
+    .proposta { position: relative; }
+    .proposta input[type="radio"] {
+      position: absolute; opacity: 0; width: 1px; height: 1px;
+    }
+    .proposta label {
+      display: flex; flex-direction: column; height: 100%; cursor: pointer;
+      background: var(--superficie); border: 2px solid var(--borda); border-radius: 10px;
+      overflow: hidden; transition: border-color .15s, box-shadow .15s;
+    }
+    .proposta label:hover { border-color: var(--terra-500); }
+    .proposta input:focus-visible + label { outline: 3px solid var(--terra-700); outline-offset: 2px; }
+    .proposta input:checked + label {
+      border-color: var(--terra-700); box-shadow: 0 0 0 3px var(--terra-100);
+    }
+    .vitrine {
+      height: 132px; display: grid; place-items: center; padding: 16px;
+      border-bottom: 1px solid var(--borda); background: #fff;
+    }
+    .vitrine img { max-height: 100px; max-width: 100%; width: auto; display: block; }
+    .proposta .corpo { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .proposta .n { font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--terra-500); }
+    .proposta .nome { font-size: 1.02rem; font-weight: 700; color: var(--terra-950); }
+    .proposta .desc { font-size: .87rem; color: var(--tinta-suave); }
+    .proposta .paleta { display: flex; gap: 4px; margin-top: 2px; }
+    .proposta .paleta i { width: 20px; height: 20px; border-radius: 4px; display: block; border: 1px solid rgba(0,0,0,.14); }
+    .proposta .rodape-card {
+      margin-top: auto; padding-top: 12px; display: flex; align-items: center;
+      justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .proposta .ver {
+      font-size: .84rem; font-weight: 700; color: var(--terra-700); text-decoration: none;
+      border: 1px solid var(--borda-forte); border-radius: 6px; padding: 7px 12px;
+    }
+    .proposta .ver:hover { background: var(--terra-50); border-color: var(--terra-700); }
+    .marcador {
+      font-size: .82rem; font-weight: 700; color: var(--tinta-fraca);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .marcador::before {
+      content: ""; width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid var(--borda-forte); display: block;
+    }
+    .proposta input:checked + label .marcador { color: var(--terra-700); }
+    .proposta input:checked + label .marcador::before {
+      border-color: var(--terra-700); background: var(--terra-700);
+      box-shadow: inset 0 0 0 3px var(--superficie);
+    }
+
+    /* ─── formulário ──────────────────────────────────────────────────── */
+    .votar { margin-top: 38px; scroll-margin-top: 60px; }
+    .caixa-form {
+      background: var(--superficie); border: 1px solid var(--borda); border-radius: 10px;
+      padding: 24px;
+    }
+    .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 620px) { .campos { grid-template-columns: 1fr; } }
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo label { font-size: .84rem; font-weight: 700; color: var(--terra-950); }
+    .campo input[type="text"], .campo input[type="email"] {
+      font: inherit; font-size: 1rem; padding: 11px 12px; color: var(--tinta);
+      background: #fff; border: 1px solid var(--borda-forte); border-radius: 6px;
+    }
+    .campo input:focus { outline: 2px solid var(--terra-700); outline-offset: -1px; border-color: var(--terra-700); }
+    .campo .dica { font-size: .8rem; color: var(--tinta-fraca); }
+    .campo input[aria-invalid="true"] { border-color: #8c2f1a; }
+
+    .escolhido {
+      margin: 18px 0 0; padding: 12px 14px; border-radius: 6px; font-size: .93rem;
+      background: var(--terra-50); border: 1px solid var(--terra-200); color: var(--terra-950);
+    }
+    .escolhido[data-vazio="true"] { background: #fdf6e9; border-color: #e6d3a8; color: #7a5a12; }
+
+    .consentimento { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; font-size: .9rem; color: var(--tinta-suave); }
+    .consentimento input { margin-top: 3px; width: 17px; height: 17px; flex: none; }
+
+    /* honeypot — invisível para gente, preenchido por robô */
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .acoes-form { margin-top: 22px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    button.enviar {
+      font: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
+      background: var(--terra-700); color: #fff; border: 0; border-radius: 6px; padding: 13px 26px;
+      transition: background .15s;
+    }
+    button.enviar:hover:not(:disabled) { background: var(--terra-800); }
+    button.enviar:disabled { opacity: .55; cursor: not-allowed; }
+    .voltar-form {
+      font-size: .9rem; font-weight: 600; color: var(--terra-700); text-decoration: none;
+    }
+    .voltar-form:hover { text-decoration: underline; }
+
+    .aviso { margin-top: 18px; padding: 14px 16px; border-radius: 8px; font-size: .95rem; display: none; }
+    .aviso[data-visivel="true"] { display: block; }
+    .aviso.erro { background: #fbeae6; border: 1px solid #e4b5a6; color: #7d2a13; }
+    .aviso.info { background: var(--terra-50); border: 1px solid var(--terra-200); color: var(--terra-800); }
+
+    /* ─── confirmação ─────────────────────────────────────────────────── */
+    .confirmacao { display: none; }
+    .confirmacao[data-visivel="true"] { display: block; }
+    .confirmacao .selo-ok {
+      background: var(--superficie); border: 1px solid var(--borda);
+      border-left: 4px solid #2f7d4f; border-radius: 10px; padding: 24px;
+    }
+    .confirmacao h2 { margin-bottom: 8px; }
+    .resultado { margin-top: 26px; }
+    .barra-res { margin-bottom: 14px; }
+    .barra-res .rot { display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; margin-bottom: 5px; }
+    .barra-res .rot b { color: var(--terra-700); }
+    .trilho { height: 10px; border-radius: 999px; background: var(--terra-100); overflow: hidden; }
+    .preenche { height: 100%; border-radius: 999px; background: var(--terra-700); }
+
+    .rodape-pagina { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--borda); font-size: .86rem; color: var(--tinta-fraca); }
+  </style>
+</head>
+<body>
+  <nav class="barra-rede" aria-label="Navegação da Rede de ATER">
+    <div class="barra-rede-inner">
+      <span class="barra-rede-marca">Rede Paranaense de ATER</span>
+      <div class="barra-rede-links">
+        <a href="./">Início</a>
+        <a href="./form/">Formulário de adesão</a>
+        <a href="./painel/">Painel</a>
+        <a href="./legislacao.html">Legislação</a>
+        <a href="./enquete.html" class="ativo" aria-current="page">Enquete</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <a class="voltar-topo" href="./">&larr; Voltar para o início</a>
+
+    <h1>Enquete: a identidade visual da Rede</h1>
+    <p class="subtitulo">Sete propostas de logomarca foram apresentadas para a Rede Paranaense de ATER.
+      Cada uma está aplicada de verdade nesta página inicial, para você ver como fica no dia a dia.
+      Escolha a que melhor representa a rede.</p>
+
+    <div class="regras">
+      <strong>Como funciona</strong>
+      <ul>
+        <li>Abra cada proposta em <em>Ver aplicada no site</em> — o conteúdo é o mesmo, só muda a identidade.</li>
+        <li>Volte, marque a sua escolha e informe nome, e-mail e a entidade que você representa.</li>
+        <li><strong>Um voto por e-mail.</strong> Nome e e-mail servem apenas para validar o voto e evitar duplicidade.</li>
+        <li><strong>Um voto por entidade na apuração final.</strong> Se várias pessoas da mesma entidade
+          votarem, os votos são ponderados para que cada entidade pese igual — por isso o campo da
+          entidade é obrigatório.</li>
+        <li>Os dados não são divulgados: a apuração é publicada só com o total por proposta, conforme a LGPD
+          (<strong>Lei nº 13.709/2018</strong>).</li>
+      </ul>
+    </div>
+
+    <form id="form-enquete" novalidate>
+      <h2>As propostas</h2>
+      <p class="ajuda">Marque uma opção. Você pode abrir cada proposta e voltar sem perder a escolha.</p>
+
+      <div class="propostas" role="radiogroup" aria-label="Propostas de identidade visual">
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-01" value="01-folha-e-rede">
+          <label for="id-01">
+            <span class="vitrine"><img src="./identidades/marcas/ater-folha-cor.png" alt="Proposta 1 — Folha e Rede"></span>
+            <span class="corpo">
+              <span class="n">Proposta 1</span>
+              <span class="nome">Folha &amp; Rede</span>
+              <span class="desc">Letras ATER em degradê, com folhas e a malha de nós.</span>
+              <span class="paleta"><i style="background:#8FBF14"></i><i style="background:#2E7A24"></i><i style="background:#14532B"></i><i style="background:#8F3C00"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/01-folha-e-rede.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-02" value="02-institucional">
+          <label for="id-02">
+            <span class="vitrine"><img src="./identidades/marcas/ater-inst-cor.png" alt="Proposta 2 — Institucional"></span>
+            <span class="corpo">
+              <span class="n">Proposta 2</span>
+              <span class="nome">Institucional</span>
+              <span class="desc">Assinatura com o nome por extenso, em verde e marrom chapados.</span>
+              <span class="paleta"><i style="background:#185424"></i><i style="background:#307824"></i><i style="background:#782400"></i><i style="background:#EDF3EC"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/02-institucional.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-03" value="03-territorio-vivo">
+          <label for="id-03">
+            <span class="vitrine"><img src="./identidades/marcas/micelio-lockup.png" alt="Proposta 3 — Território Vivo"></span>
+            <span class="corpo">
+              <span class="n">Proposta 3</span>
+              <span class="nome">Território Vivo / Micélio</span>
+              <span class="desc">Mapa do Paraná como rede de conexões, com degradê território–produção–conhecimento.</span>
+              <span class="paleta"><i style="background:#053819"></i><i style="background:#486723"></i><i style="background:#8A5B16"></i><i style="background:#003D6C"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/03-territorio-vivo.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-04" value="04-pinha-escudo">
+          <label for="id-04">
+            <span class="vitrine"><img src="./identidades/marcas/ater-pinha-escudo.png" alt="Proposta 4 — Pinha em escudo"></span>
+            <span class="corpo">
+              <span class="n">Proposta 4</span>
+              <span class="nome">Pinha / Escudo</span>
+              <span class="desc">Escudo amarelo com a pinha em marrom, de alto contraste.</span>
+              <span class="paleta"><i style="background:#FBC000"></i><i style="background:#B98A00"></i><i style="background:#3C2418"></i><i style="background:#F6F0E2"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/04-pinha-escudo.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-05" value="05-raiz-araucaria">
+          <label for="id-05">
+            <span class="vitrine"><img src="./identidades/marcas/ater-pinha-mapa.png" alt="Proposta 5 — Raiz e Araucária"></span>
+            <span class="corpo">
+              <span class="n">Proposta 5</span>
+              <span class="nome">Raiz / Araucária</span>
+              <span class="desc">Versão manuscrita, com a araucária sobre o mapa do estado.</span>
+              <span class="paleta"><i style="background:#C8E400"></i><i style="background:#7E9100"></i><i style="background:#3C2418"></i><i style="background:#A8763F"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/05-raiz-araucaria.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-06" value="06-pinhoes-vinho">
+          <label for="id-06">
+            <span class="vitrine"><img src="./identidades/marcas/pinhoes-vinho-cor.png" alt="Proposta 6 — Pinhões em vinho e azul"></span>
+            <span class="corpo">
+              <span class="n">Proposta 6</span>
+              <span class="nome">Pinhões — vinho &amp; azul</span>
+              <span class="desc">Selo circular com pinhões gravados, assinatura verde e filete azul.</span>
+              <span class="paleta"><i style="background:#4A1508"></i><i style="background:#008232"></i><i style="background:#0014B4"></i><i style="background:#F1EBE2"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/06-pinhoes-vinho.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="proposta">
+          <input type="radio" name="identidade" id="id-07" value="07-pinhoes-verde-amarelo">
+          <label for="id-07">
+            <span class="vitrine"><img src="./identidades/marcas/pinhoes-verde-cor.png" alt="Proposta 7 — Pinhões em marrom, verde e amarelo"></span>
+            <span class="corpo">
+              <span class="n">Proposta 7</span>
+              <span class="nome">Pinhões — marrom, verde &amp; amarelo</span>
+              <span class="desc">O mesmo selo em marrom sólido, com filete amarelo.</span>
+              <span class="paleta"><i style="background:#3C1E0A"></i><i style="background:#008C3C"></i><i style="background:#FAD20A"></i><i style="background:#F2EBDC"></i></span>
+              <span class="rodape-card">
+                <span class="marcador">Escolher</span>
+                <a class="ver" href="./identidades/07-pinhoes-verde-amarelo.html">Ver aplicada no site &rarr;</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+      </div>
+
+      <section class="votar" id="votar">
+        <h2>Registrar o voto</h2>
+        <p class="ajuda">Um voto por pessoa e, na apuração final, um voto por entidade.
+          Nem o e-mail nem o nome aparecem no resultado.</p>
+
+        <div class="caixa-form">
+          <p class="escolhido" id="escolhido" data-vazio="true">Nenhuma proposta marcada ainda.</p>
+
+          <div class="campos">
+            <div class="campo">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" autocomplete="name" maxlength="120" required>
+            </div>
+            <div class="campo">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" maxlength="254" required>
+              <span class="dica">Usado só para validar e não contar o mesmo voto duas vezes.</span>
+            </div>
+          </div>
+
+          <div class="campo" style="margin-top:16px">
+            <label for="entidade">Entidade que você representa</label>
+            <input type="text" id="entidade" name="entidade" autocomplete="organization"
+                   maxlength="120" required
+                   placeholder="Ex.: IDR-Paraná, Prefeitura de Guarapuava, Sindicato Rural de Toledo">
+            <span class="dica">Escreva o nome por extenso, do mesmo jeito que os colegas da sua
+              entidade escreveriam — a apuração final considera <strong>um voto por entidade</strong>.</span>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="website_url">Não preencha este campo</label>
+            <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="consentimento">
+            <input type="checkbox" id="consentimento" required>
+            <span>Autorizo o uso do meu nome, e-mail e entidade exclusivamente para registrar e validar
+              este voto e para ponderar o resultado por entidade, conforme a LGPD (Lei nº 13.709/2018).</span>
+          </label>
+
+          <div class="acoes-form">
+            <button type="submit" class="enviar" id="btn-votar">Registrar meu voto</button>
+            <a class="voltar-form" href="./">&larr; Voltar para o início</a>
+          </div>
+
+          <p class="aviso erro" id="aviso-erro" role="alert"></p>
+          <p class="aviso info" id="aviso-info" role="status"></p>
+        </div>
+      </section>
+    </form>
+
+    <section class="confirmacao" id="confirmacao" aria-live="polite">
+      <div class="selo-ok">
+        <h2>Voto registrado. Obrigado!</h2>
+        <p id="texto-confirmacao" style="margin:0;color:var(--tinta-suave)"></p>
+        <div class="resultado" id="resultado"></div>
+        <p style="margin:24px 0 0">
+          <a class="voltar-topo" style="margin:0" href="./">&larr; Voltar para o início</a>
+        </p>
+      </div>
+    </section>
+
+    <p class="rodape-pagina">
+      Dúvidas sobre a enquete? Fale com a Coordenação Estadual de ATER.
+      As propostas são de uso interno da rede enquanto a escolha não é concluída.
+    </p>
+  </main>
+
+  <script src="./enquete.js"></script>
+</body>
+</html>

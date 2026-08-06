@@ -22,6 +22,10 @@ var SCHEMA = {
   eq_rede:          ['cnpj','tipo','ano','quantidade'],
   eq_extensionista: ['cnpj','tipo','ano','quantidade'],
   anexos:           ['cnpj','tipo_documento','nome_arquivo','drive_file_id','tamanho_bytes','criado_em'],
+  // Enquete da identidade visual. `email_norm` é a chave de unicidade do voto;
+  // `entidade_norm` é a chave de agrupamento da apuração ponderada (1 por entidade).
+  enquete_votos:    ['criado_em','identidade','nome','email','email_norm',
+                     'entidade','entidade_norm','origin','ip_hash'],
   _log:             ['timestamp','ip_hash','origin','acao','cnpj_mascarado','detalhe']
 };
 

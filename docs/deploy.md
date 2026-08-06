@@ -28,7 +28,7 @@ Na conta institucional:
 
 1. Em https://script.google.com → Novo projeto.
 2. Cole o conteúdo de `apps-script/Code.gs`, `Sheets.gs`, `Drive.gs`,
-   `Validacao.gs`, `Config.gs` em arquivos com os mesmos nomes.
+   `Validacao.gs`, `Config.gs`, `Enquete.gs` em arquivos com os mesmos nomes.
 3. Substitua `appsscript.json` pelo do repo (menu *Configurações do projeto* →
    "Mostrar arquivo de manifesto appsscript.json no editor").
 4. *Configurações do projeto → Propriedades do script* — adicione:
@@ -59,6 +59,62 @@ Na conta institucional:
    - `https://rededeaterparana.github.io/form/`
    - `https://rededeaterparana.github.io/painel/`
    - Página índice em `https://rededeaterparana.github.io/`
+   - Enquete em `https://rededeaterparana.github.io/enquete.html` e as propostas
+     em `https://rededeaterparana.github.io/identidades/`
+
+## 5b. Enquete da identidade visual
+
+A enquete é HTML estático — não passa por bundler —, então os dois valores
+públicos entram por substituição de placeholder no `pages.yml`:
+`__API_URL__` e `__RECAPTCHA_SITE_KEY__` em `landing/enquete.html` recebem os
+mesmos secrets `VITE_API_URL` e `VITE_RECAPTCHA_SITE_KEY` do passo 5.3.
+
+Se algum dos dois estiver ausente, a página **sobe assim mesmo**, em modo
+somente visualização: as propostas podem ser abertas, mas o botão de votar
+avisa que o registro não está ativo. O workflow emite um `::warning::` nesse caso.
+
+Do lado do Apps Script não há configuração nova: `Enquete.gs` reaproveita
+`SHEET_ID`, `RECAPTCHA_SECRET`, `ALLOWED_ORIGIN` e `IP_HASH_SALT`. Na primeira
+gravação a aba `enquete_votos` é criada sozinha, com as colunas
+`criado_em, identidade, nome, email, email_norm, entidade, entidade_norm, origin, ip_hash`.
+
+### Regras de contagem
+
+- **Um voto por e-mail.** A unicidade é checada dentro do `LockService`, contra a
+  coluna `email_norm` — não confie no rate limit por cache, ele é só a primeira barreira.
+- `email_norm` é o e-mail em minúsculas, sem espaços e **sem o sufixo `+tag`** da
+  parte local. Pontos não são removidos: fora do Gmail eles distinguem caixas diferentes.
+- Voto repetido devolve `409` e a página trata como "você já votou" — o primeiro voto prevalece.
+- A apuração pública (`?action=enquete_resultado`) devolve **só a contagem por proposta**.
+  Nome, e-mail e entidade nunca saem da planilha.
+
+### Apuração ponderada — um voto por entidade
+
+O campo **entidade é obrigatório**: a decisão final pesa cada entidade uma vez,
+independentemente de quantas pessoas dela votaram.
+
+Rode a função `apurarPorEntidade()` pelo editor do Apps Script (*Executar* →
+selecione a função → veja o *Registro de execução*). Ela:
+
+1. agrupa os votos por `entidade_norm`;
+2. em cada entidade, aplica **maioria simples**;
+3. soma um voto por entidade decidida;
+4. lista à parte as entidades com **empate interno** — que não pontuam e ficam
+   para decisão humana.
+
+Ela **não** é exposta pelo `doGet`, e isso é deliberado: publicar o voto
+consolidado por entidade permitiria inferir como cada organização votou, coisa
+que a contagem simples não revela.
+
+> **Antes de bater o martelo:** `entidade_norm` só resolve diferenças de
+> digitação — caixa, acentos, pontuação e espaços. Ele agrupa "IDR-Paraná",
+> "IDR Parana" e "idr paraná", mas **não** agrupa "IDR-PR" com "Instituto de
+> Desenvolvimento Rural". Passe os olhos na coluna `entidade` e junte as
+> variações do mesmo nome antes de considerar o resultado final.
+
+Para encerrar a enquete, remova o link da barra em `landing/*.html` e o card do
+`index.html`; para congelar a apuração, basta parar de divulgar a URL — os votos
+continuam válidos na planilha.
 
 ## 6. Verificações pós-deploy
 
@@ -70,6 +126,14 @@ Na conta institucional:
 - [ ] Enviar 6 cadastros do mesmo CNPJ em sequência → 6º rejeitado (rate limit).
 - [ ] Tentar enviar `.exe` renomeado para `.pdf` → magic byte rejeita.
 - [ ] Abrir `<VITE_API_URL>?action=listar` no navegador → JSON sem CPF/e-mail/URL.
+- [ ] Abrir `/enquete.html`, abrir uma proposta, voltar pelo botão da faixa → a escolha continua marcada.
+- [ ] Votar com um e-mail de teste → confirmação + apuração parcial.
+- [ ] Votar de novo com o mesmo e-mail (outro navegador) → mensagem de "já votou", sem nova linha na planilha.
+- [ ] Votar com `fulano+teste@dominio` depois de `fulano@dominio` → também barrado (normalização do `+tag`).
+- [ ] Tentar votar sem preencher a entidade → bloqueado no formulário e no servidor.
+- [ ] Votar duas vezes pela mesma entidade escrita diferente ("IDR-Paraná" e "IDR Parana", e-mails distintos)
+      → rodar `apurarPorEntidade()`: as duas linhas contam como **uma** entidade.
+- [ ] Abrir `<VITE_API_URL>?action=enquete_resultado` → só contagens, sem nome, e-mail nem entidade.
 
 ## Rotação / troca de conta dona
 
