@@ -95,11 +95,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # v4 em vez de v5: com a v5, dez deploys seguidos ficaram presos em
+      # `deployment_in_progress` até o timeout, que então CANCELA o deployment
+      # — o site nunca atualizava. O parâmetro `timeout` da v5 é aceito nos
+      # inputs mas não é respeitado (o job aborta em ~10 min de qualquer jeito).
+      # A v4 é a última linha estável antes dessa mudança.
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
         with:
-          # O padrão de 10 min vinha estourando com o deployment ainda em
-          # `deployment_in_progress` — o Pages aceita e processa, só devagar.
-          # Ao expirar, a action CANCELA o deployment, então o site nunca
-          # atualiza. 25 min dá margem sem deixar o job pendurado à toa.
-          timeout: 1500000
+          timeout: 1200000
