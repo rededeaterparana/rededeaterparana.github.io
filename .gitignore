@@ -22,6 +22,11 @@ dados/
 # (volume e campos de contato). O que eventualmente vai para o ar é agregado.
 dados-cnpj/
 
+# Microdados da RAIS (vínculos, região Sul). São centenas de MB por arquivo —
+# acima do limite do GitHub — e trazem dados identificáveis de vínculo
+# empregatício. Baixar do FTP do MTE quando precisar; só o agregado é versionado.
+dados-rais/
+
 # ─── Apps Script (segredos e IDs de planilha/drive) ─────────────────────────
 apps-script/.clasp.json
 apps-script/.clasprc.json
