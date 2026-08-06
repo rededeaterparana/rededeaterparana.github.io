@@ -167,6 +167,29 @@ Para encerrar a enquete, remova o link da barra em `landing/*.html` e o card do
 `index.html`; para congelar a apuração, basta parar de divulgar a URL — os votos
 continuam válidos na planilha.
 
+## 5c. Se o deploy do Pages ficar preso
+
+Sintoma: o job `build` passa, o `deploy` fica em `queued` ou
+`deployment_in_progress` por minutos e termina em `failure` ou `cancelled`,
+sem mensagem útil. O site continua servindo a versão anterior.
+
+O que **não** é a causa (já investigado): conteúdo do artefato, política de
+branch do environment, execuções concorrentes, incidentes abertos no GitHub.
+
+O que resolveu: **fixar `actions/deploy-pages@v4`**. Com a `v5`, o deployment
+era aceito e nunca concluía; ao estourar o limite interno de ~10 min a própria
+action **cancelava** o deployment. O input `timeout` da v5 é aceito mas
+ignorado — passar 25 min não muda nada.
+
+Mesmo com a v4 o serviço se mostrou instável em rajadas. Se acontecer:
+
+- Dispare **um** deploy e não mexa. Rodar `workflow_dispatch` repetido no mesmo
+  SHA cria deployments concorrentes que se cancelam.
+- Se precisar forçar, faça um **commit novo** — um SHA inédito costuma passar
+  quando o mesmo SHA já falhou.
+- Confira o artefato antes de suspeitar do conteúdo:
+  `gh run download <run-id> -n github-pages` e inspecione o `artifact.tar`.
+
 ## 6. Verificações pós-deploy
 
 - [ ] Abrir o formulário e cadastrar uma entidade fictícia (CNPJ válido de teste).
