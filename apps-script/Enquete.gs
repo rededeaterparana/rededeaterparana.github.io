@@ -15,8 +15,7 @@ var ENQUETE_IDENTIDADES = [
   '03-territorio-vivo',
   '04-pinha-escudo',
   '05-raiz-araucaria',
-  '06-pinhoes-vinho',
-  '07-pinhoes-verde-amarelo'
+  '06-pinhoes-vinho'
 ];
 
 var ENQUETE_LIMITES = {

@@ -14,8 +14,7 @@
     '03-territorio-vivo': 'Território Vivo / Micélio',
     '04-pinha-escudo': 'Pinha / Escudo',
     '05-raiz-araucaria': 'Raiz / Araucária',
-    '06-pinhoes-vinho': 'Pinhões — vinho & azul',
-    '07-pinhoes-verde-amarelo': 'Pinhões — marrom, verde & amarelo'
+    '06-pinhoes-vinho': 'Pinhões — vinho & azul'
   };
 
   var CHAVE_ESCOLHA = 'ater:enquete:escolha';
@@ -230,7 +229,7 @@
 
     var identidade = selecionada();
     if (!identidade) {
-      mostrarErro('Escolha uma das sete propostas antes de votar.');
+      mostrarErro('Escolha uma das seis propostas antes de votar.');
       document.querySelector('.propostas').scrollIntoView({ block: 'start', behavior: 'smooth' });
       return;
     }
