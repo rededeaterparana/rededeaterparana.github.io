@@ -80,10 +80,9 @@ jobs:
       - name: Injetar configuração e embutir o script da enquete
         env:
           API_URL: ${{ secrets.VITE_API_URL }}
-          RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
         run: |
-          if [ -z "$API_URL" ] || [ -z "$RECAPTCHA_SITE_KEY" ]; then
-            echo "::warning::VITE_API_URL ou VITE_RECAPTCHA_SITE_KEY ausente — a enquete sobe em modo somente visualização."
+          if [ -z "$API_URL" ]; then
+            echo "::warning::VITE_API_URL ausente — a enquete sobe em modo somente visualização."
           fi
           python3 - <<'PY'
           import base64, hashlib, os, pathlib
@@ -91,7 +90,6 @@ jobs:
           alvo = pathlib.Path('site/enquete.html')
           html = alvo.read_text(encoding='utf-8')
           html = html.replace('__API_URL__', os.environ.get('API_URL', ''))
-          html = html.replace('__RECAPTCHA_SITE_KEY__', os.environ.get('RECAPTCHA_SITE_KEY', ''))
 
           js = pathlib.Path('site/enquete.js').read_text(encoding='utf-8')
           if '</script' in js.lower():

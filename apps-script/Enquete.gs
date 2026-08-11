@@ -2,8 +2,15 @@
  * Enquete da identidade visual da Rede.
  *
  * Fluxo isolado do cadastro de entidades: repete as checagens de borda
- * (origem, honeypot, reCAPTCHA) em vez de compartilhar caminho com o doPost
- * do cadastro, para que uma mudança aqui não afete o formulário em produção.
+ * (origem, honeypot) em vez de compartilhar caminho com o doPost do cadastro,
+ * para que uma mudança aqui não afete o formulário em produção.
+ *
+ * NÃO há reCAPTCHA aqui, de propósito: atrás dos proxies corporativos das
+ * instituições da rede (EMATER, IDR) o script do Google não carregava, o token
+ * chegava vazio e TODO voto era recusado com 403. As barreiras que restam —
+ * origem, honeypot, rate limit por e-mail e um voto por e-mail sob lock —
+ * valem mais aqui do que uma verificação que barra o público legítimo.
+ * O cadastro de entidades (Code.gs) segue com reCAPTCHA.
  *
  * Um voto por e-mail. A unicidade é garantida na planilha, dentro do lock —
  * o rate limit por cache é só uma primeira barreira, não é a fonte da verdade.
@@ -76,13 +83,7 @@ function registrarVotoIdentidade(corpo) {
     return resposta(400, { erro: 'requisição inválida' });
   }
 
-  // 3. reCAPTCHA v3
-  var captcha = verificarRecaptcha(corpo.recaptcha_token, 'voto_identidade');
-  if (!captcha.ok) {
-    return resposta(403, { erro: 'verificação anti-bot falhou' });
-  }
-
-  // 4. Campos
+  // 3. Campos
   var faltando = exigirCampos(corpo, ['identidade', 'nome', 'email', 'entidade', 'consentimento_lgpd']);
   if (faltando.length) {
     return resposta(400, { erro: 'campos obrigatórios faltando', campos: faltando });
@@ -108,12 +109,12 @@ function registrarVotoIdentidade(corpo) {
   }
   var emailNorm = normalizarEmail(corpo.email);
 
-  // 5. Rate limit por e-mail (barreira barata contra reenvio em rajada)
+  // 4. Rate limit por e-mail (barreira barata contra reenvio em rajada)
   if (!checarRateLimit('rl:voto:' + emailNorm, 1, ENQUETE_LIMITES.RATE_POR_EMAIL_SEGUNDOS)) {
     return resposta(429, { erro: 'aguarde alguns instantes antes de tentar de novo' });
   }
 
-  // 6. Escrita serializada — a checagem de duplicidade só vale dentro do lock
+  // 5. Escrita serializada — a checagem de duplicidade só vale dentro do lock
   var lock = LockService.getScriptLock();
   try { lock.waitLock(15000); } catch (e) {
     return resposta(503, { erro: 'sistema ocupado, tente novamente em instantes' });

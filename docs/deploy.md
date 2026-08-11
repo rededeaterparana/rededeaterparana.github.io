@@ -115,17 +115,23 @@ editor). Isso é útil — dá para subir o código e testar antes de virar a ch
 
 ## 5b. Enquete da identidade visual
 
-A enquete é HTML estático — não passa por bundler —, então os dois valores
-públicos entram por substituição de placeholder no `pages.yml`:
-`__API_URL__` e `__RECAPTCHA_SITE_KEY__` em `landing/enquete.html` recebem os
-mesmos secrets `VITE_API_URL` e `VITE_RECAPTCHA_SITE_KEY` do passo 5.3.
+A enquete é HTML estático — não passa por bundler —, então o único valor
+público entra por substituição de placeholder no `pages.yml`: `__API_URL__` em
+`landing/enquete.html` recebe o secret `VITE_API_URL` do passo 5.3.
 
-Se algum dos dois estiver ausente, a página **sobe assim mesmo**, em modo
-somente visualização: as propostas podem ser abertas, mas o botão de votar
-avisa que o registro não está ativo. O workflow emite um `::warning::` nesse caso.
+Se ele estiver ausente, a página **sobe assim mesmo**, em modo somente
+visualização: as propostas podem ser abertas, mas o botão de votar avisa que o
+registro não está ativo. O workflow emite um `::warning::` nesse caso.
+
+> **A enquete não usa reCAPTCHA.** Atrás dos proxies corporativos das
+> instituições da rede o `api.js` do Google não carregava, o token ia vazio e o
+> servidor recusava **todo** voto com 403 "verificação anti-bot falhou". As
+> barreiras que restam são origem, honeypot, rate limit por e-mail e a
+> unicidade por e-mail dentro do lock. O cadastro de entidades (`Code.gs`)
+> continua com reCAPTCHA — o público dele é menor e o custo de um envio falso é maior.
 
 Do lado do Apps Script não há configuração nova: `Enquete.gs` reaproveita
-`SHEET_ID`, `RECAPTCHA_SECRET`, `ALLOWED_ORIGIN` e `IP_HASH_SALT`. Na primeira
+`SHEET_ID`, `ALLOWED_ORIGIN` e `IP_HASH_SALT`. Na primeira
 gravação a aba `enquete_votos` é criada sozinha, com as colunas
 `criado_em, identidade, nome, email, email_norm, entidade, entidade_norm, origin, ip_hash`.
 

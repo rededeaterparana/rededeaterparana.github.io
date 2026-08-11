@@ -2,8 +2,11 @@
  * Enquete da identidade visual da Rede Paranaense de ATER.
  *
  * O voto é validado e deduplicado no servidor (Apps Script, action=voto_identidade).
- * Aqui só cuidamos de UX: pré-seleção pela query string, validação de forma,
- * reCAPTCHA v3 e leitura da apuração depois que o voto é aceito.
+ * Aqui só cuidamos de UX: pré-seleção pela query string, validação de forma e
+ * leitura da apuração depois que o voto é aceito.
+ *
+ * Sem reCAPTCHA: atrás dos proxies corporativos da rede o script do Google não
+ * carregava, o token ia vazio e o servidor recusava todo voto. Ver Enquete.gs.
  */
 (function () {
   'use strict';
@@ -37,7 +40,6 @@
   }
 
   var API_URL = meta('ater:api-url');
-  var SITE_KEY = meta('ater:recaptcha-site-key');
 
   // ─── estado da escolha ────────────────────────────────────────────────
 
@@ -99,38 +101,6 @@
     avisoInfo.textContent = msg;
     avisoInfo.setAttribute('data-visivel', 'true');
     avisoErro.setAttribute('data-visivel', 'false');
-  }
-
-  // ─── reCAPTCHA v3 ─────────────────────────────────────────────────────
-
-  var recaptchaCarregado = null;
-
-  function carregarRecaptcha() {
-    if (!SITE_KEY) return Promise.resolve(null);
-    if (recaptchaCarregado) return recaptchaCarregado;
-    recaptchaCarregado = new Promise(function (resolve, reject) {
-      var s = document.createElement('script');
-      s.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(SITE_KEY);
-      s.async = true;
-      s.onload = function () { resolve(window.grecaptcha || null); };
-      s.onerror = function () { reject(new Error('recaptcha indisponível')); };
-      document.head.appendChild(s);
-    });
-    return recaptchaCarregado;
-  }
-
-  function tokenRecaptcha() {
-    if (!SITE_KEY) return Promise.resolve('');
-    return carregarRecaptcha().then(function (g) {
-      if (!g || !g.execute) return '';
-      return new Promise(function (resolve) {
-        g.ready(function () {
-          g.execute(SITE_KEY, { action: 'voto_identidade' })
-            .then(resolve)
-            .catch(function () { resolve(''); });
-        });
-      });
-    }).catch(function () { return ''; });
   }
 
   // ─── apuração ─────────────────────────────────────────────────────────
@@ -266,25 +236,23 @@
     btn.textContent = 'Registrando…';
     mostrarInfo('Validando e registrando o voto…');
 
-    tokenRecaptcha().then(function (token) {
-      var payload = {
-        action: 'voto_identidade',
-        identidade: identidade,
-        nome: nome.value.trim(),
-        email: email.value.trim(),
-        entidade: entidade.value.trim(),
-        consentimento_lgpd: true,
-        website_url: honeypot.value,
-        origin: window.location.origin,
-        recaptcha_token: token
-      };
-      // text/plain evita preflight CORS — Apps Script aceita JSON cru.
-      return fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-        redirect: 'follow'
-      });
+    var payload = {
+      action: 'voto_identidade',
+      identidade: identidade,
+      nome: nome.value.trim(),
+      email: email.value.trim(),
+      entidade: entidade.value.trim(),
+      consentimento_lgpd: true,
+      website_url: honeypot.value,
+      origin: window.location.origin
+    };
+
+    // text/plain evita preflight CORS — Apps Script aceita JSON cru.
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
     }).then(function (r) {
       return r.text();
     }).then(function (txt) {
