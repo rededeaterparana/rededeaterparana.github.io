@@ -126,8 +126,13 @@
     .consentimento { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; font-size: .9rem; color: var(--tinta-suave); }
     .consentimento input { margin-top: 3px; width: 17px; height: 17px; flex: none; }
 
-    /* honeypot — invisível para gente, preenchido por robô */
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    /* Honeypot — invisível para gente, preenchido por robô.
+       `display:none` em vez de posicionamento fora da tela: gerenciadores de
+       senha e o preenchimento automático do navegador preenchem campo
+       fora-da-tela (que para eles continua "visível") e derrubavam o voto de
+       gente de verdade com "requisição inválida". Robô de script preenche
+       tudo sem olhar CSS, então a armadilha continua valendo. */
+    .hp { display: none; }
 
     .acoes-form { margin-top: 22px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     button.enviar {
@@ -155,6 +160,12 @@
       border-left: 4px solid #2f7d4f; border-radius: 10px; padding: 24px;
     }
     .confirmacao h2 { margin-bottom: 8px; }
+    button.outra-pessoa {
+      font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
+      background: transparent; color: var(--terra-700);
+      border: 1px solid var(--borda); border-radius: 6px; padding: 9px 16px;
+    }
+    button.outra-pessoa:hover { background: var(--terra-100); }
     .resultado { margin-top: 26px; }
     .barra-res { margin-bottom: 14px; }
     .barra-res .rot { display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; margin-bottom: 5px; }
@@ -374,6 +385,11 @@
         <p id="texto-confirmacao" style="margin:0;color:var(--tinta-suave)"></p>
         <div class="resultado" id="resultado"></div>
         <p style="margin:24px 0 0">
+          <button type="button" class="outra-pessoa" id="btn-outra-pessoa">
+            Outra pessoa vai votar neste computador
+          </button>
+        </p>
+        <p style="margin:18px 0 0">
           <a class="voltar-topo" style="margin:0" href="./">&larr; Voltar para o início</a>
         </p>
       </div>

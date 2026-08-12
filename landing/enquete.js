@@ -162,8 +162,15 @@
     });
   }
 
+  // Navegador antigo demais (sem fetch/Promise) não consegue enviar nada. Sem
+  // esta checagem o clique lançava ReferenceError DEPOIS de desabilitar o
+  // botão, que ficava preso em "Registrando…" para sempre, sem dizer por quê.
+  function navegadorSuporta() {
+    return typeof fetch === 'function' && typeof Promise === 'function';
+  }
+
   function buscarApuracao() {
-    if (!API_URL) return Promise.resolve(null);
+    if (!API_URL || !navegadorSuporta()) return null;
     return fetch(API_URL + '?action=enquete_resultado', { method: 'GET', redirect: 'follow' })
       .then(function (r) { return r.json(); })
       .catch(function () { return null; });
@@ -175,8 +182,40 @@
     confirmacao.querySelector('h2').textContent = titulo;
     textoConfirmacao.textContent = mensagem;
     confirmacao.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    buscarApuracao().then(pintarResultado);
+    var p = buscarApuracao();
+    if (p && p.then) p.then(pintarResultado);
   }
+
+  /**
+   * Devolve o formulário para a próxima pessoa no MESMO navegador.
+   *
+   * A marca em localStorage é uma cortesia ("você já votou aqui"), não é a
+   * garantia de unicidade — essa é do servidor, por e-mail, dentro do lock.
+   * Como bloqueio de tela ela travava computador compartilhado de escritório:
+   * quem votasse primeiro trancava todo mundo depois, sem saída nenhuma.
+   */
+  function liberarParaOutraPessoa() {
+    try { localStorage.removeItem(CHAVE_VOTOU); } catch (e) { /* modo privado */ }
+    confirmacao.setAttribute('data-visivel', 'false');
+    form.style.display = '';
+    limparAvisos();
+    ['nome', 'email', 'entidade'].forEach(function (id) {
+      var campo = document.getElementById(id);
+      if (campo) { campo.value = ''; campo.removeAttribute('aria-invalid'); }
+    });
+    var ok = document.getElementById('consentimento');
+    if (ok) ok.checked = false;
+    // a proposta marcada também sai: senão a próxima pessoa herda a escolha de
+    // quem votou antes e pode confirmar sem perceber
+    radios().forEach(function (r) { r.checked = false; });
+    try { localStorage.removeItem(CHAVE_ESCOLHA); } catch (e) { /* modo privado */ }
+    pintarEscolha();
+    document.getElementById('nome').focus();
+    form.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  var btnOutraPessoa = document.getElementById('btn-outra-pessoa');
+  if (btnOutraPessoa) btnOutraPessoa.addEventListener('click', liberarParaOutraPessoa);
 
   // ─── envio ────────────────────────────────────────────────────────────
 
@@ -228,6 +267,11 @@
     }
     if (!API_URL) {
       mostrarErro('A enquete ainda não está configurada neste ambiente. Avise a Coordenação Estadual de ATER.');
+      return;
+    }
+    if (!navegadorSuporta()) {
+      mostrarErro('Este navegador é antigo demais para registrar o voto. Abra a página em um ' +
+                  'Chrome, Edge ou Firefox atualizado, ou pelo celular.');
       return;
     }
 
@@ -292,7 +336,8 @@
   try { jaVotou = localStorage.getItem(CHAVE_VOTOU) === '1'; } catch (e) { jaVotou = false; }
   if (jaVotou) {
     concluir('Você já votou',
-             'Este navegador já registrou um voto nesta enquete. Cada pessoa vota uma única vez.');
+             'Este navegador já registrou um voto nesta enquete. Cada pessoa vota uma única vez — ' +
+             'se você divide este computador com colegas, use o botão abaixo para liberar o formulário.');
   }
 
   if (!API_URL) {
