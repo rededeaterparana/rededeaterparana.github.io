@@ -9,6 +9,7 @@ import { decimal, indice, inteiro, porcentagem } from '../lib/formato';
 import { TabelaMunicipios, FiltroMunicipios } from '../components/TabelaMunicipios';
 import { PageHeader } from '../components/PageHeader';
 import { GraficoTooltip } from '../components/GraficoTooltip';
+import { FiltroRegional } from '../components/FiltroRegional';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
 // Escala divergente do vermelho (índice baixo) ao marrom escuro (índice alto).
@@ -26,9 +27,6 @@ const FAIXA_INTERVALO: Record<string, [number, number]> = {
 };
 
 const { meta, resumo, indice: idx, governanca, entidades, profissionais, analise, municipios } = diagnostico;
-
-const REGIONAIS = [...new Set(municipios.map((m) => m.regional))]
-  .sort((a, b) => a.localeCompare(b, 'pt-BR'));
 
 /** Extrai um campo string do payload de clique do Recharts. */
 function campoDoClique(dados: unknown, campo: string): string | null {
@@ -142,30 +140,11 @@ export function Diagnostico() {
         </p>
       </PageHeader>
 
-      <div className="filtro-regional" role="group" aria-label="Filtro por regional do IDR-Paraná">
-        <label htmlFor="filtro-regional-select">Regional do IDR-Paraná</label>
-        <select
-          id="filtro-regional-select"
-          value={regionalSel ?? ''}
-          onChange={(e) => setRegionalSel(e.target.value || null)}
-        >
-          <option value="">Todas as regionais ({REGIONAIS.length})</option>
-          {REGIONAIS.map((r) => (
-            <option key={r} value={r}>{r}</option>
-          ))}
-        </select>
-        {regionalSel && (
-          <button type="button" className="filtro-chip" onClick={() => setRegionalSel(null)}>
-            Limpar <span aria-hidden="true">✕</span>
-          </button>
-        )}
-        {regionalSel && (
-          <span className="filtro-regional-nota">
-            Cards, faixas de ID-ATER e tabela refletem a regional; os demais
-            gráficos seguem estaduais, pois o levantamento só os publica agregados.
-          </span>
-        )}
-      </div>
+      <FiltroRegional
+        valor={regionalSel}
+        aoMudar={setRegionalSel}
+        nota="Cards, faixas de ID-ATER e tabela refletem a regional; os demais gráficos seguem estaduais, pois o levantamento só os publica agregados."
+      />
 
       {resumoRegional ? (
         <div className="cards">

@@ -1,11 +1,14 @@
+import { useMemo, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
   PieChart, Pie, Cell, Legend, ScatterChart, Scatter, ZAxis,
 } from 'recharts';
 import { empresas } from '../lib/empresas';
+import { regionalDoMunicipio } from '../lib/regionais';
 import { inteiro, porcentagem } from '../lib/formato';
 import { PageHeader } from '../components/PageHeader';
 import { GraficoTooltip } from '../components/GraficoTooltip';
+import { FiltroRegional } from '../components/FiltroRegional';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024', '#4d6b9a'];
 
@@ -13,6 +16,32 @@ const { meta, resumo, categorias, cnaes, portes, municipios, pontos } = empresas
 
 export function Empresas() {
   const geoFina = resumo.geocodificadasRua + resumo.geocodificadasCep;
+  const [regionalSel, setRegionalSel] = useState<string | null>(null);
+
+  // A junção com a regional do IDR é feita pelo código IBGE do município,
+  // presente nos pontos (todos os 399 municípios têm regional).
+  const pontosVisiveis = useMemo(
+    () => regionalSel
+      ? pontos.filter((p) => regionalDoMunicipio(Number(p.ibge)) === regionalSel)
+      : pontos,
+    [regionalSel],
+  );
+
+  const resumoRegional = useMemo(() => {
+    if (!regionalSel) return null;
+    const total = pontosVisiveis.reduce((t, p) => t + p.empresas, 0);
+    return { empresas: total, municipios: pontosVisiveis.length };
+  }, [regionalSel, pontosVisiveis]);
+
+  const municipiosVisiveis = useMemo(
+    () => regionalSel
+      ? [...pontosVisiveis]
+          .sort((a, b) => b.empresas - a.empresas)
+          .slice(0, 25)
+          .map((p) => ({ municipio: p.municipio, empresas: p.empresas }))
+      : municipios,
+    [regionalSel, pontosVisiveis],
+  );
 
   return (
     <>
@@ -35,15 +64,33 @@ export function Empresas() {
         </p>
       </PageHeader>
 
-      <div className="cards">
-        <Card label="Empresas ativas" valor={inteiro(resumo.empresas)} />
-        <Card label="Municípios" valor={inteiro(resumo.municipios)} />
-        <Card label="Geocodif. rua/CEP" valor={porcentagem(100 * geoFina / resumo.empresas, 1)} />
-        <Card label="Categorias de atividade" valor={inteiro(categorias.length)} />
-      </div>
+      <FiltroRegional
+        valor={regionalSel}
+        aoMudar={setRegionalSel}
+        nota="Cards, mapa de pontos e ranking de municípios refletem a regional; categorias, porte e CNAEs seguem estaduais, pois a pesquisa só os agrega no estado."
+      />
+
+      {resumoRegional ? (
+        <div className="cards">
+          <Card label="Empresas ativas" valor={inteiro(resumoRegional.empresas)} />
+          <Card label="Municípios" valor={inteiro(resumoRegional.municipios)} />
+          <Card
+            label="Participação no estado"
+            valor={porcentagem(100 * resumoRegional.empresas / resumo.empresas, 1)}
+          />
+          <Card label="Categorias de atividade" valor={inteiro(categorias.length)} />
+        </div>
+      ) : (
+        <div className="cards">
+          <Card label="Empresas ativas" valor={inteiro(resumo.empresas)} />
+          <Card label="Municípios" valor={inteiro(resumo.municipios)} />
+          <Card label="Geocodif. rua/CEP" valor={porcentagem(100 * geoFina / resumo.empresas, 1)} />
+          <Card label="Categorias de atividade" valor={inteiro(categorias.length)} />
+        </div>
+      )}
 
       <section className="painel">
-        <h2>Distribuição espacial (por município)</h2>
+        <h2>Distribuição espacial (por município){regionalSel ? ` — ${regionalSel}` : ''}</h2>
         <ResponsiveContainer width="100%" height={460}>
           <ScatterChart margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -60,12 +107,15 @@ export function Empresas() {
                 descricao="Cada ponto é um município, posicionado pelo centroide; o tamanho do ponto reflete o número de empresas com CNAEs rurais ali sediadas."
               />
             } />
-            <Scatter data={pontos} fill="#6b5427" fillOpacity={0.55} />
+            <Scatter data={pontosVisiveis} fill="#6b5427" fillOpacity={0.55} />
           </ScatterChart>
         </ResponsiveContainer>
         <p className="legenda">
           Cada ponto é um município, posicionado pelo seu centroide (longitude × latitude); o tamanho
-          reflete o número de empresas. O contorno formado aproxima o mapa do Paraná.
+          reflete o número de empresas.
+          {regionalSel
+            ? ' Exibindo apenas os municípios da regional selecionada.'
+            : ' O contorno formado aproxima o mapa do Paraná.'}
         </p>
       </section>
 
@@ -133,9 +183,9 @@ export function Empresas() {
       </div>
 
       <section className="painel">
-        <h2>Municípios com mais empresas</h2>
+        <h2>Municípios com mais empresas{regionalSel ? ` — ${regionalSel}` : ''}</h2>
         <ResponsiveContainer width="100%" height={520}>
-          <BarChart data={municipios} layout="vertical" margin={{ left: 8, right: 24 }}>
+          <BarChart data={municipiosVisiveis} layout="vertical" margin={{ left: 8, right: 24 }}>
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" allowDecimals={false} />
             <YAxis type="category" dataKey="municipio" width={140} tick={{ fontSize: 11 }} />
@@ -148,7 +198,11 @@ export function Empresas() {
             <Bar dataKey="empresas" name="Empresas" fill="#8f7743" />
           </BarChart>
         </ResponsiveContainer>
-        <p className="legenda">Os 25 municípios com maior número de empresas com atividades ligadas ao meio rural.</p>
+        <p className="legenda">
+          {regionalSel
+            ? `Municípios da regional ${regionalSel} com maior número de empresas com atividades ligadas ao meio rural (até 25).`
+            : 'Os 25 municípios com maior número de empresas com atividades ligadas ao meio rural.'}
+        </p>
       </section>
 
       <p className="fonte">
