@@ -394,6 +394,40 @@ input.busca:focus {
   font-size: 0.78rem; font-weight: 600;
 }
 
+/* Filtro por regional do IDR (página Diagnóstico) */
+.filtro-regional {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 10px; margin-bottom: 18px;
+  padding: 12px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--borda-forte);
+  border-radius: var(--raio);
+}
+.filtro-regional label {
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+.filtro-regional select {
+  font: inherit; color: inherit;
+  padding: 8px 10px;
+  background: var(--superficie);
+  border: 1px solid var(--borda-forte);
+  border-radius: 8px;
+  max-width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.filtro-regional select:focus {
+  outline: none;
+  border-color: var(--terra-700);
+  box-shadow: 0 0 0 3px rgba(107, 84, 39, 0.15);
+}
+.filtro-regional-nota {
+  flex-basis: 100%;
+  color: var(--tinta-suave);
+  font-size: 0.8rem; line-height: 1.45;
+}
+
 /* Chips de filtro aplicados por clique nos gráficos */
 .filtro-chips {
   display: flex; flex-wrap: wrap; align-items: center;

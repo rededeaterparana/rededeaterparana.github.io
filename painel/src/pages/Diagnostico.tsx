@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
   PieChart, Pie, Cell, Legend, ReferenceLine,
@@ -27,6 +27,9 @@ const FAIXA_INTERVALO: Record<string, [number, number]> = {
 
 const { meta, resumo, indice: idx, governanca, entidades, profissionais, analise, municipios } = diagnostico;
 
+const REGIONAIS = [...new Set(municipios.map((m) => m.regional))]
+  .sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
 /** Extrai um campo string do payload de clique do Recharts. */
 function campoDoClique(dados: unknown, campo: string): string | null {
   if (!dados || typeof dados !== 'object') return null;
@@ -38,6 +41,36 @@ function campoDoClique(dados: unknown, campo: string): string | null {
 export function Diagnostico() {
   const [faixaSel, setFaixaSel] = useState<string | null>(null);
   const [regionalSel, setRegionalSel] = useState<string | null>(null);
+
+  // Cards e gráfico de faixas recalculados para a regional selecionada. Os
+  // demais gráficos usam agregados publicados apenas no nível estadual.
+  const resumoRegional = useMemo(() => {
+    if (!regionalSel) return null;
+    const ms = municipios.filter((m) => m.regional === regionalSel);
+    if (ms.length === 0) return null;
+    const soma = (extrai: (m: Municipio) => number) => ms.reduce((t, m) => t + extrai(m), 0);
+    const equivTecnico = soma((m) => m.equivTecnico);
+    const estabRurais = soma((m) => m.estabRurais);
+    return {
+      municipios: ms.length,
+      idAterMedio: soma((m) => m.idAter) / ms.length,
+      tecnicos: soma((m) => m.tecnicos),
+      equivTecnico,
+      estabRurais,
+      estabPorEquivTecnico: equivTecnico > 0 ? estabRurais / equivTecnico : 0,
+    };
+  }, [regionalSel]);
+
+  const faixasVisiveis = useMemo(() => {
+    if (!regionalSel) return idx.faixas;
+    const ms = municipios.filter((m) => m.regional === regionalSel);
+    return idx.faixas.map((f) => {
+      const intervalo = FAIXA_INTERVALO[f.faixa];
+      if (!intervalo) return f;
+      const [min, max] = intervalo;
+      return { ...f, municipios: ms.filter((m) => m.idAter >= min && m.idAter < max).length };
+    });
+  }, [regionalSel]);
 
   const indicadores = [...idx.indicadores].sort((a, b) => b.aproveitamento - a.aproveitamento);
   const estrutura = [...governanca.estrutura].sort((a, b) => b.sim - a.sim);
@@ -109,19 +142,55 @@ export function Diagnostico() {
         </p>
       </PageHeader>
 
-      <div className="cards">
-        <Card label="Municípios" valor={inteiro(resumo.municipios)} />
-        <Card label="ID-ATER médio" valor={indice(resumo.idAterMedio)} />
-        <Card label="Profissionais de ATER" valor={inteiro(resumo.profissionais)} />
-        <Card label="Equivalentes técnicos" valor={inteiro(resumo.equivalenteTecnico)} />
-        <Card label="Estabelecimentos rurais" valor={inteiro(resumo.estabRurais)} />
-        <Card label="Estab. por equiv. técnico" valor={decimal(resumo.estabPorEquivTecnico)} />
+      <div className="filtro-regional" role="group" aria-label="Filtro por regional do IDR-Paraná">
+        <label htmlFor="filtro-regional-select">Regional do IDR-Paraná</label>
+        <select
+          id="filtro-regional-select"
+          value={regionalSel ?? ''}
+          onChange={(e) => setRegionalSel(e.target.value || null)}
+        >
+          <option value="">Todas as regionais ({REGIONAIS.length})</option>
+          {REGIONAIS.map((r) => (
+            <option key={r} value={r}>{r}</option>
+          ))}
+        </select>
+        {regionalSel && (
+          <button type="button" className="filtro-chip" onClick={() => setRegionalSel(null)}>
+            Limpar <span aria-hidden="true">✕</span>
+          </button>
+        )}
+        {regionalSel && (
+          <span className="filtro-regional-nota">
+            Cards, faixas de ID-ATER e tabela refletem a regional; os demais
+            gráficos seguem estaduais, pois o levantamento só os publica agregados.
+          </span>
+        )}
       </div>
 
+      {resumoRegional ? (
+        <div className="cards">
+          <Card label="Municípios" valor={inteiro(resumoRegional.municipios)} />
+          <Card label="ID-ATER médio" valor={indice(resumoRegional.idAterMedio)} />
+          <Card label="Técnicos" valor={inteiro(resumoRegional.tecnicos)} />
+          <Card label="Equivalentes técnicos" valor={inteiro(Math.round(resumoRegional.equivTecnico))} />
+          <Card label="Estabelecimentos rurais" valor={inteiro(resumoRegional.estabRurais)} />
+          <Card label="Estab. por equiv. técnico" valor={decimal(resumoRegional.estabPorEquivTecnico)} />
+        </div>
+      ) : (
+        <div className="cards">
+          <Card label="Municípios" valor={inteiro(resumo.municipios)} />
+          <Card label="ID-ATER médio" valor={indice(resumo.idAterMedio)} />
+          <Card label="Profissionais de ATER" valor={inteiro(resumo.profissionais)} />
+          <Card label="Equivalentes técnicos" valor={inteiro(resumo.equivalenteTecnico)} />
+          <Card label="Estabelecimentos rurais" valor={inteiro(resumo.estabRurais)} />
+          <Card label="Estab. por equiv. técnico" valor={decimal(resumo.estabPorEquivTecnico)} />
+        </div>
+      )}
+
       <section className="painel">
-        <h2>Municípios por faixa de ID-ATER</h2>
+        <h2>Municípios por faixa de ID-ATER{regionalSel ? ` — ${regionalSel}` : ''}</h2>
         <ResponsiveContainer width="100%" height={280}>
-          <BarChart data={idx.faixas}>
+          <BarChart data={faixasVisiveis}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="faixa" />
             <YAxis allowDecimals={false} />
@@ -133,7 +202,7 @@ export function Diagnostico() {
               />
             } />
             <Bar dataKey="municipios" name="Municípios" onClick={alternarFaixa} cursor="pointer">
-              {idx.faixas.map((f, i) => (
+              {faixasVisiveis.map((f, i) => (
                 <Cell
                   key={i}
                   fill={CORES_FAIXA[i % CORES_FAIXA.length]}
@@ -145,9 +214,10 @@ export function Diagnostico() {
           </BarChart>
         </ResponsiveContainer>
         <p className="legenda">
-          ID-ATER de {indice(resumo.idAterMinimo)} a {indice(resumo.idAterMaximo)};
-          mediana de {indice(resumo.idAterMediana)}. Clique numa barra para ver os
-          municípios da faixa na tabela ao final da página.
+          {regionalSel
+            ? `Municípios da regional ${regionalSel} por faixa de ID-ATER. `
+            : `ID-ATER de ${indice(resumo.idAterMinimo)} a ${indice(resumo.idAterMaximo)}; mediana de ${indice(resumo.idAterMediana)}. `}
+          Clique numa barra para ver os municípios da faixa na tabela ao final da página.
         </p>
       </section>
 
