@@ -1,6 +1,6 @@
 {
  "meta": {
-  "geradoEm": "2026-07-16",
+  "geradoEm": "2026-08-19",
   "fonte": "Levantamento da Capacidade Instalada de ATER — SEAB/IDR-Paraná",
   "municipios": 399,
   "metodologiaIndice": "ID-ATER: 11 indicadores em 3 áreas, fator de 1 a 10 por município; índice = soma(fator × peso) / 10",
@@ -268,19 +268,19 @@
     "municipios": 7
    },
    {
+    "regional": "Ivaiporã",
+    "media": 0.548,
+    "municipios": 15
+   },
+   {
     "regional": "Umuarama",
     "media": 0.542,
     "municipios": 21
    },
    {
-    "regional": "Ponta Grossa",
-    "media": 0.536,
-    "municipios": 18
-   },
-   {
-    "regional": "Ivaiporã",
-    "media": 0.531,
-    "municipios": 19
+    "regional": "Curitiba",
+    "media": 0.533,
+    "municipios": 30
    },
    {
     "regional": "Santo Antônio da Platina",
@@ -288,9 +288,9 @@
     "municipios": 23
    },
    {
-    "regional": "Curitiba",
-    "media": 0.528,
-    "municipios": 29
+    "regional": "Ponta Grossa",
+    "media": 0.529,
+    "municipios": 17
    },
    {
     "regional": "União da Vitória",
@@ -309,8 +309,13 @@
    },
    {
     "regional": "Guarapuava",
-    "media": 0.481,
-    "municipios": 14
+    "media": 0.495,
+    "municipios": 9
+   },
+   {
+    "regional": "Pitanga",
+    "media": 0.459,
+    "municipios": 9
    }
   ],
   "areas": [
@@ -1183,7 +1188,7 @@
   {
    "cod": 4103040,
    "nome": "Boa Ventura de São Roque",
-   "regional": "Guarapuava",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.5,
    "taxaAter": 59.8,
@@ -1855,7 +1860,7 @@
   {
    "cod": 4104402,
    "nome": "Cândido de Abreu",
-   "regional": "Ivaiporã",
+   "regional": "Pitanga",
    "meso": "Norte",
    "idAter": 0.39,
    "taxaAter": 18.7,
@@ -2947,7 +2952,7 @@
   {
    "cod": 4113254,
    "nome": "Laranjal",
-   "regional": "Guarapuava",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.415,
    "taxaAter": 11.7,
@@ -3163,7 +3168,7 @@
   {
    "cod": 4114500,
    "nome": "Manoel Ribas",
-   "regional": "Ivaiporã",
+   "regional": "Pitanga",
    "meso": "Norte",
    "idAter": 0.51,
    "taxaAter": 37.4,
@@ -3343,7 +3348,7 @@
   {
    "cod": 4115739,
    "nome": "Mato Rico",
-   "regional": "Ivaiporã",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.49,
    "taxaAter": 34.7,
@@ -3631,7 +3636,7 @@
   {
    "cod": 4117271,
    "nome": "Nova Tebas",
-   "regional": "Ivaiporã",
+   "regional": "Pitanga",
    "meso": "Norte",
    "idAter": 0.465,
    "taxaAter": 48.0,
@@ -3727,7 +3732,7 @@
   {
    "cod": 4117800,
    "nome": "Palmital",
-   "regional": "Guarapuava",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.425,
    "taxaAter": 17.5,
@@ -3955,7 +3960,7 @@
   {
    "cod": 4119608,
    "nome": "Pitanga",
-   "regional": "Guarapuava",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.485,
    "taxaAter": 43.7,
@@ -4051,7 +4056,7 @@
   {
    "cod": 4120101,
    "nome": "Porto Amazonas",
-   "regional": "Ponta Grossa",
+   "regional": "Curitiba",
    "meso": "Centro Sul",
    "idAter": 0.67,
    "taxaAter": 68.3,
@@ -4675,7 +4680,7 @@
   {
    "cod": 4123857,
    "nome": "Santa Maria do Oeste",
-   "regional": "Guarapuava",
+   "regional": "Pitanga",
    "meso": "Centro",
    "idAter": 0.45,
    "taxaAter": 29.0,

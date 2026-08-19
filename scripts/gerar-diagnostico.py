@@ -31,6 +31,22 @@ PLANILHA_INDICE = "ÍNDICE DE ATER.xlsx"
 
 MUNICIPIOS_PR = 399
 
+# A coluna RegIdr da planilha antecede a reorganização das Unidades Regionais
+# do IDR-Paraná que criou a regional de Pitanga (mapa oficial das 23 regionais).
+# Reatribuição por código IBGE; os demais 389 municípios seguem a planilha.
+REGIONAL_ATUALIZADA = {
+    4103040: "Pitanga",  # Boa Ventura de São Roque (antes Guarapuava)
+    4104402: "Pitanga",  # Cândido de Abreu (antes Ivaiporã)
+    4113254: "Pitanga",  # Laranjal (antes Guarapuava)
+    4114500: "Pitanga",  # Manoel Ribas (antes Ivaiporã)
+    4115739: "Pitanga",  # Mato Rico (antes Ivaiporã)
+    4117271: "Pitanga",  # Nova Tebas (antes Ivaiporã)
+    4117800: "Pitanga",  # Palmital (antes Guarapuava)
+    4119608: "Pitanga",  # Pitanga (antes Guarapuava)
+    4123857: "Pitanga",  # Santa Maria do Oeste (antes Guarapuava)
+    4120101: "Curitiba",  # Porto Amazonas (antes Ponta Grossa)
+}
+
 # Os 11 indicadores do ID-ATER. `peso` é o peso específico definido na aba
 # "DESCRIÇÃO DE INDICADORES"; os pesos somam 1,0 e cada fator vai de 1 a 10,
 # então o índice = soma(fator * peso) / 10 e cai sempre em [0,1; 1,0].
@@ -402,6 +418,7 @@ def montar(fonte: Path) -> dict:
         "estabRurais": estab_rurais,
         "estabAgf": estab_agf,
     }).set_index("cod")
+    base["regional"] = base.index.to_series().map(REGIONAL_ATUALIZADA).fillna(base["regional"])
     pessoal = pd.DataFrame({
         "cod": ent["CodIbge"],
         "tecnicos": tecnicos,
