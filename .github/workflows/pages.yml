@@ -62,52 +62,14 @@ jobs:
           cp -r form/dist/* site/form/
           cp -r painel/dist/* site/painel/
           cp .github/og-image.png site/og-image.png
-          cp landing/*.html landing/*.css landing/*.js site/
+          cp landing/*.html landing/*.css site/
           cp -r landing/identidades site/identidades
 
-      # A enquete é HTML estático (sem bundler): os valores públicos entram por
-      # substituição de placeholder, e o enquete.js é EMBUTIDO no HTML.
-      #
-      # O script fica em arquivo separado no repositório (legível, versionável),
-      # mas vai inline para o ar. Motivo: como subresource externo ele não
-      # executava de forma confiável atrás de proxy corporativo — a requisição
-      # ficava pendurada, sem onload nem onerror, e o formulário caía no submit
-      # GET padrão, jogando nome e e-mail na query string. Inline, a página é
-      # autossuficiente: se o HTML chegou, o comportamento chegou junto.
-      #
-      # A CSP continua sem 'unsafe-inline': autorizamos exatamente este script
-      # pelo hash SHA-256, calculado aqui.
-      - name: Injetar configuração e embutir o script da enquete
-        env:
-          API_URL: ${{ secrets.VITE_API_URL }}
-        run: |
-          if [ -z "$API_URL" ]; then
-            echo "::warning::VITE_API_URL ausente — a enquete sobe em modo somente visualização."
-          fi
-          python3 - <<'PY'
-          import base64, hashlib, os, pathlib
-
-          alvo = pathlib.Path('site/enquete.html')
-          html = alvo.read_text(encoding='utf-8')
-          html = html.replace('__API_URL__', os.environ.get('API_URL', ''))
-
-          js = pathlib.Path('site/enquete.js').read_text(encoding='utf-8')
-          if '</script' in js.lower():
-              raise SystemExit('enquete.js contém </script — não pode ir inline sem escapar')
-
-          # o hash cobre exatamente o texto entre as tags
-          digest = base64.b64encode(hashlib.sha256(js.encode('utf-8')).digest()).decode('ascii')
-          marcador = '<script src="./enquete.js"></script>'
-          if marcador not in html:
-              raise SystemExit('marcador do script não encontrado em enquete.html')
-          html = html.replace(marcador, '<script>' + js + '</script>')
-          html = html.replace("script-src 'self'", "script-src 'self' 'sha256-" + digest + "'")
-
-          alvo.write_text(html, encoding='utf-8')
-          pathlib.Path('site/enquete.js').unlink()   # não é mais servido
-          print('enquete.html: placeholders substituídos e script embutido')
-          print('  sha256-' + digest)
-          PY
+      # A enquete foi ENCERRADA em 24/08/2026: a página virou o resultado, um
+      # HTML estático sem formulário, sem script e sem chamada ao backend. Por
+      # isso não há mais o passo que substituía __API_URL__ e embutia o
+      # enquete.js inline com hash na CSP — não existe mais script para embutir.
+      # Se a enquete voltar, recupere esse passo no histórico deste arquivo.
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site

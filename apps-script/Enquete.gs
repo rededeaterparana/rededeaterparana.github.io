@@ -25,6 +25,20 @@ var ENQUETE_IDENTIDADES = [
   '06-pinhoes-vinho'
 ];
 
+/**
+ * Enquete ENCERRADA em 24/08/2026. A votacao foi anunciada ate 13/08/2026 e a
+ * apuracao final foi consolidada e divulgada as entidades da rede.
+ *
+ * A trava fica no backend, e nao so na pagina: retirar o formulario do site
+ * nao impede um POST direto para a URL do /exec, que continuaria gravando
+ * votos depois da apuracao publicada. Enquanto `ENQUETE_ENCERRADA` for true,
+ * `registrarVotoIdentidade` recusa antes de tocar na planilha.
+ *
+ * A contagem publica (`enquete_resultado`) segue respondendo: o resultado e
+ * publico, o que se fecha e a entrada de novos votos.
+ */
+var ENQUETE_ENCERRADA = true;
+
 var ENQUETE_LIMITES = {
   MAX_NOME: 120,
   MAX_ENTIDADE: 120,
@@ -71,6 +85,12 @@ function normalizarEntidade(texto) {
 
 function registrarVotoIdentidade(corpo) {
   var ipHash = hashIP(corpo._ip || '');
+
+  // 0. Enquete encerrada — recusa antes de qualquer escrita.
+  if (ENQUETE_ENCERRADA) {
+    registrarLogSeguro(ipHash, corpo.origin, 'enquete_encerrada', '', '');
+    return resposta(410, { erro: 'a votação foi encerrada e o resultado já foi divulgado' });
+  }
 
   // 1. Origem
   if (!validarOrigem(corpo.origin)) {
