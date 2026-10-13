@@ -54,8 +54,8 @@ jobs:
         run: npm run build
 
       # ─── Monta site estático combinado ─────────────────────────────
-      # As páginas estáticas (landing, legislação, enquete e as propostas de
-      # identidade) vivem em landing/ no repositório.
+      # As páginas estáticas (landing e legislação) e as marcas da identidade
+      # visual (landing/identidades/marcas) vivem em landing/ no repositório.
       - name: Montar diretório do Pages
         run: |
           mkdir -p site/form site/painel
@@ -65,11 +65,6 @@ jobs:
           cp landing/*.html landing/*.css site/
           cp -r landing/identidades site/identidades
 
-      # A enquete foi ENCERRADA em 24/08/2026: a página virou o resultado, um
-      # HTML estático sem formulário, sem script e sem chamada ao backend. Por
-      # isso não há mais o passo que substituía __API_URL__ e embutia o
-      # enquete.js inline com hash na CSP — não existe mais script para embutir.
-      # Se a enquete voltar, recupere esse passo no histórico deste arquivo.
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site

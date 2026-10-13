@@ -9,12 +9,6 @@ function doPost(e) {
   try {
     var corpo = parseCorpo(e);
 
-    // Roteamento por ação. Sem `action`, é o cadastro de entidade (contrato
-    // original do formulário, que não envia esse campo).
-    if (corpo.action === 'voto_identidade') {
-      return registrarVotoIdentidade(corpo);
-    }
-
     var ipHash = hashIP(corpo._ip || '');
 
     // 1. Origem
@@ -167,14 +161,6 @@ function doGet(e) {
   try {
     var action = (e && e.parameter && e.parameter.action) || 'listar';
     var cache = CacheService.getScriptCache();
-
-    if (action === 'enquete_resultado') {
-      var cacheEnq = cache.get('publico:enquete');
-      if (cacheEnq) return resposta(200, JSON.parse(cacheEnq));
-      var apuracao = lerApuracaoEnquete();
-      cache.put('publico:enquete', JSON.stringify(apuracao), LIMITS.CACHE_ENQUETE_SECONDS);
-      return resposta(200, apuracao);
-    }
 
     if (action !== 'listar') return resposta(400, { erro: 'ação desconhecida' });
 
