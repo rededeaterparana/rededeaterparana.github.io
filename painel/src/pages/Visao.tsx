@@ -3,10 +3,12 @@ import {
   PieChart, Pie, Cell, Legend, LineChart, Line
 } from 'recharts';
 import { useEntidades } from '../hooks/useEntidades';
-import { porChave, serieAdesoes } from '../lib/agregacoes';
+import { atendimentoPorRegional, municipiosAtendidos, porChave, serieAdesoes } from '../lib/agregacoes';
+import { diagnostico } from '../lib/diagnostico';
 import { PageHeader } from '../components/PageHeader';
 import { Carregando } from '../components/Carregando';
 import { GraficoTooltip } from '../components/GraficoTooltip';
+import { CardResumo as Card } from '../components/CardResumo';
 
 const CORES = ['#6b5427', '#8f7743', '#b3a06b', '#d6cba8', '#ece5cf', '#c46f3f', '#a03024'];
 
@@ -32,7 +34,12 @@ export function Visao() {
     return <>{cabecalho}<div className="aviso-vazio">Nenhuma entidade cadastrada ainda.</div></>;
   }
 
-  const porMunicipio = porChave<string>(dados.entidades, 'municipio');
+  const atendidos = municipiosAtendidos(dados.entidades).size;
+  const totalMunicipios = diagnostico.municipios.length;
+  const coberturaRegional = atendimentoPorRegional(dados.entidades).map((r) => ({
+    ...r,
+    cobertura: r.total ? Math.round((r.atendidos / r.total) * 1000) / 10 : 0
+  }));
   const porTipo = porChave<string>(dados.entidades, 'tipo_entidade');
   const serie = serieAdesoes(dados.entidades);
 
@@ -41,27 +48,35 @@ export function Visao() {
       {cabecalho}
       <div className="cards">
         <Card label="Entidades cadastradas" valor={dados.total} />
-        <Card label="Municípios com entidades" valor={porMunicipio.length} />
+        <Card
+          label="Municípios atendidos"
+          valor={atendidos}
+          nota={`de ${totalMunicipios} no Paraná`}
+        />
         <Card label="Tipos de entidade" valor={porTipo.length} />
         <Card label="Atualizado em" valor={new Date(dados.gerado_em).toLocaleString('pt-BR')} pequeno />
       </div>
 
       <section className="painel">
-        <h2>Entidades por município</h2>
-        <ResponsiveContainer width="100%" height={280}>
-          <BarChart data={porMunicipio}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nome" />
-            <YAxis allowDecimals={false} />
+        <h2>Municípios atendidos por regional do IDR</h2>
+        <ResponsiveContainer width="100%" height={Math.max(320, coberturaRegional.length * 28)}>
+          <BarChart data={coberturaRegional} layout="vertical" margin={{ left: 8, right: 24 }}>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+            <YAxis type="category" dataKey="regional" width={140} tick={{ fontSize: 12 }} />
             <Tooltip content={
               <GraficoTooltip
-                formatador={(v) => `${v} entidade${v === 1 ? '' : 's'}`}
-                descricao="Entidades cadastradas na rede com sede neste município, segundo o formulário de adesão."
+                formatador={(v, _nome) => `${v.toLocaleString('pt-BR')}% dos municípios`}
+                descricao="Parcela dos municípios da regional em que ao menos uma entidade da rede declarou atuar no cadastro de adesão — não só a sede."
               />
             } />
-            <Bar dataKey="valor" name="Entidades" fill="#6b5427" />
+            <Bar dataKey="cobertura" name="Municípios atendidos" fill="#6b5427" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
+        <p className="legenda">
+          Conta os municípios de atuação declarados pelas entidades, não apenas o
+          município da sede. Passe o mouse para ver o percentual de cada regional.
+        </p>
       </section>
 
       <section className="painel">
@@ -106,14 +121,5 @@ export function Visao() {
         </ResponsiveContainer>
       </section>
     </>
-  );
-}
-
-function Card({ label, valor, pequeno }: { label: string; valor: number | string; pequeno?: boolean }) {
-  return (
-    <div className="card">
-      <div className="label">{label}</div>
-      <div className="valor" style={pequeno ? { fontSize: '0.95rem' } : undefined}>{valor}</div>
-    </div>
   );
 }

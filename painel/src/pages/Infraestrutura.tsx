@@ -1,9 +1,10 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { useEntidades } from '../hooks/useEntidades';
-import { somaInfra } from '../lib/agregacoes';
+import { municipiosAtendidos, somaInfra, totalExtensionistas } from '../lib/agregacoes';
 import { PageHeader } from '../components/PageHeader';
 import { Carregando } from '../components/Carregando';
 import { GraficoTooltip } from '../components/GraficoTooltip';
+import { CardResumo } from '../components/CardResumo';
 
 export function Infraestrutura() {
   const { dados, carregando, erro } = useEntidades();
@@ -16,7 +17,8 @@ export function Infraestrutura() {
     >
       <p>
         Capacidade instalada declarada pelas entidades no ato de adesão:
-        veículos, imóveis e equipamentos disponíveis para o serviço de ATER.
+        extensionistas, veículos, imóveis e equipamentos disponíveis para o
+        serviço de ATER.
       </p>
     </PageHeader>
   );
@@ -28,10 +30,20 @@ export function Infraestrutura() {
   }
 
   const totais = somaInfra(dados.entidades);
+  const extensionistas = totalExtensionistas(dados.entidades);
+  const atendidos = municipiosAtendidos(dados.entidades).size;
 
   return (
     <>
     {cabecalho}
+    <div className="cards">
+      <CardResumo
+        label="Extensionistas"
+        valor={extensionistas.toLocaleString('pt-BR')}
+        nota="equipe técnica declarada"
+      />
+      <CardResumo label="Municípios atendidos" valor={atendidos} nota="área de atuação declarada" />
+    </div>
     <section className="painel">
       <h2>Infraestrutura agregada da rede</h2>
       <ResponsiveContainer width="100%" height={320}>

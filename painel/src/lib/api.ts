@@ -1,5 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL as string;
 
+export interface MunicipioAtuacao {
+  codigo_ibge: string;
+  municipio: string;
+}
+
 export interface EntidadePublica {
   cnpj_mascarado: string;
   razao_social: string;
@@ -9,6 +14,8 @@ export interface EntidadePublica {
   tipo_entidade: string;
   criado_em: string;
   area_atuacao: number;
+  /** Municípios onde a entidade atua. Ausente em respostas de versões antigas da API. */
+  municipios_atuacao?: MunicipioAtuacao[];
   equipe_total: number;
   veiculos_total: number;
   eq_informatica_total: number;

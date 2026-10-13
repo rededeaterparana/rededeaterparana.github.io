@@ -137,6 +137,7 @@ function lerAgregadoPublico() {
       tipo_entidade: row[idx(headersEnt, 'tipo_entidade')],
       criado_em: row[idx(headersEnt, 'criado_em')],
       area_atuacao: contarPorCNPJ(areas, SCHEMA.area_atuacao, cnpj),
+      municipios_atuacao: municipiosPorCNPJ(areas, cnpj),
       equipe_total: contarPorCNPJ(equipe, SCHEMA.equipe, cnpj),
       veiculos_total: somarQuantidade(veiculos, SCHEMA.veiculos, cnpj),
       eq_informatica_total: somarQuantidade(eqInfo, SCHEMA.eq_informatica, cnpj),
@@ -146,6 +147,21 @@ function lerAgregadoPublico() {
     });
   }
   return { entidades: resultado, total: resultado.length, gerado_em: new Date() };
+}
+
+/**
+ * Municípios de atuação da entidade: só código IBGE e nome, que são públicos.
+ * O código volta como texto — a planilha o guarda como número.
+ */
+function municipiosPorCNPJ(areas, cnpj) {
+  var cols = SCHEMA.area_atuacao;
+  var cCnpj = cols.indexOf('cnpj'), cCod = cols.indexOf('codigo_ibge'), cMun = cols.indexOf('municipio');
+  var lista = [];
+  for (var i = 1; i < areas.length; i++) {
+    if (String(areas[i][cCnpj]) !== cnpj) continue;
+    lista.push({ codigo_ibge: String(areas[i][cCod]), municipio: areas[i][cMun] });
+  }
+  return lista;
 }
 
 function contarPorCNPJ(dados, schema, cnpj) {
